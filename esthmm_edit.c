@@ -107,7 +107,7 @@ int main (int argc, char *argv[])
 	PrintHMM(stdout, &hmm);
   fp = fopen(argv[argc-1], "w");
   if (fp == NULL) {
-    fprintf(stderr, "Error: File %s not valid \n", argv[5]);
+    fprintf(stderr, "Error: File %s not valid \n", argv[argc-1]);
    	exit (1);
 	}
   PrintHMM(fp, &hmm);
