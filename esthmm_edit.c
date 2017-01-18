@@ -78,6 +78,8 @@ int main (int argc, char *argv[])
   if (argc == 5) {
     ReadOutHMM(fp, &hmm);
     fclose(fp);
+    hmm.CG[2] = hmm.CG[3] = GC[2];
+    hmm.CG[1] = hmm.CG[4] = GC[1];
   }
   
   if (hmm.CG == NULL){
