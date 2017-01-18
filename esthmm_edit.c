@@ -33,7 +33,7 @@ int main (int argc, char *argv[])
 	FILE	*fp;
  
   
-	if (argc != 6) {
+	if (argc != 6 && argc != 5) {
 		Usage(argv[0]);
 		exit (1);
 	}
@@ -61,21 +61,24 @@ int main (int argc, char *argv[])
    	exit (1);
 	}
   
-	ReadHMM(fp, &hmm);
-  
-	fclose(fp);
-  
-  sscanf(argv[4], "%d", &seed);
-  if (&seed == NULL) {
-    fprintf(stderr, "Error: seed %s not valid \n", argv[4]);
-    fprintf(stdout, "T: %d \n", T);
-    //fprintf(stdout, "D: %d \n", hmm.D);
-    //fprintf(stdout, "N: %d \n", hmm.N);
-    //fprintf(stdout, "GC: %lf \n", GC[1]);
-   	exit (1);
-	}
-  
-  InitHMMwithInput(&hmm, seed, GC);
+  if (argc == 6) {
+	  ReadHMM(fp, &hmm);
+    fclose(fp);
+    sscanf(argv[4], "%d", &seed);
+    if (&seed == NULL) {
+      fprintf(stderr, "Error: seed %s not valid \n", argv[4]);
+      fprintf(stdout, "T: %d \n", T);
+      //fprintf(stdout, "D: %d \n", hmm.D);
+      //fprintf(stdout, "N: %d \n", hmm.N);
+      //fprintf(stdout, "GC: %lf \n", GC[1]);
+   	  exit (1);
+	  }
+    InitHMMwithInput(&hmm, seed, GC);
+  }
+  if (argc == 5) {
+    ReadOutHMM(fp, &hmm);
+    fclose(fp);
+  }
   
   if (hmm.CG == NULL){
     printf("PROB");
@@ -102,7 +105,7 @@ int main (int argc, char *argv[])
 
 	/* print the answer */
 	PrintHMM(stdout, &hmm);
-  fp = fopen(argv[5], "w");
+  fp = fopen(argv[argc-1], "w");
   if (fp == NULL) {
     fprintf(stderr, "Error: File %s not valid \n", argv[5]);
    	exit (1);
@@ -130,7 +133,8 @@ void Usage(char *name)
 		name);
         printf("Usage2: %s [-v] -S <seed> -N <num_states> -M <num_symbols> <file.seq>\n", 
 		name); */
-        printf("Usage: ./esthmm <file.seq> <file.slop> <mod.hmm> <seed> <out.hmm>\n");
+        printf("Usage1: ./esthmm <file.seq> <file.slop> <mod.hmm> <seed> <out.hmm>\n");
+        printf("Usage2: ./esthmm <file.seq> <file.slop> <mod.hmm> <out.hmm>\n");
         
         printf("  seed - seed for random number genrator\n");
         printf("  mod.hmm - file with the initial model parameters\n");
