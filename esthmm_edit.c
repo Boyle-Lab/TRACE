@@ -24,6 +24,8 @@ int main (int argc, char *argv[])
 	double	**gamma;
 	double	*O2; /* slop */
   int *O1; /* sequence, represented by number, 1=A, 2=C, 3=G, 4=T */
+  int P; /* total number of peaks */
+  int *peakPos;
 	//int	iflg=0, sflg=0, nflg=0, mflg=0, errflg =0, vflg=0;
 	int	c;
 	int	seed; /* seed for random number generator */
@@ -43,7 +45,7 @@ int main (int argc, char *argv[])
 		fprintf(stderr, "Error: File %s not found \n", argv[1]);
 		exit (1);
 	}
-	ReadSequence(fp, &T, &GC, &O1); 
+	ReadSequence(fp, &T, &GC, &O1, &P, &peakPos); 
 	fclose(fp);
  
   fp = fopen(argv[2], "r");
@@ -68,9 +70,6 @@ int main (int argc, char *argv[])
     if (&seed == NULL) {
       fprintf(stderr, "Error: seed %s not valid \n", argv[4]);
       fprintf(stdout, "T: %d \n", T);
-      //fprintf(stdout, "D: %d \n", hmm.D);
-      //fprintf(stdout, "N: %d \n", hmm.N);
-      //fprintf(stdout, "GC: %lf \n", GC[1]);
    	  exit (1);
 	  }
     InitHMMwithInput(&hmm, seed, GC);
@@ -81,7 +80,7 @@ int main (int argc, char *argv[])
     hmm.CG[2] = hmm.CG[3] = GC[2];
     hmm.CG[1] = hmm.CG[4] = GC[1];
   }
-  
+
   if (hmm.CG == NULL){
     printf("PROB");
   }
@@ -91,19 +90,8 @@ int main (int argc, char *argv[])
 	beta = dmatrix(1, T, 1, hmm.N);
 	gamma = dmatrix(1, T, 1, hmm.N);
 	/* call Baum Welch */
-	BaumWelch(&hmm, T, O1, O2, alpha, beta, gamma, &niter, 
-		&logprobinit, &logprobfinal);
-  
-/*
-	if (vflg) {
-		if (sflg) fprintf(stderr, "RandomSeed: %d\n", seed);
-		fprintf(stderr, "Number of iterations: %d\n", niter);
-		fprintf(stderr, "Log Prob(observation | init model): %E\n",
-			logprobinit);	
-		fprintf(stderr, "Log Prob(observation | estimated model): %E\n",
-			logprobfinal);	
-	}
-*/
+  BaumWelchMultiSeq(&hmm, T, O1, O2, alpha, beta, gamma, &niter, 
+		P, peakPos);
 
 	/* print the answer */
 	PrintHMM(stdout, &hmm);
