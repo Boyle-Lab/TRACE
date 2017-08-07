@@ -3,7 +3,7 @@
 #include "const.h"
 #include "logmath.h"
 
-void BackwardMultiSeq(HMM *phmm, int T, int *O1, double *O2, double **beta, double *pprob, int P, int *peakPos)
+void BackwardMultiSeq(HMM *phmm, int T, int *O1, double *O2, double *S, double **beta, double *pprob, int P, int *peakPos)
 {
   int     i, j, k;   /* state indices */
   int     t;      /* time index */
@@ -24,14 +24,13 @@ void BackwardMultiSeq(HMM *phmm, int T, int *O1, double *O2, double **beta, doub
         for (j = 1; j <= phmm->N; j++) {
           if (beta[t+1][j] != LOGZERO && phmm->A[i][j] != LOGZERO) {
             if (beta[t][i] != LOGZERO) {
-              beta[t][i] = logadd(beta[t][i], beta[t+1][j] + log(phmm->A[i][j]) + log(ComputeEmission(phmm, j, (t + 1), O1, O2)));  
+              beta[t][i] = logadd(beta[t][i], beta[t+1][j] + log(phmm->A[i][j]) + log(ComputeEmission(phmm, j, (t + 1), S, O2)));  
             }
             else{
-              beta[t][i] =  beta[t+1][j] + log(phmm->A[i][j]) + log(ComputeEmission(phmm, j, (t + 1), O1, O2));
+              beta[t][i] =  beta[t+1][j] + log(phmm->A[i][j]) + log(ComputeEmission(phmm, j, (t + 1), S, O2));
             }
           }
         }
-      //fprintf(stdout, "beta: %lf \t", beta[t][i]);
       }
     } 
   }
