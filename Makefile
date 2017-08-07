@@ -12,9 +12,9 @@ esthmm: esthmm_edit.o BaumWelch_edit.o nrutil.o hmmutils_edit.o sequence_edit.o 
 		forward_edit.o backward_edit.o hmmrand_edit.o const.o  logmath.o
 	 $(CC) -o esthmm esthmm_edit.o BaumWelch_edit.o nrutil.o sequence_edit.o hmmutils_edit.o \
 		forward_edit.o backward_edit.o hmmrand_edit.o const.o logmath.o -lm
-viterbi: runViterbi.o viterbi_edit.o nrutil.o hmmutils_edit.o sequence_edit.o forward_edit.o const.o
-	 $(CC) -o viterbi runViterbi.o viterbi_edit.o nrutil.o sequence_edit.o forward_edit.o const.o logmath.o \
-		hmmutils_edit.o  hmmrand_edit.o -lm 
+viterbi: runViterbi.o viterbi_edit.o nrutil.o hmmutils_edit.o sequence_edit.o forward_edit.o backward_edit.o const.o BaumWelch_edit.o 
+	 $(CC) -o viterbi runViterbi.o viterbi_edit.o nrutil.o sequence_edit.o forward_edit.o backward_edit.o const.o logmath.o \
+		hmmutils_edit.o  hmmrand_edit.o BaumWelch_edit.o  -lm 
 clean:
 	rm *.o 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
