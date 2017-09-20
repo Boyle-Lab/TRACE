@@ -3,6 +3,7 @@
 #include <math.h>
 #include "nrutil.h"
 #include "hmm_edit.h"
+
 static char rcsid[] = "$Id: hmmutils.c,v 1.4 1998/02/23 07:51:26 kanungo Exp kanungo $";
 /*
 void ReadHMM(FILE *fp, HMM *phmm)
@@ -62,13 +63,15 @@ void ReadHMM(FILE *fp, HMM *phmm)
 */
 void ReadOutHMM(FILE *fp, HMM *phmm)
 {
-  //printf("pass1");
+  
 	int i, j, k, n;
-  double *PWM;
+  
   double sum;
 
   fscanf(fp, "M= %d\n", &(phmm->M)); 
   fscanf(fp, "N= %d\n", &(phmm->N)); 
+  phmm->K = 1 + phmm->M; /*number of types of data used. slop and pwm scrore here*/
+             /*XXX: change to take input later*/ 
   fscanf(fp, "A:\n");
   phmm->A = (double **) dmatrix(1, phmm->N, 1, phmm->N);
   for (i = 1; i <= phmm->N; i++) { 
@@ -77,48 +80,55 @@ void ReadOutHMM(FILE *fp, HMM *phmm)
     }
     fscanf(fp,"\n");
   }
-  fscanf(fp, "PWM: n=%d\n", &(phmm->D));
-  phmm->pwm = (double **) dmatrix(1, phmm->D, 1, 4);
-  PWM = (double *) dvector(1, 4);
-  for (j = 1; j <= phmm->D; j++) { 
-    for (k = 1; k <= 4; k++) {
-      fscanf(fp, "%lf", &(phmm->pwm[j][k])); 
+  phmm->D = (int *) ivector(1, phmm->M);
+  //double **PWM[phmm->M];
+  phmm->pwm = (double ***)malloc(phmm->M*sizeof(double**));
+  //double **phmm->pwm[phmm->M];
+  for (i = 1; i <= phmm->M; i++) { 
+    fscanf(fp, "PWM: n=%d\n", &(phmm->D[i]));
+    //PWM[i] = (double **) dmatrix(1, phmm->D[i], 1, 4);
+    phmm->pwm[i] = (double **) dmatrix(1, phmm->D[i], 1, 4);
+    for (j = 1; j <= phmm->D[i]; j++) { 
+      for (k = 1; k <= 4; k++) {
+        fscanf(fp, "%lf", &(phmm->pwm[i][j][k])); 
+      }
+      fscanf(fp,"\n");
     }
-    fscanf(fp,"\n");
   }
 
+  //fprintf(stdout, "phmm->pwm: %lf \n", phmm->pwm[1][2][1]);  
+  
   phmm->pi = (double *) dvector(1, phmm->N);
-  phmm->mu = (double **) dmatrix(1, phmm->N, 1, 2);
-  phmm->sigma = (double **) dmatrix(1, phmm->N, 1, 2);
-  phmm->rho = (double *) dvector(1, phmm->N);
-  phmm->CG = (double *) dvector(1, 4);
+  phmm->mu = (double **) dmatrix(1, phmm->K, 1, phmm->N);
+  //phmm->sigma = (double ***)malloc(phmm->K*sizeof(double**));
+  phmm->sigma = (double **) dmatrix(1, phmm->K, 1, phmm->N);
+  phmm->rho = (double **) dmatrix(1, phmm->K*(phmm->K-1)/2, 1, phmm->N);
+  phmm->bg = (double *) dvector(1, 4);
   fscanf(fp, "pi:\n");
   for (i = 1; i <= phmm->N; i++){
     fscanf(fp, "%lf\t", &(phmm->pi[i])); 
   }
   fscanf(fp, "mu:\n");
-  for (i = 1; i <= phmm->N; i++) {
-    fscanf(fp, "%lf", &(phmm->mu[i][1])); 
+  for (i = 1; i <= phmm->K; i++) {
+    for (j = 1; j <= phmm->N; j++) {
+      fscanf(fp, "%lf", &(phmm->mu[i][j])); 
+    }
+    fscanf(fp,"\n");
   }
-  fscanf(fp,"\n");
   fscanf(fp, "sigma:\n");
-  for (i = 1; i <= phmm->N ; i++) {
-    fscanf(fp, "%lf", &(phmm->sigma[i][1])); 
+  for (i = 1; i <= phmm->K; i++) {
+    for (j = 1; j <= phmm->N ; j++) {
+      fscanf(fp, "%lf", &(phmm->sigma[i][j])); 
+    }
+    fscanf(fp,"\n");
   }
-  fscanf(fp,"\n");
-  fscanf(fp, "mu:\n");
-  for (i = 1; i <= phmm->N; i++) {
-    fscanf(fp, "%lf", &(phmm->mu[i][2])); 
-  }
-  fscanf(fp,"\n");
-  fscanf(fp, "sigma:\n");
-  for (i = 1; i <= phmm->N; i++) {
-    fscanf(fp, "%lf", &(phmm->sigma[i][2])); 
-  }
-  fscanf(fp,"\n");
+  
   fscanf(fp, "rho:\n");
-  for (i = 1; i <= phmm->N; i++) {
-    fscanf(fp, "%lf", &(phmm->rho[i])); 
+  for (i = 1; i <= phmm->K*(phmm->K-1)/2; i++) {
+    for (j = 1; j <= phmm->N ; j++) {
+      fscanf(fp, "%lf", &(phmm->rho[i][j])); 
+    }
+    fscanf(fp,"\n");
   }
 }
 
@@ -140,12 +150,15 @@ void InitHMMwithInput(HMM *phmm, int seed, double *gc)
 */
 void FreeHMM(HMM *phmm)
 {
+  int i;
   free_dmatrix(phmm->A, 1, phmm->N, 1, phmm->N);
-  free_dmatrix(phmm->pwm, 1, phmm->D, 1, 4);
+  for (i = 1; i <= phmm->M; i++) { 
+    free_dmatrix(phmm->pwm[i], 1, phmm->D[i], 1, 4);
+  }
   free_dvector(phmm->pi, 1, phmm->N);
-  free_dvector(phmm->mu, 1, (phmm->N - phmm->D + 1));
-  free_dvector(phmm->sigma, 1, (phmm->N - phmm->D + 1));
-  free_dvector(phmm->CG, 1, 4);
+  free_dmatrix(phmm->mu, 1, phmm->N, 1, phmm->M+1);
+  free_dmatrix(phmm->sigma, 1, phmm->N, 1, phmm->M+1);
+  free_dvector(phmm->bg, 1, 4);
 }
 
 /*
@@ -204,6 +217,8 @@ void InitHMM(HMM *phmm, int N, int M, int D, int seed)
 		phmm->pi[i] /= sum;
 }
 */
+
+/*
 void CopyHMM(HMM *phmm1, HMM *phmm2)
 {
   int i, j, k;
@@ -223,59 +238,69 @@ void CopyHMM(HMM *phmm1, HMM *phmm2)
      phmm2->pi[i] = phmm1->pi[i]; 
  
 }
-
+*/
 void PrintHMM(FILE *fp, HMM *phmm)
 {
-        int i, j, k;
-
+  int i, j, k;
+  
 	fprintf(fp, "M= %d\n", phmm->M); 
 	fprintf(fp, "N= %d\n", phmm->N); 
  
 	fprintf(fp, "A:\n");
-        for (i = 1; i <= phmm->N; i++) {
-          for (j = 1; j <= phmm->N; j++) {
-            fprintf(fp, "%f ", phmm->A[i][j] );
-          }
-          fprintf(fp, "\n");
+  for (i = 1; i <= phmm->N; i++) {
+    for (j = 1; j <= phmm->N; j++) {
+      fprintf(fp, "%f ", phmm->A[i][j] );
+    }
+    fprintf(fp, "\n");
 	}
- 
-	fprintf(fp, "PWM: n=%d\n", (phmm->D));
-        for (j = 1; j <= phmm->D; j++) {
-          for (k = 1; k <= 4; k++){
-            fprintf(fp, "%f ", phmm->pwm[j][k]);
-	  }
-	  fprintf(fp, "\n");
+  for (i = 1; i <= phmm->M; i++) {
+	  fprintf(fp, "PWM: n=%d\n", (phmm->D[i]));
+    for (j = 1; j <= phmm->D[i]; j++) {
+      for (k = 1; k <= 4; k++){
+        fprintf(fp, "%f ", phmm->pwm[i][j][k]);
+	    }
+      fprintf(fp, "\n");
+    }
 	}
  
 	fprintf(fp, "pi:\n");
-        for (i = 1; i <= phmm->N; i++) {
+  for (i = 1; i <= phmm->N; i++) {
 	  fprintf(fp, "%f ", phmm->pi[i]);
 	}
   fprintf(fp, "\n");
   
   fprintf(fp, "mu:\n");
-  for (i = 1; i <= phmm->N; i++) {
-    fprintf(fp, "%lf ", phmm->mu[i][1]);
+  for (i = 1; i <= phmm->K; i++) {
+    for (j = 1; j <= phmm->N; j++) {
+      fprintf(fp, "%lf ", phmm->mu[i][j]);
+    }
+    fprintf(fp, "\n");
   }
-  fprintf(fp, "\n");
   fprintf(fp, "sigma:\n");
-  for (i = 1; i <= phmm->N; i++) {
-    fprintf(fp, "%lf ", phmm->sigma[i][1]);
+  for (i = 1; i <= phmm->K; i++) {
+    for (j = 1; j <= phmm->N ; j++) {
+      fprintf(fp, "%lf ", phmm->sigma[i][j]);
+    }
+    fprintf(fp, "\n");
   }
-  fprintf(fp, "\n");
-  fprintf(fp, "mu:\n");
-  for (i = 1; i <= phmm->N; i++) {
-    fprintf(fp, "%lf ", phmm->mu[i][2]);
-  }
-  fprintf(fp, "\n");
-  fprintf(fp, "sigma:\n");
-  for (i = 1; i <= phmm->N; i++) {
-    fprintf(fp, "%lf ", phmm->sigma[i][2]);
-  }
-  fprintf(fp, "\n");
+  
   fprintf(fp, "rho:\n");
-  for (i = 1; i <= phmm->N; i++) {
-    fprintf(fp, "%lf ", phmm->rho[i]);
+  for (i = 1; i <= phmm->K*(phmm->K-1)/2; i++) {
+    for (j = 1; j <= phmm->N ; j++) {
+      fprintf(fp, "%lf ", phmm->rho[i][j]);
+    }
   }
   fprintf(fp, "\n\n");
 }
+
+/*print a matrix of (size1 x size2)*/
+void printMatrix(double **matrix, int size1, int size2){
+  int i,j;
+  for (i = 1; i <= size1; i++){
+    for (j = 1; j <= size2; j++){
+      fprintf(stdout, "%lf ", matrix[i][j]);   
+    }
+    fprintf(stdout, "\n");
+  }
+}
+

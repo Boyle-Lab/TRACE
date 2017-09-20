@@ -5,6 +5,8 @@
 #include <string.h>
 #include "nrutil.h"
 #include "hmm_edit.h"
+#include "logmath.h"
+#include "const.h"
 
 static char rcsid[] = "$Id: sequence.c,v 1.2 1998/02/23 06:19:41 kanungo Exp kanungo $";
 
@@ -37,55 +39,122 @@ void ReadSequence(FILE *fp, int *pT, double **GC, int **pO, int *pP, int **peakP
         
 }
 
-//using the highest PWM score for each base in + or - strand, but not giving good performance
+/*using the highest PWM score for sequence centere at each base in + or - strand, but not giving good performance*/
+/* only for motif length of odd number right now, need to change later */
 void CalMotifScore(HMM *phmm, double **S, int *O1, int P, int *peakPos)
 {
-/* only for odd number right now */
-  int k, t, j, i;
+
+  int k, t, j, i, n;
   double *X, tempF, tempR, bgF, bgR;
-  X = dvector(1,peakPos[P+1]-1);
-  for (k = 1; k <= P; k++) {
-    
-    for (t = peakPos[k]; t < peakPos[k+1]; t++) {
-      if (t < (peakPos[k]+phmm->D) || t >= (peakPos[k+1]-1-phmm->D)){
-        X[t] = -100;
-      }
-      else{
-        X[t] = log(0.0);
-        i = (phmm->D + 1) / 2;
-        //for (i = 1; i <= phmm->D; i++){
+  //X = dvector(1,peakPos[P+1]-1);/*temp store score vector*/
+  for (n = 1; n < phmm->K; n++) {
+    for (k = 1; k <= P; k++) {
+      for (t = peakPos[k]; t < peakPos[k+1]; t++) {
+        if (t < (peakPos[k]+phmm->D[n]) || t >= (peakPos[k+1]-1-phmm->D[n])){
+          S[n][t] = -100;
+        }
+        else{
+          S[n][t] = log(0.0);
+          i = (phmm->D[n] + 1) / 2;
+          //for (i = 1; i <= phmm->D; i++){
           tempF = tempR = 0.0;
           bgF = bgR = 0.0;
-          for (j = 1; j <= phmm->D; j++){
-            tempF += log(phmm->pwm[j][O1[t-i+j]]);
-            tempR += log(phmm->pwm[phmm->D-j+1][5-O1[t-i+j]]);
-            tempF -= log(phmm->CG[O1[t-i+j]]);
-            tempR -= log(phmm->CG[5-O1[t-i+j]]);
+          for (j = 1; j <= phmm->D[n]; j++){
+            tempF += log(phmm->pwm[n][j][O1[t-i+j]]);
+            tempR += log(phmm->pwm[n][phmm->D[n]-j+1][5-O1[t-i+j]]);
+            tempF -= log(phmm->bg[O1[t-i+j]]);
+            tempR -= log(phmm->bg[5-O1[t-i+j]]);
           //fprintf(stdout, "X: %lf ", X[t]);
           }
-          X[t]=MAX(X[t], tempF);
-          X[t]=MAX(X[t], tempR);
+          S[n][t]=MAX(S[n][t], tempF);
+          S[n][t]=MAX(S[n][t], tempR);
           //fprintf(stdout, "X: %lf %lf %lf ", tempF, tempR, X[t]);
         //}
         //X[t] = exp(X[t]) * pow(10,phmm->D);
+        }
       }
      
     }
+    //S[n] = X;
   }
-  *S = X;
+  
 }
       
+/*calculate emission probability for data vector in state j*/
+double ComputeEmission(HMM *phmm, int j, double *data) 
+{
+  
+  double pNorm;    /* multivariance normal distribution */ 
+  
+  double **covar = dmatrix(1, phmm->K, 1, phmm->K);
+  covarMatrix(phmm, j, covar);
+  //printMatrix(covar, phmm->K, phmm->K);
+  pNorm = MultiVarNormDist(phmm->mu, j, covar, phmm->K, data);
+
+  /*this was used for test case of bivariance
+  pNorm = (1/((pow(SQRT_TWO_PI, 2.0) * phmm->sigma[j][1] * phmm->sigma[j][2]) * pow((1 - pow(phmm->rho[j], 2.0)), 0.5))) * 
+	  exp( (-0.5) / (1 - pow(phmm->rho[j], 2.0))*(pow((S[t] - phmm->mu[j][1]), 2.0)/pow(phmm->sigma[j][1],2.0)+
+	  pow((O2[t] - phmm->mu[j][2]), 2.0)/pow(phmm->sigma[j][2],2.0)-2*phmm->rho[j]*(S[t] - phmm->mu[j][1])*(O2[t] - 
+	  phmm->mu[j][2])/(phmm->sigma[j][1]*phmm->sigma[j][2]))); */
+  //fprintf(stdout, "pNorm: %lf \t", pNorm);  
+  return pNorm;
+}
+
+void covarMatrix(HMM *phmm, int state, double **matrix)
+{
+  int i, j, n;
+  double corr;
+  //for (n = 1; n <= phmm->N; n++){
+    for (i = 1; i <= phmm->K; i++) {
+      for (j = 1; j <= phmm->K; j++) {
+        if (i == j) {
+          matrix[i][j] = phmm->sigma[i][state] * phmm->sigma[j][state];
+        }
+        else if (i < j) {
+          corr = phmm->rho[phmm->K*(i-1)+j-i*(i+1)/2][state];
+          matrix[i][j] = phmm->sigma[i][state] * phmm->sigma[j][state] * corr;
+        }
+        else {
+          //corr = phmm->rho[phmm->K*(j-1)+i-j*(j+1)/2][state];
+          matrix[i][j] = matrix[j][i];//phmm->sigma[i][state] * phmm->sigma[j][state] * corr;
+        }
+      }
+    }
+  //}
+}
+          
+          
+/*
+double ComputeEmission(HMM *phmm, int j, int t, int *O1, double *O2) {
+  double pNorm;    // P(O2) ~ N(mu, gamma) 
+  int i;
+   
+  
+  
+  if (j <= phmm->D){ //first D states are TF motif
+    pNorm = (1/(SQRT_TWO_PI * phmm->sigma[1])) * exp( (-0.5) * (1/pow(phmm->sigma[1],2.0))*pow((O2[t] - phmm->mu[1]), 2.0)); 
+    return (pNorm * (phmm->pwm[j][O1[t]]));
+  } 
+  
+  if (j > (phmm->D)){
+    pNorm = (1/(SQRT_TWO_PI * (phmm->sigma[j+1-(phmm->D)]))) * exp((-0.5) * (1/pow(phmm->sigma[j+1-(phmm->D)],2.0))*pow((O2[t] - phmm->mu[j+1-(phmm->D)]), 2.0)); 
+    return (pNorm * (phmm->CG[O1[t]]));
+  }
+  
+}
+*/
+
     
 void ReadSlop(FILE *fp, int *pT, double **pO)
 {
-        double *O;
-        int i;
- 
-        fscanf(fp, "T= %d\n", pT);
-        O = dvector(1,*pT);
-        for (i=1; i <= *pT; i++)
-                fscanf(fp,"%lf\t", &O[i]);
-        *pO = O;
+  double *O;
+  int i;
+  fscanf(fp, "T= %d\n", pT);
+  O = dvector(1,*pT);
+  for (i=1; i <= *pT; i++) {
+    fscanf(fp,"%lf\t", &O[i]);
+  }
+  *pO = O;
 }
 
  
@@ -101,12 +170,14 @@ void PrintSequence(FILE *fp, int T, int *O)
 
 void PrintSequenceProb(FILE *fp, int T, int *O, double *vprob, double *g)
 {
-        int i;
-        fprintf(fp,"%d\t%lf\t%lf", O[1], vprob[1], g[1]);
-        for (i=2; i <= T; i++) {
-                fprintf(fp,"\n%d\t%lf\t%lf", O[i], vprob[i], g[i]);
-        }
+  int i;
+  fprintf(fp,"%d\t%lf\t%lf", O[1], vprob[1], g[1]);
+  for (i=2; i <= T; i++) {
+    fprintf(fp,"\n%d\t%lf\t%lf", O[i], vprob[i], g[i]);
+  }
 }
+
+/*
 void GenSequenceArray(HMM *phmm, int seed, int T, int *O, int *q)
 {
         int     t = 1;
@@ -185,3 +256,4 @@ int GenSymbol(HMM *phmm, int q_t)
         return o_t;
 }
  
+*/

@@ -13,25 +13,28 @@ void Usage(char *name);
 
 int main (int argc, char *argv[])
 {
-  
-  int T;
-  double *GC;
-  HMM  	hmm;
-  int	N;
-  int	M;
-  double  **alpha; 
-  double  **beta;
-  double  **gamma;
-  double  *O2; /* slop */
-  int *O1; /* sequence, represented by number, 1=A, 2=C, 3=G, 4=T */
-  int P; /* total number of peaks */
-  int *peakPos;
-  int	c;
-  int	seed; /* seed for random number generator */
-  int	niter;
-  double  logprobinit, logprobfinal;
+  /*the following are read from input files*/
   FILE	*fp;
-	
+  int T; /*total length*/
+  double *GC;/*GC content*/
+  HMM  	hmm;
+  double  *O2; /* slops */
+  int *O1; /* sequence, represented by number, 1=A, 2=C, 3=G, 4=T */
+           /*right now, there are only two observations: slop and sequence
+           might need to change the structure if more data are used in thefuture*/
+  int P; /* total number of peaks */
+  int *peakPos; /*starting location of each peaks*/
+                /*there two are used to seperate values from each peak in concatenated data*/
+  int	seed; /* seed for random number generator */
+  
+  int	niter; /*numbers of iterations, might need to set a max later*/
+  
+  /*these are calculated variables in BW*/
+  double  logprobinit, logprobfinal;
+	double  **alpha; 
+  double  **beta;
+  double  **gamma; 
+  
   if (argc != 6 && argc != 5) {
 		Usage(argv[0]);
 		exit (1);
@@ -57,7 +60,7 @@ int main (int argc, char *argv[])
   fp = fopen(argv[3], "r");	
   if (fp == NULL) {
     fprintf(stderr, "Error: File %s not found \n", argv[3]);
-     exit (1);
+    exit (1);
   }
   /*
   if (argc == 6) {
@@ -78,11 +81,11 @@ int main (int argc, char *argv[])
   if (argc == 5) {
     ReadOutHMM(fp, &hmm);
     fclose(fp);
-    hmm.CG[2] = hmm.CG[3] = GC[2];
-    hmm.CG[1] = hmm.CG[4] = GC[1];
+    hmm.bg[2] = hmm.bg[3] = GC[2];
+    hmm.bg[1] = hmm.bg[4] = GC[1];
   }
 
-  if (hmm.CG == NULL){
+  if (hmm.bg == NULL){
     printf("PROB");
   }
   PrintHMM(stdout, &hmm);
@@ -91,9 +94,11 @@ int main (int argc, char *argv[])
   alpha = dmatrix(1, T, 1, hmm.N);
   beta = dmatrix(1, T, 1, hmm.N);
   gamma = dmatrix(1, T, 1, hmm.N);
+  
+  fprintf(stdout, "pass");
   /* call Baum Welch */
   BaumWelchBVN(&hmm, T, O1, O2, alpha, beta, gamma, &niter, P, peakPos);
-
+  fprintf(stdout, "pass1");
   /* print the answer */
   PrintHMM(stdout, &hmm);
   fp = fopen(argv[argc-1], "w");
@@ -121,6 +126,6 @@ void Usage(char *name)
         
         printf("  seed - seed for random number genrator\n");
         printf("  mod.hmm - file with the initial model parameters\n");
-        printf("  file.seq - file containing the obs. seqence\n");
+        printf("  file.seq - file containing the obs. sequence\n");
         printf("  file.slop - file containing the obs. slop\n");
 }
