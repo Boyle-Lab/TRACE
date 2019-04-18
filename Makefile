@@ -1,22 +1,24 @@
-CFLAGS= -g
+CFLAGS= -fopenmp
 INCS=
 # use the following line to "Purify" the code
 #CC=purify gcc
 CC=gcc
-SRCS=BaumWelch_edit.c viterbi.c forward_edit.c backward_edit.c hmmutils_edit.c sequence_edit.c \
-	genseq.c nrutil.c testvit.c esthmm_edit.c hmmrand_edit.c testfor.c const.c logmath.c c_test.c
+SRCS=BaumWelch.c viterbi.c hmmutils.c \
+  sequence.c genseq.c nrutil.c esthmm.c hmmrand.c \
+  logmath.c vithmm.c fwd_bwd.c
 
 all :	esthmm viterbi
 
-c_test: c_test.o nrutil.o hmmutils_edit.o hmmrand_edit.o const.o logmath.o sequence_edit.o
-	 $(CC) -o c_test c_test.o nrutil.o hmmutils_edit.o hmmrand_edit.o const.o logmath.o sequence_edit.o -lm	
-esthmm: esthmm_edit.o BaumWelch_edit.o nrutil.o hmmutils_edit.o sequence_edit.o \
-		forward_edit.o backward_edit.o hmmrand_edit.o const.o  logmath.o
-	 $(CC) -o esthmm esthmm_edit.o BaumWelch_edit.o nrutil.o sequence_edit.o hmmutils_edit.o \
-		forward_edit.o backward_edit.o hmmrand_edit.o const.o logmath.o -lm
-viterbi: runViterbi.o viterbi_edit.o nrutil.o hmmutils_edit.o sequence_edit.o forward_edit.o backward_edit.o const.o BaumWelch_edit.o 
-	 $(CC) -o viterbi runViterbi.o viterbi_edit.o nrutil.o sequence_edit.o forward_edit.o backward_edit.o const.o logmath.o \
-		hmmutils_edit.o  hmmrand_edit.o BaumWelch_edit.o  -lm 
+esthmm: esthmm.o BaumWelch.o nrutil.o hmmutils.o \
+    sequence.o logmath.o fwd_bwd.o viterbi.o
+	 $(CC) -fopenmp -lgsl -lgslcblas -o esthmm esthmm.o nrutil.o \
+    sequence.o hmmutils.o logmath.o fwd_bwd.o \
+    BaumWelch.o viterbi.o -lm
+viterbi: vithmm.o viterbi.o nrutil.o hmmutils.o sequence.o \
+    BaumWelch.o logmath.o fwd_bwd.o viterbi.o
+	 $(CC) -fopenmp -lgsl -lgslcblas -o viterbi vithmm.o viterbi.o nrutil.o \
+    sequence.o logmath.o hmmutils.o  BaumWelch.o fwd_bwd.o \
+    -lm 
 clean:
 	rm *.o 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
