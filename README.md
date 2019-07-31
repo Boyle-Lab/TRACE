@@ -23,10 +23,14 @@ make all
 
 # Usage information
 To call TFBSs in desired regions, TRACE requies a file of these regions, files of sequence infomation, read counts, and slopes at each position of these regions and a file containing intial model.
+To generate data files in required format, run the python script:
+```
+dataProcessing.py -i <peak_3.file> -o <seq.file> -b <bamfile> -s <genome.size> -f <fastafile> -r <count.file> -d <slope.file> -a <span> -t
+```
 To perform footprinting:
 
 ```
-./esthmm -Q <sequence.file> -L <slope.file> -C <counts.file> -I <init.model.file> -O <final.model.file> -P <peak.file> -A <output1.file> -B <output2.file> -T <thread.num>
+./esthmm -Q <sequence.file> -L <slope.file> -C <counts.file> -I <init.model.file> -O <final.model.file> -P <peak_6.file> -A <output1.file> -B <output2.file> -T <thread.num>
 ```
 
 ## Demo
