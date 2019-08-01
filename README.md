@@ -39,11 +39,11 @@ Output:
 <count.file>: A file contains processed read counts at each position in regions from <peak_3.file>.   
 <slope.file>: A file contains processed deritives at each position in regions from <peak_3.file>.   
 
-run the python script:
+To generat data files using our python script:
 ```
 ./src/dataProcessing.py <peak_3.file> <bam.file> <genome.size> <fasta.file> 
 ```
-The default setting will use DNase-seq based prototal. To use ATAC-seq data instead, include --ATAC-seq argument and choose from pe (pair-end) and se (single-end). If you have preferred output directory and name, set argument --prefix.
+The default setting will use DNase-seq based prototal. To use ATAC-seq data instead, include ```--ATAC-seq``` argument and choose from pe (pair-end) and se (single-end). If you have preferred output directory and name, set argument ```--prefix```.
 
 To build an intial HMM model:
 
@@ -65,7 +65,7 @@ If a TRACE model is already trianed and you only want to call binding sites base
 ```
 
 ## Demo
-The data folder contains example data for DNase-seq on K562 cell to predict binding sites of E2F1.  For simplicity, we randomly selected 200 DNase-seq peaks. 
+The data folder contains example data for DNase-seq on K562 cell to predict binding sites of E2F1.  For simplicity, we randomly selected 500 DNase-seq peaks in chr1. 
 
 ```
 ./esthmm -Q ./data/E2F1_seq.txt -L ./data/E2F1_slope.txt -C ./data/E2F1_counts.txt -I ./data/init_hmm.txt -O ./data/E2F1_hmm.txt -P ./data/E2F1_peak_7.bed -A ./data/output1.bed -B ./data/output2.bed -T 20
