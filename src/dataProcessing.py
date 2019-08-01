@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import os
 import sys
 from pysam import AlignmentFile
@@ -130,7 +131,6 @@ class Signal:
 
   #normalized by std and percentile#
   def between_norm(self, counts, perc, std):
-    #list = (np.sign(counts) * 1.0 / (1.0 + (np.exp(-(counts - perc) / std)))).tolist()
     list = [np.sign(x) * (1.0 / (1.0 + (exp(-(np.sign(x) * x - perc) / std)))) if x != 0.0 else 0.0 for x in counts]
     return list
 
@@ -277,6 +277,7 @@ def main():
     for i in range(len(deriv1st)):
       print(deriv1st[i], file=outFile)
   return
+
 
 if __name__ == "__main__":
   main()
