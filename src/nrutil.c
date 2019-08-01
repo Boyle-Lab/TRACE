@@ -5,18 +5,13 @@
 **		and Vetterling. 
 **              state sequence and probablity of observing a sequence
 **              given the model.
-**      Organization: University of Maryland
 **
-**      $Id: nrutil.c,v 1.2 1998/02/19 16:31:35 kanungo Exp kanungo $
 */
 
 #include <malloc.h>
 #include <stdio.h>
 #include <stddef.h>
 #include <stdlib.h>
-
-static char rcsid[] = "$Id: nrutil.c,v 1.2 1998/02/19 16:31:35 kanungo Exp kanungo $";
-
 
 void nrerror(error_text)
 char error_text[];

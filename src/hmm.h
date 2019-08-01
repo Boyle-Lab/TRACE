@@ -60,10 +60,6 @@ void ComputeGamma_P(HMM *phmm, int T, double **alpha, double **beta,
 void getParameters_all_P(FILE *fpIn, HMM *phmm, int T, gsl_matrix *obs_matrix, 
                         int P, int *peakPos);                 
 /*fwd_bwd.c*/
-void Forward(HMM *phmm, int T, gsl_matrix * alpha_matrix, double *pprob, 
-             int P, int *peakPos, gsl_matrix * emission_matrix);
-void Backward(HMM *phmm, int T, gsl_matrix * beta_matrix, int P, 
-              int *peakPos, gsl_matrix * emission_matrix);
 void Forward_P(HMM *phmm, int T, double **alpha, double *pprob, int P, 
                int *peakPos, gsl_matrix * emission_matrix);
 void Backward_P(HMM *phmm, int T, double **beta, int P, int *peakPos, 
@@ -73,12 +69,10 @@ void Backward_P(HMM *phmm, int T, double **beta, int P, int *peakPos,
 void ReadSequence(FILE *fp, int *pT, double *GC, int **pO, int *pP, 
                   int **peakPos);
 void ReadTagFile(FILE *fp, int T, gsl_vector * data_vector, double adjust);
+void CalMotifScore_P(HMM *phmm, gsl_matrix * S, int *O1, int P, int *peakPos);
 void EmissionMatrix(HMM* phmm, gsl_matrix * obs_matrix, int P, int *peakPos, 
                     gsl_matrix * emission_matrix, int T);
-void EmissionMatrix_GSL(HMM* phmm, gsl_matrix * obs_matrix, int P, 
-                        int *peakPos, gsl_matrix * emission_matrix, int T);
-void CalMotifScore_P(HMM *phmm, gsl_matrix * S, int *O1, int P, int *peakPos);
-void EmissionMatrix_mv(HMM* phmm, gsl_matrix * obs_matrix, int P, int *peakPos, 
+void EmissionMatrix_mv(HMM* phmm, gsl_matrix * obs_matrix, int P, int *peakPos,
                        gsl_matrix * emission_matrix, int T);
 void EmissionMatrix_mv_reduce(HMM* phmm, gsl_matrix * obs_matrix, int P, 
                               int *peakPos, gsl_matrix * emission_matrix, 
@@ -121,12 +115,11 @@ void getPosterior_labels(FILE *fpIn, FILE *fpOut, int T, int *q,
 int hmmgetseed(void);
 void hmmsetseed(int seed); 
 double hmmgetrand(void); 
- 
+
 #define MAX(x,y)        ((x) > (y) ? (x) : (y))
 #define MIN(x,y)        ((x) < (y) ? (x) : (y))
 #define SQRT_TWO_PI 2.5066282746310002
 #define D_LOG2E 1.44269504088896340736
-
-//#define extraState 10
+#define TINY 1.0e-20
 int MAXITERATION;
 int THREAD_NUM;

@@ -4,9 +4,6 @@
 #include "nrutil.h"
 #include "hmm.h"
 
-static char rcsid[] = "$Id: hmmutils.c,v 1.4 1998/02/23 07:51:26 kanungo Exp kanungo $";
-
-
 void ReadM(FILE *fp, HMM *phmm)
 {
   fscanf(fp, "M= %d\n", &(phmm->M)); 
@@ -20,7 +17,6 @@ void ReadInitHMM(FILE *fp, HMM *phmm)
 
   fscanf(fp, "N= %d\n", &(phmm->N));
   fscanf(fp, "A:\n");
-  //phmm->A = (double **) dmatrix(phmm->N, phmm->N);
   phmm->log_A_matrix = gsl_matrix_alloc(phmm->N, phmm->N);
   for (i = 0; i < phmm->N; i++) {
     for (j = 0; j < phmm->N; j++) {
@@ -47,12 +43,7 @@ void ReadInitHMM(FILE *fp, HMM *phmm)
   phmm->extraState = phmm->N - totalStates;
   phmm->mean_matrix = gsl_matrix_alloc(phmm->K, phmm->N);
   phmm->var_matrix = gsl_matrix_alloc(phmm->K, phmm->N);
-  //gsl_matrix * cov_matrix_tmp[phmm->N];
   phmm->pi = (double *) dvector(phmm->N);
-  //phmm->mu = (double **) dmatrix(phmm->K, phmm->N);
-  //phmm->sigma = (double ***)malloc(phmm->K*sizeof(double**));
-  //phmm->sigma = (double **) dmatrix(phmm->K, phmm->N);
-
   phmm->bg = (double *) dvector(4);
   fscanf(fp, "pi:\n");
   for (i = 0; i < phmm->N; i++){
@@ -66,37 +57,29 @@ void ReadInitHMM(FILE *fp, HMM *phmm)
     }
     fscanf(fp,"\n");
   }
-  //fscanf(fp, "sigma:\n");
   for (i = 0; i < phmm->K; i++) {
     for (j = 0; j < phmm->N ; j++) {
       gsl_matrix_set(phmm->var_matrix, i, j, 5.0);
     }
-    //fscanf(fp,"\n");
   }
-
-  for (j = 0; j < phmm->N ; j++) {
-    gsl_matrix_set(phmm->var_matrix, phmm->M, j, 5.0);
-    gsl_matrix_set(phmm->var_matrix, phmm->M+1, j, 5.0);
+  for (i = phmm->M; i < phmm->K; i++) {
+    for (j = 0; j < phmm->N ; j++) {
+      gsl_matrix_set(phmm->var_matrix, i, j, 5.0);
+    }
   }
-
   if (phmm->model == 1 || phmm->model == 2){
     phmm->rho = (double **) dmatrix(phmm->K*(phmm->K-1)/2, phmm->N);
     phmm->cov_matrix = (gsl_matrix **)malloc((phmm->N)*sizeof(gsl_matrix *));
-    //fscanf(fp, "rho:\n");
     for (i = 0; i < phmm->K*(phmm->K-1)/2; i++) {
       for (j = 0; j < phmm->N ; j++) {
         phmm->rho[i][j] = 0.5;
       }
-      //fscanf(fp,"\n");
     }
     for (i = 0; i < phmm->N; i++){
-      //cov_matrix_tmp[i] = gsl_matrix_alloc(phmm->K, phmm->K);
-      //covarMatrix_GSL(phmm, i, cov_matrix_tmp[i]);
       phmm->cov_matrix[i] = gsl_matrix_alloc(phmm->K, phmm->K);
       covarMatrix_GSL(phmm, i, phmm->cov_matrix[i]);
     }
   }
-  //phmm->cov_matrix = cov_matrix_tmp;
 }
 
 void ReadHMM(FILE *fp, HMM *phmm)
@@ -107,7 +90,6 @@ void ReadHMM(FILE *fp, HMM *phmm)
   
   fscanf(fp, "N= %d\n", &(phmm->N)); 
   fscanf(fp, "A:\n");
-  //phmm->A = (double **) dmatrix(phmm->N, phmm->N);
   phmm->log_A_matrix = gsl_matrix_alloc(phmm->N, phmm->N);
   for (i = 0; i < phmm->N; i++) {
     for (j = 0; j < phmm->N; j++) {
@@ -134,12 +116,7 @@ void ReadHMM(FILE *fp, HMM *phmm)
   phmm->extraState = phmm->N - totalStates;
   phmm->mean_matrix = gsl_matrix_alloc(phmm->K, phmm->N);
   phmm->var_matrix = gsl_matrix_alloc(phmm->K, phmm->N);
-  //gsl_matrix * cov_matrix_tmp[phmm->N];
   phmm->pi = (double *) dvector(phmm->N);
-  //phmm->mu = (double **) dmatrix(phmm->K, phmm->N);
-  //phmm->sigma = (double ***)malloc(phmm->K*sizeof(double**));
-  //phmm->sigma = (double **) dmatrix(phmm->K, phmm->N);
-  
   phmm->bg = (double *) dvector(4);
   fscanf(fp, "pi:\n");
   for (i = 0; i < phmm->N; i++){
@@ -157,8 +134,7 @@ void ReadHMM(FILE *fp, HMM *phmm)
   for (i = 0; i < phmm->K; i++) {
     for (j = 0; j < phmm->N ; j++) {
       fscanf(fp, "%lf", &tmp); 
-      //phmm->sigma[i][j] = tmp;
-      gsl_matrix_set(phmm->var_matrix, i, j, tmp);  
+      gsl_matrix_set(phmm->var_matrix, i, j, tmp);
     }
     fscanf(fp,"\n");
   }
@@ -174,33 +150,21 @@ void ReadHMM(FILE *fp, HMM *phmm)
     fscanf(fp,"\n");
   }
   for (i = 0; i < phmm->N; i++){
-    //cov_matrix_tmp[i] = gsl_matrix_alloc(phmm->K, phmm->K);
-    //covarMatrix_GSL(phmm, i, cov_matrix_tmp[i]);
-    phmm->cov_matrix[i] = gsl_matrix_alloc(phmm->K, phmm->K); 
+    phmm->cov_matrix[i] = gsl_matrix_alloc(phmm->K, phmm->K);
     covarMatrix_GSL(phmm, i, phmm->cov_matrix[i]);
-    //for (j = 0; j < phmm->K; j ++){
-      //  tmp = gsl_matrix_get(phmm->cov_matrix[i], j, j);
-        //gsl_matrix_set(phmm->cov_matrix[i], j, j, tmp+0.001);
-      //}
   }
   }
-  //phmm->cov_matrix = cov_matrix_tmp;
 }
-
 
 void FreeHMM(HMM *phmm)
 {
   int i;
-  //free_dmatrix(phmm->A, phmm->N, phmm->N);
-  for (i = 0; i < phmm->M; i++) { 
+  for (i = 0; i < phmm->M; i++) {
     free_dmatrix(phmm->pwm[i], phmm->D[i], 4);
   }
   free_dvector(phmm->pi, phmm->N);
-  //free_dmatrix(phmm->mu, phmm->K, phmm->N);
-  //free_dmatrix(phmm->sigma, phmm->K, phmm->N);
   free_dvector(phmm->bg, 4);
   gsl_matrix_free(phmm->mean_matrix);
-  
   gsl_matrix_free(phmm->log_A_matrix);
   if (phmm->model == 0){
     gsl_matrix_free(phmm->var_matrix);
@@ -213,23 +177,19 @@ void FreeHMM(HMM *phmm)
   }
 }
 
-
 /*print the entire model as the correct format that ReadOutHMM can read*/
 void PrintHMM(FILE *fp, HMM *phmm)
 {
   int i, j, k, n, m, x;
-  //fprintf(fp, "K= %d\n", phmm->K); 
-	fprintf(fp, "M= %d\n", phmm->M); 
-	fprintf(fp, "N= %d\n", phmm->N); 
- 
+	fprintf(fp, "M= %d\n", phmm->M);
+	fprintf(fp, "N= %d\n", phmm->N);
 	fprintf(fp, "A:\n");
   for (i = 0; i < phmm->N; i++) {
     for (j = 0; j < phmm->N; j++) {
-      //fprintf(fp, "%f ", phmm->A[i][j] );
       fprintf(fp, "%e ", exp(gsl_matrix_get(phmm->log_A_matrix, i, j)));
     }
     fprintf(fp, "\n");
-	}
+  }
   for (i = 0; i < phmm->M; i++) {
 	  fprintf(fp, "PWM: n=%d\n", (phmm->D[i]));
     for (j = 0; j < phmm->D[i]; j++) {
@@ -238,9 +198,8 @@ void PrintHMM(FILE *fp, HMM *phmm)
 	    }
       fprintf(fp, "\n");
     }
-	}
- 
-	fprintf(fp, "pi:\n");
+  }
+  fprintf(fp, "pi:\n");
   for (i = 0; i < phmm->N; i++) {
 	  fprintf(fp, "%f ", phmm->pi[i]);
 	}
@@ -249,7 +208,6 @@ void PrintHMM(FILE *fp, HMM *phmm)
   fprintf(fp, "mu:\n");
   for (i = 0; i < phmm->K; i++) {
     for (j = 0; j < phmm->N; j++) {
-      //fprintf(fp, "%lf ", phmm->mu[i][j]);
       fprintf(fp, "%e ", gsl_matrix_get(phmm->mean_matrix, i, j));
     }
     fprintf(fp, "\n");
@@ -267,7 +225,6 @@ void PrintHMM(FILE *fp, HMM *phmm)
   for (i = 0; i < phmm->N; i++) {
     for (n = 0; n < phmm->K; n++) {
       gsl_matrix_set(phmm->var_matrix, n, i, sqrt(gsl_matrix_get(phmm->cov_matrix[i], n, n)));
-      //phmm->sigma[n][i] = sqrt(gsl_matrix_get(phmm->cov_matrix[i], n, n));
     }
   }
   for (i = 0; i < phmm->N; i++) {
@@ -304,7 +261,6 @@ void getRho(HMM *phmm){
   for (i = 0; i < phmm->N; i++) {
     for (n = 0; n < phmm->K; n++) {
       gsl_matrix_set(phmm->var_matrix, n, i, sqrt(gsl_matrix_get(phmm->cov_matrix[i], n, n)));
-      //phmm->sigma[n][i] = sqrt(gsl_matrix_get(phmm->cov_matrix[i], n, n));
     }
   }
   
@@ -320,6 +276,7 @@ void getRho(HMM *phmm){
     }
   }
 }
+
 /*print a matrix of (size1 x size2)*/
 void printMatrix(FILE *fp, double **matrix, int size1, int size2)
 {

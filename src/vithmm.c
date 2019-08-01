@@ -43,11 +43,12 @@ int main (int argc, char **argv)
   extern char *optarg;
   extern int optind, opterr, optopt;
   int	indexTF = 0; 
-  char	*hmmfile, *slopfile, *countsfile, *seqfile, *outfile, *intsectfile;
+  char	hmmfile[50], *slopfile, *countsfile, *seqfile, *outfile, intsectfile[50];
   char  *listfile1, *listfile2, *thresholdfile, *pValuefile;
   int c;
   int ifMulti = 0, ifDbl=0, ifSet = 0, peakLength = 2;
-
+  hmmfile[0] = '\0';
+  intsectfile[0] = '\0';
   MAXITERATION = 200;
   THREAD_NUM = 40;
   gsl_vector * slop_vector, *counts_vector; 
@@ -55,13 +56,13 @@ int main (int argc, char **argv)
 
   while ((c= getopt(argc, argv, "vhH:C:Q:L:A:B:T:P:N:D:S:E:V:O:X:Z")) != EOF){
     switch (c) {
-		case 'v': 
-			vflg++;	
-			break;
-		case 'h': 
-			Usage(argv[0]);
-			exit(1);
-			break;
+	case 'v':
+	  vflg++;
+	  break;
+	case 'h':
+	  Usage(argv[0]);
+	  exit(1);
+	  break;
     case 'T':
       /* set number of threads */
       if (tflg)
@@ -112,8 +113,8 @@ int main (int argc, char **argv)
         errflg++; 
       else { 
         oflg++;
-        hmmfile = optarg;
-      } 
+        strcat(hmmfile, optarg);
+      }
       break;
     case 'H':
       /* length of states in peak*/
@@ -174,8 +175,8 @@ int main (int argc, char **argv)
       if (pflg) 
         errflg++; 
       else { 
-        pflg++;  
-        intsectfile = optarg;
+        pflg++;
+        strcat(intsectfile, optarg);
       } 
       break;  
     case 'D':  
@@ -213,12 +214,11 @@ int main (int argc, char **argv)
   if (!hflg || (!cflg && !qflg && !lflg)) {
     errflg++; 
   }
-	if (errflg) { 
-		Usage(argv[0]);
-		exit (1);
-	}
-  
-  
+  if (errflg) {
+    Usage(argv[0]);
+    exit (1);
+  }
+
   if (qflg){ 
     //int *O1; /* sequence, represented by number, 0=A, 1=C, 2=G, 3=T */
     /* read the observed sequence */
@@ -234,7 +234,6 @@ int main (int argc, char **argv)
   
   
   if (lflg){
-    //double  *O2; /* slops */
     /* read the slop file */
     fp = fopen(slopfile, "r");
     if (fp == NULL) {
@@ -247,7 +246,6 @@ int main (int argc, char **argv)
   }
   
   if (cflg){
-    //double  *O3; /* tag counts */
     /* read the tag counts file */
     fp = fopen(countsfile, "r");
     if (fp == NULL) {
@@ -258,9 +256,7 @@ int main (int argc, char **argv)
     ReadTagFile(fp, T, counts_vector, 2.0);
     fclose(fp);
   }
-  
-  
-                                      
+
   /* read the hmm model */
   if (oflg) {
     /*read HMM input file */
@@ -286,82 +282,7 @@ int main (int argc, char **argv)
       hmm.bg[0]=hmm.bg[1]=hmm.bg[2]=hmm.bg[3]=0.25;
     }
   }
-  
-  /*
-    HMM  	subhmm;
-    fp = fopen("2_all_out_MAX_all.txt", "r");	
-    if (fp == NULL) {
-      fprintf(stderr, "Error: File %s not found \n", subhmm);
-      exit (1);
-    }
-    ReadM(fp, &subhmm);
-    subhmm.K = cflg + lflg + qflg * subhmm.M;
-    ReadHMM(fp, &subhmm);
-    fclose(fp);
-    for (i = 0; i < 20; i++){
-      gsl_matrix_set(hmm.mean_matrix, 16, 412+i, gsl_matrix_get(subhmm.mean_matrix, 0, i));   
-      gsl_matrix_set(hmm.mean_matrix, 80, 412+i, gsl_matrix_get(subhmm.mean_matrix, 1, i));   
-      gsl_matrix_set(hmm.mean_matrix, 81, 412+i, gsl_matrix_get(subhmm.mean_matrix, 2, i)); 
-      gsl_matrix_set(hmm.var_matrix, 16, 412+i, gsl_matrix_get(subhmm.var_matrix, 0, i)); 
-      gsl_matrix_set(hmm.var_matrix, 80, 412+i, gsl_matrix_get(subhmm.var_matrix, 1, i));   
-      gsl_matrix_set(hmm.var_matrix, 81, 412+i, gsl_matrix_get(subhmm.var_matrix, 2, i)); 
-      //fprintf(stdout, "%d: %lf %lf %lf  %lf %lf %lf  %lf %lf %lf\n", i, gsl_matrix_get(subhmm.mean_matrix, 0, i),gsl_matrix_get(subhmm.mean_matrix, 1, i),gsl_matrix_get(subhmm.mean_matrix, 2, i),gsl_matrix_get(subhmm.var_matrix, 0, i),gsl_matrix_get(subhmm.var_matrix, 1, i),gsl_matrix_get(subhmm.var_matrix, 2, i),gsl_matrix_get(hmm.var_matrix, 16, 412+i),gsl_matrix_get(hmm.var_matrix, 80, 412+i),gsl_matrix_get(hmm.var_matrix, 81, 412+i));   
-    }
-    for (i = 0; i < 4; i++){
-      gsl_matrix_set(hmm.mean_matrix, 16, 2114+i, gsl_matrix_get(subhmm.mean_matrix, 0, 20+i));  
-      gsl_matrix_set(hmm.mean_matrix, 80, 2114+i, gsl_matrix_get(subhmm.mean_matrix, 1, 20+i)); 
-      gsl_matrix_set(hmm.mean_matrix, 81, 2114+i, gsl_matrix_get(subhmm.mean_matrix, 2, 20+i));
-      gsl_matrix_set(hmm.var_matrix, 16, 2114+i, gsl_matrix_get(subhmm.var_matrix, 0, 20+i));  
-      gsl_matrix_set(hmm.var_matrix, 80, 2114+i, gsl_matrix_get(subhmm.var_matrix, 1, 20+i)); 
-      gsl_matrix_set(hmm.var_matrix, 81, 2114+i, gsl_matrix_get(subhmm.var_matrix, 2, 20+i));
-      //fprintf(stdout, "%d: %lf %lf %lf\n", 20+i, gsl_matrix_get(subhmm.mean_matrix, 0, 20+i),gsl_matrix_get(subhmm.mean_matrix, 1, 20+i),gsl_matrix_get(subhmm.mean_matrix, 2, 20+i));   
-    }
-    for (i = 0; i < hmm.N; i++){
-      covarMatrix_GSL(&hmm, i, hmm.cov_matrix[i]);
-    }
-    //fprintf(stdout, "%lf %lf %lf %lf\n", gsl_matrix_get(hmm.log_A_matrix, 2115, 412),gsl_matrix_get(hmm.log_A_matrix, 2117, 422),gsl_matrix_get(subhmm.log_A_matrix, 21,0),gsl_matrix_get(subhmm.log_A_matrix, 23,10)); 
-    
-    FreeHMM(&subhmm);
- */
-  //int ifSet = 0;
-  if(ifSet) {
-    int index = 0;
-    int i = 0;
-    int j;
-    char file_name[1000];
-    char motif[20];
-    char motif_[20];
-    HMM  	subhmm;
-    fp = fopen("../data/36_initHMM.txt", "r");
-    while (fscanf(fp, "%s\t%s", motif,motif_) != EOF) {
 
-      sprintf(file_name, "9_cluster_out_d_%s_ind_all_add__check3.txt", motif);
-      printf("file: %s\n", file_name);
-      fp1 = fopen(file_name, "r");
-      if (fp1 != NULL) {
-        ReadM(fp1, &subhmm);
-        subhmm.K = cflg + lflg + qflg * subhmm.M;
-        ReadHMM(fp1, &subhmm);
-        fclose(fp1);
-        for (j = 0; j < hmm.D[i]*2; j++){
-          gsl_matrix_set(hmm.mean_matrix, i, index+j, gsl_matrix_get(subhmm.mean_matrix, 0, j));
-          gsl_matrix_set(hmm.mean_matrix, hmm.M, index+j, gsl_matrix_get(subhmm.mean_matrix, 9, j));
-          gsl_matrix_set(hmm.mean_matrix, hmm.M+1, index+j, gsl_matrix_get(subhmm.mean_matrix, 10, j));
-        }
-        //for (j = 0; j < 4; j++){
-        //  gsl_matrix_set(hmm.mean_matrix, i, 2050+i*4+j, gsl_matrix_get(subhmm.mean_matrix, 0, hmm.D[i]*2+j));
-        //  gsl_matrix_set(hmm.mean_matrix, 80, 2050+i*4+j, gsl_matrix_get(subhmm.mean_matrix, 1, hmm.D[i]*2+j));
-        //  gsl_matrix_set(hmm.mean_matrix, 81, 2050+i*4+j, gsl_matrix_get(subhmm.mean_matrix, 2, hmm.D[i]*2+j));
-        //}
-      }
-      index+=hmm.D[i]*2;
-      i++;
-
-    }
-    fclose(fp);
-  }
-  
-     
   fp = fopen("test.txt", "w");	
   PrintHMM(fp, &hmm);
   fclose(fp);
@@ -371,13 +292,9 @@ int main (int argc, char **argv)
   CalMotifScore_P(&hmm, pwm_matrix, O1, P, peakPos);
   
   free_ivector(O1, T);
-  time = clock();
-  printf("time check0.2: %f \n", ((double)time) / CLOCKS_PER_SEC);
 
   obs_matrix = gsl_matrix_alloc(hmm.K, T);
-  //int i;
   gsl_vector * tmp_vector = gsl_vector_alloc(T);
-  
   for (i = 0; i < hmm.M; i++){
     gsl_matrix_get_row(tmp_vector, pwm_matrix, i);
     gsl_matrix_set_row(obs_matrix, i, tmp_vector);
@@ -392,15 +309,10 @@ int main (int argc, char **argv)
     gsl_matrix_set_row(obs_matrix, hmm.M+1, counts_vector);
     gsl_vector_free(counts_vector);
   }
-  
-  time = clock();
-  printf("time check0.3: %f \n", ((double)time) / CLOCKS_PER_SEC);
 
   hmm.thresholds = (double *) dvector(hmm.M);
   if (eflg) {
     fp = fopen(thresholdfile, "r");  //TODO: thresholds function
-
-    //fscanf(fp, "pi:\n");
     for (i = 0; i < hmm.M; i++) {
       fscanf(fp, "%lf\t", &(hmm.thresholds[i]));
     }
@@ -412,10 +324,7 @@ int main (int argc, char **argv)
     }
   }
   gsl_matrix * emission_matrix = gsl_matrix_alloc(hmm.N, T);
-  
-  time = clock();
-  printf("time check0.4: %f \n", ((double)time) / CLOCKS_PER_SEC);
-  
+
   if (hmm.model == 0) EmissionMatrix(&hmm, obs_matrix, P, peakPos, emission_matrix, T);
   if (hmm.model == 1) EmissionMatrix_mv(&hmm, obs_matrix, P, peakPos, emission_matrix, T);
   if (hmm.model == 2) EmissionMatrix_mv_reduce(&hmm, obs_matrix, P, peakPos, emission_matrix, T);
@@ -423,31 +332,20 @@ int main (int argc, char **argv)
   double **alpha = dmatrix(hmm.N, T);
   double **beta = dmatrix(hmm.N, T);
   double **gamma = dmatrix(hmm.N, T);
-  time = clock();
-  printf("time check e: %f \n", ((double)time) / CLOCKS_PER_SEC);
-  logprobf = dvector(P); 
+  logprobf = dvector(P);
   Forward_P(&hmm, T, alpha, logprobf, P, peakPos, emission_matrix);
-  time = clock();
-  printf("time check a: %f \n", ((double)time) / CLOCKS_PER_SEC);
   Backward_P(&hmm, T, beta, P, peakPos, emission_matrix);
-  time = clock();
-  printf("time check b: %f \n", ((double)time) / CLOCKS_PER_SEC);
   ComputeGamma_P(&hmm, T, alpha, beta, gamma);
-  time = clock();
-  printf("time checkg: %f \n", ((double)time) / CLOCKS_PER_SEC);
-  
   q = ivector(T);
   g = dvector(T);
   vprob = dvector(T);
   delta = dmatrix(T, hmm.N);
   psi = imatrix(T, hmm.N);
   logproba = dvector(P);
-  time = clock();
-  fprintf(stdout, "time check2: %f \n", ((double)time) / CLOCKS_PER_SEC);
+
   double  **posterior;
   posterior = dmatrix(T, hmm.N);
-  fprintf(stdout, "indexTF = %d\n", indexTF);
-  Viterbi(&hmm, T, g, alpha, beta, gamma, logprobf, delta, psi, q, 
+  Viterbi(&hmm, T, g, alpha, beta, gamma, logprobf, delta, psi, q,
           vprob, logproba, posterior, P, peakPos, emission_matrix);
   gsl_matrix_free(emission_matrix);
   free_dmatrix(delta, T, hmm.N);
@@ -455,10 +353,6 @@ int main (int argc, char **argv)
   free_dmatrix(alpha, hmm.N, T);
   free_dmatrix(beta, hmm.N, T);
 
-  time = clock();
-  fprintf(stdout, "time check3: %f \n", ((double)time) / CLOCKS_PER_SEC);
-  fprintf(stdout, "flg %d %d %d\n", pflg, aflg, bflg);
-  //fflush(stdout);
   int TF_end;
   if (pflg){
     if (aflg & bflg){
@@ -467,8 +361,6 @@ int main (int argc, char **argv)
         fprintf(stderr, "Error: File %s not valid \n", listfile1);
         exit (1);
       }
-      //PrintHMM(fp, &hmm);
-
       fp2 = fopen(listfile2, "w");
       if (fp2 == NULL) {
         fprintf(stderr, "Error: File %s not valid \n", listfile2);
@@ -492,8 +384,8 @@ int main (int argc, char **argv)
         fclose(fp2);
         strcat(hmmfile, "_viterbi_result_v.txt");
         fp1 = fopen(hmmfile, "w");
-        fp = fopen("../data/v_tmp_peak_with.bed",
-                   "r");//TODO:change the peak file
+        strcat(intsectfile,"_with.txt");
+        fp = fopen(intsectfile, "r");//TODO:change the peak file
         if (fp == NULL) {
           fprintf(stderr, "Error: File %s not valid \n", intsectfile);
           exit(1);
@@ -519,33 +411,17 @@ int main (int argc, char **argv)
 
   }
 
-  /*
-  fprintf(fp, "Viterbi  MLE log prob = %E\n", logproba);
-  fprintf(fp, "Optimal state sequence:\n");
-  fprintf(fp, "T= %d\n", T);
-  PrintSequence(fp, T, q);
-  fprintf(fp,"------------------------------------\n");
-  fprintf(fp,"The two log probabilites and optimal state sequences\n");
-  fprintf(fp,"should identical (within numerical precision). \n");
-  */
-  //char tmp_str[1000]; 
-  //sprintf(tmp_str, "%d", T);
-  //strcat(tmp_str, hmmfile);
-
-  //PrintProb(fp, P, posterior2); 
   free_ivector(q, T);
-  //free_ivector(O1, T);
-  //free_dvector(O2, T);
-
   free_imatrix(psi, T, hmm.N);
-
   FreeHMM(&hmm);
 }
 
 void Usage(char *name)
 {
   printf("Usage error. \n");
-  printf("Usage: %s [-v] -H <mod.hmm> -Q <file.seq> -C <file.counts> -L <file.slop> -O <file.out> -R <list.out>\n", name);
+  printf("Usage: %s [-v] -Q <seq.file> -L <slope.file> -C <counts.file> -I <init.model.file> "
+         "-O <final.model.file> -P <peak_6.file> -A <output1.file> -B <output2.file> "
+         "-T <thread.num>\n", name);
   printf("  mod.hmm - file with the model parameters\n");
   printf("  file.counts - file containing the obs. tag counts\n");
   printf("  file.seq - file containing the obs. sequence\n");

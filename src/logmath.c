@@ -6,8 +6,6 @@
 #include "const.h"
 #include <omp.h>
 
-#define TINY 1.0e-20;
-
 double log_2(const double x){
   return log(x) * D_LOG2E;
 }
@@ -76,11 +74,7 @@ double MultiVarNormDist(double **mean, int j, double **covar,
   double **inv = dmatrix(size, size);
   inverse(covar, size, inv);
   int i;
-  //if (!(covar[1][1]==covar[1][1])){ 
-    //fprintf(stdout, "MultiVarNormDistNAN %d\t",j);
-    //printMatrix(stdout,covar, size, size); 
-  //}
-  
+
   for (i = 0; i < size; i++) {
     diff[i][0] = data[i] - mean[i][j];
   }
@@ -101,14 +95,6 @@ double MultiVarNormDist(double **mean, int j, double **covar,
   free_dmatrix(inv, size,  size);
   free_dmatrix(temp, 1, size);
   free_dmatrix(diffTrans, 1, size);
-  /*
-                        for (i = 1; i <= size; i++) {
-                          fprintf(stdout,"%lf\t", data[i]);
-                        }
-                        for (i = 1; i <= size; i++) {
-                          fprintf(stdout,"%lf\t", mean[i][j]);
-                        }
-                        printMatrix(covar, size, size);*/
   return pNorm;
 }
 
@@ -124,17 +110,15 @@ double MultiVarNormDist_2(double **mean, int j, double **inv, double det,
     diffTrans[0][i] = diff[i][0] = data[i] - mean[i][j];
   }
   
-  //transpose(diff, size, 1, diffTrans);
   double **temp = dmatrix(1, size);
   matrixMultip(1, size, size, diffTrans, inv, temp);
   /*multivariance normal distribution density function*/
   //pNorm = (exp(-0.5 * matrixMultip_1(size, temp, diff))/
   //        (pow(SQRT_TWO_PI, size) * sqrt(det))) * 100000000 + 0.000000000000001; 
-                         //pNorm can be extremly small that system can compare, 
+                         //pNorm can be extremely small that system cannot compare,
                          //so *100000000 to make sure they won't be the same tiny number
   pNorm = (-0.5 * matrixMultip_1(size, temp, diff))-
           log(pow(SQRT_TWO_PI, size) * sqrt(det));
-          
   if (!(pNorm==pNorm)){
     fprintf(stdout, "MultiVarNormDistNAN %lf\t",det);
     printMatrix(stdout,inv, size, size);  
@@ -142,7 +126,6 @@ double MultiVarNormDist_2(double **mean, int j, double **inv, double det,
   }    
   
   free_dmatrix(diff,size, 1);
-  //free_dmatrix(inv, size,  size);
   free_dmatrix(temp, 1, size);
   free_dmatrix(diffTrans, 1, size);
  
@@ -158,13 +141,12 @@ void ludcmp(double **a, int n, int *indx, double *d)
   *d=1.0; //No row interchanges yet.
   for (i=0;i<n;i++) { //Loop over rows to get the implicit scaling information.
     big=0.0;
-
     for (j=0;j<n;j++)
       if ((temp=fabs(a[i][j])) > big) big=temp;
     if (big == 0.0) nrerror("Singular matrix in routine ludcmp"); //No nonzero largest element.
     vv[i]=1.0/big; //Save the scaling.
   }
-  for (j=0;j<n;j++) { //This is the loop over columns of Crout’s method.
+  for (j=0;j<n;j++) { //This is the loop over columns of Croutï¿½s method.
     for (i=0;i<j;i++) { //except for i = j.
       sum=a[i][j];
       for (k=0;k<i;k++) sum -= a[i][k]*a[k][j];
@@ -231,22 +213,19 @@ void inverse_det_lu(double  **a, int n, double **inv, double *det)
   double **y,d,*col;
   int i,j,*indx;
   indx=ivector(n);
-  ludcmp(a,n,indx,&d); //This returns d as ±1
-  //printMatrix(stdout, a,n, n);
+  ludcmp(a,n,indx,&d); //This returns d as ï¿½1
   col=dvector(n);
-  //y=dmatrix(n,n);
-  //for(i=0;i<n;i++) printf("%d ",indx[i]);
   for(j=0;j<n;j++) { //Find inverse by columns.
     d *= a[j][j];
     for(i=0;i<n;i++) col[i]=0.0;
     col[j]=1.0;
     lubksb(a,n,indx,col);
-    //for(i=0;i<n;i++) printf("%e ",col[i]);
     for(i=0;i<n;i++) inv[i][j]=col[i];
   }
   *det = d;
   
 }
+
 double determinant(double **matrix, int size)
 {
   
@@ -271,11 +250,8 @@ double determinant(double **matrix, int size)
     return(determinant_2(matrix,size));
     
   }
-  //else {
- // if (size > 10){
   printf("det: %d ", size);
   fflush(stdout);
-//  }
   d = 0;
   #pragma omp task shared(d) private(j1, i, j2, m)
          {
@@ -293,9 +269,7 @@ double determinant(double **matrix, int size)
                j2++;
             }
          }
-         
-           //x = determinant(m,size-1);
-         
+
          d += pow(-1.0,1.0+j1+1.0) * matrix[0][j1] * determinant(m,size-1);
          
          
@@ -305,13 +279,7 @@ double determinant(double **matrix, int size)
       }
       }
       #pragma omp taskwait
-    //if (!(d==d)){
-    //fprintf(stdout, "determinantNAN %lf\t",d);
-    
-    //}
-  
     return(d);
-  //}
 }
 
 double determinant_2(double **matrix, int size)
@@ -348,63 +316,14 @@ double determinant_2(double **matrix, int size)
             free(m[i]);
          free(m);
       }
-    //if (!(d==d)){
-    //fprintf(stdout, "determinantNAN %lf\t",d);
-    
-    //}
-  
     return(d);
   }
 }
 
-/*
-double determinant(double **matrix, int size)
-{
-  int i,j,j1,j2;
-  double d = 0;
-  double **m = NULL;
-  
-  if (size == 1){
-    d = matrix[0][0];
-    return(d);
-  }
-  else if (size==2){
-    d=(matrix[0][0]*matrix[1][1])-(matrix[0][1]*matrix[1][0]);
-    return(d);
-  }
-  else {
-    d = 0;
-      for (j1=0;j1<size;j1++) {
-         m = malloc((size-1)*sizeof(double *));
-         for (i=0;i<size-1;i++)
-            m[i] = malloc((size-1)*sizeof(double));
-         for (i=1;i<size;i++) {
-            j2 = 0;
-            for (j=0;j<size;j++) {
-               if (j == j1)
-                  continue;
-               m[i-1][j2] = matrix[i][j];
-               j2++;
-            }
-         }
-         d += pow(-1.0,1.0+j1+1.0) * matrix[0][j1] * determinant(m,size-1);
-         for (i=0;i<size-1;i++)
-            free(m[i]);
-         free(m);
-      }
-    //if (!(d==d)){
-    //fprintf(stdout, "determinantNAN %lf\t",d);
-    
-    //}
-  
-    return(d);
-  }
-}
-*/
+
 void cofactor(double **matrix, int size, double **fac)
 {
   double ** b = dmatrix(size-1, size-1);
-  //double ** fac = dmatrix(1, size, 1, size);
   double x;
   int p,q,m,n,i,j;
   for (q = 0; q < size; q++) {
@@ -443,37 +362,6 @@ void cofactor(double **matrix, int size, double **fac)
     
 }
 
-/*
-void cofactor(double **matrix, int size, double **fac)
-{
-  double ** b = dmatrix(size-1, size-1);
-  //double ** fac = dmatrix(1, size, 1, size);
- 
-  int p,q,m,n,i,j;
-  for (q = 0; q < size; q++) {
-    for (p = 0; p < size; p++) {
-      m=0;
-      
-      for (i = 0; i < size; i++) {
-        if (i != q){
-          n=0;
-          for (j = 0; j < size; j++) {
-            if (j != p) {
-              b[m][n] = matrix[i][j];
-              n++;
-            }
-          }     
-          m++;
-        }
-        
-      }
-      fac[q][p]=pow(-1,q + p) * determinant(b,size-1);
-    }
-  }
-  free_dmatrix(b, size-1, size-1);    
-    
-}
-*/
 /*Finding transpose of matrix of (size1 x size2)*/
 void transpose(double **matrix, int size1, int size2, double **trans)
 {
