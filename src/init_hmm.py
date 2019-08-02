@@ -1,8 +1,13 @@
 #!/usr/bin/env python
+
+##-----------------------------------------------------------------------------##
+##  generate initial model for TRACE                                           ##
+##                                                                             ##
+##-----------------------------------------------------------------------------##
+
 import numpy as np
 import pandas
-import math
-import sys
+import argparse
 import re
 import os
 
@@ -20,7 +25,7 @@ def pfm2pwm(pfm):
 
 def read_pfm(inFile):
   pfm = []
-  lAdjust = re.compile('[ATCG]\t\[')
+  #lAdjust = re.compile('[ATCG]\t\[')
   p = re.compile('\d+')
   for line in inFile:
     if line.startswith(">"):
@@ -137,12 +142,12 @@ def eMatrix_all_top(outFile, lenList):
     while j < i:
       print('-2.5 ' * lenList[j], file = outFile, end='')
       j += 1
-      print('2.0 ' * lenList[i], file = outFile, end = '')
-      j = i + 1
-      while j > i and j < len(lenList):
-        print('-2.5 ' * lenList[j], file = outFile, end = '')
-        j += 1
-      print('-5.0 ' * extraState, file = outFile)
+    print('2.0 ' * lenList[i], file = outFile, end = '')
+    j = i + 1
+    while j > i and j < len(lenList):
+      print('-2.5 ' * lenList[j], file = outFile, end = '')
+      j += 1
+    print('-5.0 ' * extraState, file = outFile)
 
   print('0.0 ' * sum(lenList), file = outFile, end = '')
   print('2.0 0.0 -2.0 ' * 2 + '0.0 ' * (extraFP + 2), file = outFile)
@@ -154,6 +159,17 @@ def eMatrix_all_top(outFile, lenList):
 
 
 def main():
+  parser = argparse.ArgumentParser()
+  # Optional parameters
+  parser.add_argument("--motif-number", type=int, dest="motif_num", default=9,
+                      help='number of extra motifs in model, DEFAULT: 9')
+
+  # Required input
+  parser.add_argument(dest="TF", metavar="transcription factor",
+                      type=str, help='transcription factor of interest')
+
+  args = parser.parse_args()
+
   lenList = []
   pwmList = []
   motifList = []
@@ -166,24 +182,21 @@ def main():
     motif_info = pandas.read_table(inFile,header=None)
   with open(cluster_info_file, "r") as inFile:
     cluster_info = pandas.read_table(inFile, header=None)
-  TF = sys.argv[1]
-  cluster = motif_info.iloc[np.where(motif_info[0] == TF)].iloc[0,2]
+
+  jaspar = motif_info.iloc[np.where(motif_info[0] == args.TF)].iloc[0, 1]
+  cluster = motif_info.iloc[np.where(motif_info[0] == args.TF)].iloc[0, 2]
   rank = np.where(cluster_info[0] == cluster)[0][0]
   cluster_info = cluster_info.drop([rank])[:9]
-  fileList.append(os.path.join(os.path.dirname(__file__), '../data/motif/',
-                               TF , '.jaspar'))
-  for motif in cluster_info[:5][0]:
-    print(motif)
-    fileList.append(os.path.join(os.path.dirname(__file__), '../data/motif/',
-                                 motif[1], '.jaspar'))
-    motifList.append(motif[0])
+  fileList.append(os.path.dirname(__file__) + '/../data/motif/' + jaspar + '.jaspar')
+  for motif in cluster_info[:9][0]:
+    #print(motif)
+    fileList.append(os.path.dirname(__file__) + '/../data/motif/' + motif + '_root.jaspar')
+    motifList.append(motif)
 
-  print(any(motifList.count(x) > 1 for x in motifList))
   for filename in fileList:
     if os.path.isfile(filename):
       with open(filename, "r") as inFile:
         header, pfm = read_pfm(inFile)
-        print(header, pfm)
         pwm = pfm2pwm(pfm)
         pwmList.append(pwm)
         lenList.append(len(pwm))
@@ -191,9 +204,8 @@ def main():
       print('file path invalid' + filename)
 
   transition_t = build_transition_all_top(lenList)
-  print(transition_t)
   matrix, sumLen = tMatrix_table(transition_t)
-  fileName = sys.argv[2]
+  fileName = os.path.dirname(__file__) + '/../data/' + args.TF + '_init_model.txt'
   with open(fileName, "w") as outFile:
     print('M= ', len(lenList), file = outFile)
     print('N= ', len(transition_t), file = outFile)
