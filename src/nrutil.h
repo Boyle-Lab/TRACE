@@ -5,9 +5,7 @@
 **              and Vetterling.
 **              state sequence and probablity of observing a sequence
 **              given the model.
-**      Organization: University of Maryland
 **
-**      $Id: nrutil.h,v 1.2 1998/02/19 16:32:42 kanungo Exp kanungo $
 */
 
 float *vector();
@@ -29,3 +27,7 @@ void free_convert_matrix();
 void nrerror();
 void copyRow();
 void copyMatrix();
+void printMatrix();
+void printVector();
+void printfMatrix();
+double listInsertnMax();

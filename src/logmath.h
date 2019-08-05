@@ -2,7 +2,6 @@
 #define _LOGMATH_H_
 #include <math.h>
 #include <stdio.h>
-#include "const.h"
 
 double log_2(const double x);
 

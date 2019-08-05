@@ -1,4 +1,15 @@
-#include <stdio.h> 
+/*
+ *  File: sequence.c
+ *
+ *  functions involved in parameter calculation including emission probability,
+ *  motif scores and other model parameters.
+ *
+ *  The HMM structure and some codes are borrowed and modified from Kanungo's
+ *  original HMM program.
+ *
+ */
+
+#include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>

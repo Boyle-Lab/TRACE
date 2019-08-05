@@ -1,8 +1,12 @@
 /*
-**      File:   fwd_bwd.c
-**      forward-backward algorithm
-**
-*/
+ *  File: fwd_bwd.c
+ *
+ *  forward-backward algorithm
+ *
+ *  The HMM structure and some codes are borrowed and modified from Kanungo's
+ *  original HMM program.
+ *
+ */
 
 #include <stdio.h>
 #include <math.h>

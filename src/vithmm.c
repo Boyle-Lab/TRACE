@@ -1,3 +1,13 @@
+/*
+ *  File: vithmm.c
+ *
+ *  The main function of viterbi step in TRACE.
+ *
+ *  The HMM structure and some codes are borrowed and modified from Kanungo's
+ *  original HMM program.
+ *
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -20,24 +30,27 @@ void Usage(char *name);
 
 int main (int argc, char **argv)
 {
+  /* The following are read from input files */
   FILE	*fp,*fp1,*fp2;
-  clock_t time;
-  int 	t, T, range, i, j; 
   HMM  	hmm;
-  int	*O1;	/* observation sequence O[1..T] */
-  double *O2, *O3;
-  double *GC;
+  int	*O1; /* observation sequence of PWM scores O[1..T] */
+  double *O2, *O3; /* observation sequence of counts and slopes O[1..T] */
+  double *GC; /* GC content */
+  int T; /* Total length*/
+  int P; /* total number of peaks */
+  int *peakPos; /* Starting location of each peaks*/
+
   double **delta, *vprob;
-  double 	proba, *logproba; 
-  double	*logprobf;
+  double proba, *logproba;
+  double *logprobf;
   double *g; 
   int **pos;
-  
-  int P;
-  int *peakPos;
   int	*q;	/* state sequence q[1..T] */
   int	**psi;
-  
+
+  int 	t, range, i, j;
+
+  /* Get all command-line options */
   int	errflg=0, hflg=0, cflg=0, qflg=0, lflg=0, oflg=0, rflg=0, sflg=0, vflg=0;
   int	tflg=0, pflg=0, zflg=0, nflg=0, dflg=0, aflg=0, bflg=0, eflg=0, xflg=0;
   extern char *optarg;
@@ -232,7 +245,6 @@ int main (int argc, char **argv)
     fclose(fp);
   }
   
-  
   if (lflg){
     /* read the slop file */
     fp = fopen(slopfile, "r");
@@ -288,11 +300,11 @@ int main (int argc, char **argv)
   fclose(fp);
   fprintf(stdout, "M: %d T:%d K: %d\n", hmm.M,T,hmm.K);
 
+  /* Calculate PWM scores for each motif at each position */
   pwm_matrix = gsl_matrix_alloc(hmm.M, T);
   CalMotifScore_P(&hmm, pwm_matrix, O1, P, peakPos);
-  
   free_ivector(O1, T);
-
+  /* Put PWM scores, counts and/or slope into a matrix */
   obs_matrix = gsl_matrix_alloc(hmm.K, T);
   gsl_vector * tmp_vector = gsl_vector_alloc(T);
   for (i = 0; i < hmm.M; i++){
@@ -323,15 +335,17 @@ int main (int argc, char **argv)
       hmm.thresholds[i] = -INFINITY;
     }
   }
-  gsl_matrix * emission_matrix = gsl_matrix_alloc(hmm.N, T);
 
+  /* Calculate emission probabilities */
+  gsl_matrix * emission_matrix = gsl_matrix_alloc(hmm.N, T);
   if (hmm.model == 0) EmissionMatrix(&hmm, obs_matrix, P, peakPos, emission_matrix, T);
   if (hmm.model == 1) EmissionMatrix_mv(&hmm, obs_matrix, P, peakPos, emission_matrix, T);
   if (hmm.model == 2) EmissionMatrix_mv_reduce(&hmm, obs_matrix, P, peakPos, emission_matrix, T);
-  
+
   double **alpha = dmatrix(hmm.N, T);
   double **beta = dmatrix(hmm.N, T);
   double **gamma = dmatrix(hmm.N, T);
+  double  **posterior = dmatrix(T, hmm.N);
   logprobf = dvector(P);
   Forward_P(&hmm, T, alpha, logprobf, P, peakPos, emission_matrix);
   Backward_P(&hmm, T, beta, P, peakPos, emission_matrix);
@@ -343,8 +357,7 @@ int main (int argc, char **argv)
   psi = imatrix(T, hmm.N);
   logproba = dvector(P);
 
-  double  **posterior;
-  posterior = dmatrix(T, hmm.N);
+  /* Viterbi step */
   Viterbi(&hmm, T, g, alpha, beta, gamma, logprobf, delta, psi, q,
           vprob, logproba, posterior, P, peakPos, emission_matrix);
   gsl_matrix_free(emission_matrix);
@@ -410,7 +423,6 @@ int main (int argc, char **argv)
     }
 
   }
-
   free_ivector(q, T);
   free_imatrix(psi, T, hmm.N);
   FreeHMM(&hmm);
@@ -419,13 +431,12 @@ int main (int argc, char **argv)
 void Usage(char *name)
 {
   printf("Usage error. \n");
-  printf("Usage: %s [-v] -Q <seq.file> -L <slope.file> -C <counts.file> -I <init.model.file> "
+  printf("Usage: %s [-v] -Q <seq.file> -L <slope.file> -C <counts.file> "
          "-O <final.model.file> -P <peak_6.file> -A <output1.file> -B <output2.file> "
          "-T <thread.num>\n", name);
-  printf("  mod.hmm - file with the model parameters\n");
   printf("  file.counts - file containing the obs. tag counts\n");
-  printf("  file.seq - file containing the obs. sequence\n");
-  printf("  file.slop - file containing the obs. slop\n");
-  printf("  file.out - output file containing the learned HMM and states at each base\n");
-  printf("  list.out - output file containing list of states at each base, probbability\n");
+  printf("  sequence.file - file containing the obs. sequence\n");
+  printf("  slope.file - file containing the obs. slope\n");
+  printf("  peak.file - file containing regions to detect TFBSs\n");
+  printf("  final.model.file - output file containing the learned HMM\n");
 }

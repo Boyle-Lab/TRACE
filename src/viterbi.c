@@ -1,3 +1,13 @@
+/*
+ *  File: viterbi.c
+ *
+ *  viterbi step and hidden states labeling.
+ *
+ *  The HMM structure and some codes are borrowed and modified from Kanungo's
+ *  original HMM program.
+ *
+ */
+
 #include <math.h>
 #include "hmm.h"
 #include "nrutil.h"

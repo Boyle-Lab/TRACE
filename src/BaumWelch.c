@@ -1,8 +1,17 @@
-#include <stdio.h> 
+/*
+ * File: BaumWelch.c
+ *
+ * Baum-Welch algorithm for HMM training.
+ *
+ * The HMM structure and some codes are borrowed and modified from Kanungo's
+ * original HMM program.
+ *
+ */
+
+#include <stdio.h>
 #include "nrutil.h"
 #include "hmm.h"
 #include <math.h>
-#include "const.h"
 #include "logmath.h"
 #include <time.h>
 #include <omp.h>
@@ -16,7 +25,7 @@
 
 #define DELTA 0.001
 
-void BaumWelch(HMM *phmm, int T, gsl_matrix * obs_matrix, int *pniter, int P, 
+void BaumWelch(HMM *phmm, int T, gsl_matrix * obs_matrix, int *pniter, int P,
                int *peakPos, double *logprobf, double **alpha, double **beta, 
                double **gamma, gsl_matrix * emission_matrix)
 {

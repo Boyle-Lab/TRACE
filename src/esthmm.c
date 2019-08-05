@@ -1,4 +1,14 @@
-#include <stdio.h> 
+/*
+ *  File: esthmm.c
+ *
+ *  The main function of training step in TRACE.
+ *
+ *  The HMM structure and some codes are borrowed and modified from Kanungo's
+ *  original HMM program.
+ *
+ */
+
+#include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
@@ -12,36 +22,34 @@ void Usage(char *name);
 
 int main (int argc, char **argv)
 {
-  clock_t time, start_t, end_t;
-  start_t = clock();
-  /*the following are read from input files*/
-  FILE	*fp, *fp1, *fp2;
-  HMM  	hmm;
-  int k;
+  /* The following are read from input files */
+  FILE *fp, *fp1, *fp2;
+  HMM hmm;
   int P; /* total number of peaks */
-  int *peakPos; /*starting location of each peaks*/
+  int *peakPos; /* Starting location of each peaks*/
                 /*there two are used to seperate values from each peak in concatenated data*/
-  
-  int	niter; /*numbers of iterations, might need to set a max later*/
-  int	seed; /* seed for random number generator */
-  int T; /*total length*/
-  gsl_vector * slop_vector, *counts_vector; 
-  gsl_matrix *pwm_matrix, *obs_matrix; 
- 
+  int T; /* Total length*/
   int *O1; /* sequence, represented by number, 1=A, 2=C, 3=G, 4=T */
-           /*right now, there are only two observations: slop and sequence
-           might need to change the structure if more data are used in the future*/
-  double *GC;/*GC content*/
-  /* get all input */
+  double *GC; /* GC content */
+  gsl_matrix *pwm_matrix, *obs_matrix; /* matrix of PWM scores, and observation data
+             /* right now, there are only three observations: counts, slop and sequence
+              might need to change the structure if more data are used in the future*/
+  gsl_vector * slop_vector, *counts_vector;
+
+  int niter; /*numbers of iterations, might need to set a max later*/
+  int seed; /* seed for random number generator */
+  int i, k;
+
+  /* Get all command-line options */
   int c, w = 0, indexTF, readFile = 0;
-  int	errflg =0, iflg=0, sflg=0, cflg=0, qflg=0, lflg=0, oflg=0, vflg=0;
+  int errflg =0, iflg=0, sflg=0, cflg=0, qflg=0, lflg=0, oflg=0, vflg=0;
   int mflg=0, kflg=0, wflg=0, zflg=0, nflg=0, aflg =0, bflg =0, pflg =0, eflg=0;
   int dflg=0, tflg = 0, rflg = 0, hflg = 0, fflg=0;
   extern int optind, opterr, optopt;
   extern char *optarg;
-  char	*hmminitfile, *slopinitfile, *countsinitfile, *seqinitfile;
-  char	*listfile1, *listfile2, intsectfile[50], outfile[50], *TPfile;
-  char  *thresholdfile, *pValuefile;
+  char *hmminitfile, *slopinitfile, *countsinitfile, *seqinitfile;
+  char *listfile1, *listfile2, intsectfile[50], outfile[50], *TPfile;
+  char *thresholdfile, *pValuefile;
   int ifMulti = 2, ifDbl=1, ifSet = 1, peakLength = 2;
   intsectfile[0] = '\0';
   outfile[0] = '\0';
@@ -254,8 +262,8 @@ int main (int argc, char **argv)
     errflg++; 
   }
   if (errflg) {
-		Usage(argv[0]);
-		exit (1);
+    Usage(argv[0]);
+    exit (1);
   }
   if (qflg){
     /* read the observed sequence */
@@ -338,11 +346,12 @@ int main (int argc, char **argv)
   }
   fprintf(stdout, "extra: %d M: %d N: %d T:%d K: %d\n", hmm.extraState,hmm.M,hmm.N,T,hmm.K);
 
+  /* Calculate PWM scores for each motif at each position */
   if (hmm.M > 0){
     pwm_matrix = gsl_matrix_alloc(hmm.M, T);
     CalMotifScore_P(&hmm, pwm_matrix, O1, P, peakPos);
   }
-
+/*
   int i, j, index;
   gsl_vector * tmp_vector = gsl_vector_alloc(T);
   index = 0;
@@ -407,8 +416,9 @@ int main (int argc, char **argv)
     covarMatrix_GSL(&hmm, i, hmm.cov_matrix[i]);
   }
   free_ivector(O1, T);
-  time = clock();
-  printf("time check0.2: %f \n", ((double)time) / CLOCKS_PER_SEC);
+*/
+  /* Put PWM scores, counts and/or slope into a matrix */
+  gsl_vector * tmp_vector = gsl_vector_alloc(T);
   obs_matrix = gsl_matrix_alloc(hmm.K, T);
   for (i = 0; i < hmm.M; i++){
     gsl_matrix_get_row(tmp_vector, pwm_matrix, i);
@@ -426,6 +436,8 @@ int main (int argc, char **argv)
     gsl_matrix_free(pwm_matrix);
     gsl_vector_free(tmp_vector);
   }
+
+  /* Check required files are valid */
   fp = fopen(outfile, "w");
   if (fp == NULL) {
     fprintf(stderr, "Error: File %s not valid \n", outfile);
@@ -466,6 +478,8 @@ int main (int argc, char **argv)
       hmm.thresholds[i] = -INFINITY;
     }
   }
+
+  /* Start training step */
   double **alpha = dmatrix(hmm.N, T);
   double **beta = dmatrix(hmm.N, T);
   double **gamma = dmatrix(hmm.N, T);
@@ -473,14 +487,13 @@ int main (int argc, char **argv)
                                         for each peak*/
   gsl_matrix * emission_matrix = gsl_matrix_alloc(hmm.N, T);
   BaumWelch(&hmm, T, obs_matrix, &niter, P, peakPos, logprobf, alpha, beta, gamma, emission_matrix);
-  /* print the answer */
-  //PrintHMM(stdout, &hmm);
   gsl_matrix_free(obs_matrix);
   fp = fopen(outfile, "w");
+  /* Print the final model */
   PrintHMM(fp, &hmm);
   fclose(fp);
   
-  /* viterbi */
+  /* Viterbi step */
   int	*q = ivector(T);	/* state sequence q[1..T] */
   int	**psi = imatrix(T, hmm.N);
   double *g = dvector(T);
@@ -538,8 +551,6 @@ int main (int argc, char **argv)
     }
 
   }
-  end_t = clock();
-  printf("start time: %f \nend time: %f \n", ((double)start_t) / CLOCKS_PER_SEC, ((double)end_t) / CLOCKS_PER_SEC);
 }
 
 

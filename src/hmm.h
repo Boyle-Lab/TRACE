@@ -88,10 +88,7 @@ void ReadHMM(FILE *fp, HMM *phmm);
 void PrintHMM(FILE *fp, HMM *phmm);
 void getRho(HMM *phmm);
 void FreeHMM(HMM *phmm); 
-void printMatrix(FILE *fp, double **matrix, int size1, int size2);
-void printVector(FILE *fp, double *matrix, int size);
-void printfMatrix(float **matrix, int size1, int size2);
-double listInsertnMax(double *list, double insert, int size);
+
 void ReadSequence(FILE *fp, int *pT, double *GC, int **pO, int *pP, 
                   int **peakPos);
                   

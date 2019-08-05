@@ -1,14 +1,26 @@
+/*
+ *  File: hmmutils.c
+ *
+ *  Some functions to handel model file.
+ *
+ *  The HMM structure and some codes are borrowed and modified from Kanungo's
+ *  original HMM program.
+ *
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include "nrutil.h"
 #include "hmm.h"
 
+/* Read the M parameter in model file */
 void ReadM(FILE *fp, HMM *phmm)
 {
   fscanf(fp, "M= %d\n", &(phmm->M)); 
 }
 
+/* Read parameters in a initial model file */
 void ReadInitHMM(FILE *fp, HMM *phmm)
 {
   int i, j, k, n, totalStates = 0;
@@ -16,6 +28,7 @@ void ReadInitHMM(FILE *fp, HMM *phmm)
   double tmp;
 
   fscanf(fp, "N= %d\n", &(phmm->N));
+  /* Read transition matrix */
   fscanf(fp, "A:\n");
   phmm->log_A_matrix = gsl_matrix_alloc(phmm->N, phmm->N);
   for (i = 0; i < phmm->N; i++) {
@@ -25,9 +38,9 @@ void ReadInitHMM(FILE *fp, HMM *phmm)
     }
     fscanf(fp,"\n");
   }
+  /* Read PWMs */
   phmm->D = (int *) ivector(phmm->M);
   phmm->pwm = (double ***)malloc(phmm->M*sizeof(double**));
-
   for (i = 0; i < phmm->M; i++) {
     fscanf(fp, "PWM: n=%d\n", &(phmm->D[i]));
     totalStates += phmm->D[i];
@@ -45,10 +58,12 @@ void ReadInitHMM(FILE *fp, HMM *phmm)
   phmm->var_matrix = gsl_matrix_alloc(phmm->K, phmm->N);
   phmm->pi = (double *) dvector(phmm->N);
   phmm->bg = (double *) dvector(4);
+  /* Read initial probability for each hidden state */
   fscanf(fp, "pi:\n");
   for (i = 0; i < phmm->N; i++){
     fscanf(fp, "%lf\t", &(phmm->pi[i]));
   }
+  /* Read initial means for each hidden state and each feature */
   fscanf(fp, "mu:\n");
   for (i = 0; i < phmm->K; i++) {
     for (j = 0; j < phmm->N; j++) {
@@ -57,6 +72,8 @@ void ReadInitHMM(FILE *fp, HMM *phmm)
     }
     fscanf(fp,"\n");
   }
+
+  /* Set initial covariance matrix */
   for (i = 0; i < phmm->K; i++) {
     for (j = 0; j < phmm->N ; j++) {
       gsl_matrix_set(phmm->var_matrix, i, j, 5.0);
@@ -82,13 +99,15 @@ void ReadInitHMM(FILE *fp, HMM *phmm)
   }
 }
 
+/* Read parameters in a trained model file */
 void ReadHMM(FILE *fp, HMM *phmm)
 {
   int i, j, k, n, totalStates = 0;
   double sum;
   double tmp;  
   
-  fscanf(fp, "N= %d\n", &(phmm->N)); 
+  fscanf(fp, "N= %d\n", &(phmm->N));
+  /* Read transition matrix */
   fscanf(fp, "A:\n");
   phmm->log_A_matrix = gsl_matrix_alloc(phmm->N, phmm->N);
   for (i = 0; i < phmm->N; i++) {
@@ -98,9 +117,9 @@ void ReadHMM(FILE *fp, HMM *phmm)
     }
     fscanf(fp,"\n");
   }
+  /* Read PWMs */
   phmm->D = (int *) ivector(phmm->M);
   phmm->pwm = (double ***)malloc(phmm->M*sizeof(double**));
-
   for (i = 0; i < phmm->M; i++) {
     fscanf(fp, "PWM: n=%d\n", &(phmm->D[i]));
     totalStates += phmm->D[i];
@@ -118,10 +137,12 @@ void ReadHMM(FILE *fp, HMM *phmm)
   phmm->var_matrix = gsl_matrix_alloc(phmm->K, phmm->N);
   phmm->pi = (double *) dvector(phmm->N);
   phmm->bg = (double *) dvector(4);
+  /* Read initial probability for each hidden state */
   fscanf(fp, "pi:\n");
   for (i = 0; i < phmm->N; i++){
     fscanf(fp, "%lf\t", &(phmm->pi[i])); 
   }
+  /* Read means for each hidden state and each feature */
   fscanf(fp, "mu:\n");
   for (i = 0; i < phmm->K; i++) {
     for (j = 0; j < phmm->N; j++) {
@@ -130,6 +151,7 @@ void ReadHMM(FILE *fp, HMM *phmm)
     }
     fscanf(fp,"\n");
   }
+  /* Read variance, correlation and set covariance matrix */
   fscanf(fp, "sigma:\n");
   for (i = 0; i < phmm->K; i++) {
     for (j = 0; j < phmm->N ; j++) {
@@ -138,7 +160,6 @@ void ReadHMM(FILE *fp, HMM *phmm)
     }
     fscanf(fp,"\n");
   }
-  
   if (phmm->model == 1 || phmm->model == 2){
   phmm->rho = (double **) dmatrix(phmm->K*(phmm->K-1)/2, phmm->N);
   phmm->cov_matrix = (gsl_matrix **)malloc((phmm->N)*sizeof(gsl_matrix *));
@@ -156,6 +177,7 @@ void ReadHMM(FILE *fp, HMM *phmm)
   }
 }
 
+/* Free menmory */
 void FreeHMM(HMM *phmm)
 {
   int i;
@@ -256,6 +278,7 @@ void PrintHMM(FILE *fp, HMM *phmm)
   }
 }
 
+/* Calculate corralation */
 void getRho(HMM *phmm){
   int i ,n, m, x;
   for (i = 0; i < phmm->N; i++) {
@@ -277,51 +300,6 @@ void getRho(HMM *phmm){
   }
 }
 
-/*print a matrix of (size1 x size2)*/
-void printMatrix(FILE *fp, double **matrix, int size1, int size2)
-{
-  int i,j;
-  for (i = 0; i < size1; i++){
-    for (j = 0; j < size2; j++){
-      fprintf(fp, "%lf\t", matrix[i][j]);   
-    }
-    fprintf(fp, "\n");
-  }
-}
-
-void printVector(FILE *fp, double *matrix, int size)
-{
-  int i,j;
-  for (i = 0; i < size; i++){
-    fprintf(fp, "%lf\t", matrix[i]);   
-  }
-  fprintf(fp, "\n");
-}
-
-/*print a matrix of (size1 x size2)*/
-void printfMatrix(float **matrix, int size1, int size2)
-{
-  int i,j;
-  for (i = 0; i < size1; i++){
-    for (j = 0; j < size2; j++){
-      fprintf(stdout, "%lf ", matrix[i][j]);   
-    }
-    fprintf(stdout, "\n");
-  }
-}
-
-double listInsertnMax(double *list, double insert, int size)
-{
-  int i;
-  double max = log(0.0);
-  for (i = (size - 1); i > 0; i--){
-    list[i] = list[i-1];
-    max = MAX(max, list[i]);
-  }
-  list[0] = insert;
-  max = MAX(max, list[0]);
-  return max;
-}
 
 
 

@@ -12,6 +12,8 @@
 #include <stdio.h>
 #include <stddef.h>
 #include <stdlib.h>
+#include "hmm.h"
+#include <math.h>
 
 void nrerror(error_text)
 char error_text[];
@@ -300,4 +302,61 @@ int nrl,ncl;
       mout[i][j]=min[i][j];
     }
   }
+}
+
+/*print a matrix of (size1 x size2)*/
+void printMatrix(fp, matrix, size1, size2)
+FILE *fp;
+double **matrix;
+int size1, size2;
+
+{
+	int i,j;
+	for (i = 0; i < size1; i++){
+		for (j = 0; j < size2; j++){
+			fprintf(fp, "%lf\t", matrix[i][j]);
+		}
+		fprintf(fp, "\n");
+	}
+}
+
+void printVector(fp, matrix, size)
+FILE *fp;
+double *matrix;
+int size;
+{
+	int i,j;
+	for (i = 0; i < size; i++){
+		fprintf(fp, "%lf\t", matrix[i]);
+	}
+	fprintf(fp, "\n");
+}
+
+/*print a matrix of (size1 x size2)*/
+void printfMatrix(matrix, size1, size2)
+float **matrix;
+int size1, size2;
+{
+	int i,j;
+	for (i = 0; i < size1; i++){
+		for (j = 0; j < size2; j++){
+			fprintf(stdout, "%lf ", matrix[i][j]);
+		}
+		fprintf(stdout, "\n");
+	}
+}
+
+double listInsertnMax(list, insert, size)
+double *list, insert;
+int size;
+{
+	int i;
+	double max = log(0.0);
+	for (i = (size - 1); i > 0; i--){
+		list[i] = list[i-1];
+		max = MAX(max, list[i]);
+	}
+	list[0] = insert;
+	max = MAX(max, list[0]);
+	return max;
 }

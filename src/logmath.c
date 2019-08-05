@@ -1,9 +1,18 @@
+/*
+ *  File: logmath.c
+ *
+ *  math functions and matrix processing fnuctions
+ *
+ *  The HMM structure and some codes are borrowed and modified from Kanungo's
+ *  original HMM program.
+ *
+ */
+
 #include <math.h>
 #include <stdio.h>
 #include "logmath.h"
 #include "nrutil.h"
 #include "hmm.h"
-#include "const.h"
 #include <omp.h>
 
 double log_2(const double x){
