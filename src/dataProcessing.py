@@ -1,14 +1,19 @@
 #!/usr/bin/env python3
-import os
-import sys
+
+##-----------------------------------------------------------------------------##
+##  Processes DNase-seq or ATAC-seq data, generate data files with required    ##
+##  format for TRACE                                                           ##
+##                                                                             ##
+##-----------------------------------------------------------------------------##
+
 from pysam import AlignmentFile
-import getopt
+import argparse
 import pybedtools
 from scipy.signal import savgol_filter
 import numpy as np
 import pandas
 from scipy.stats import scoreatpercentile
-from math import ceil, floor, exp
+from math import exp
 from sklearn.preprocessing import scale
 from rpy2.robjects import FloatVector, IntVector, globalenv
 from rpy2.robjects.packages import importr
@@ -171,27 +176,32 @@ class Signal:
     slope_1st = []
     for peak in self.bed:
       maximum = int(self.size[1][self.size[0] == peak[0]])
+      # Size of flanking region not exceeding genome size
       ext_l = 5000 if int(peak[1]) > 5000 else int(peak[1])
       ext_r = 5000 if int(peak[2]) + 5000 < maximum else maximum - int(peak[2])
       ext_l_50 = 50 if int(peak[1]) > 50 else int(peak[1])
       ext_r_50 = 50 if int(peak[2]) + 50 < maximum else maximum - int(peak[2])
+      # Count aligned reads at each position
       counts = self.count_read(peak, ext_l, ext_r, shift)
       counts_raw += counts[(ext_l + 1):(len(counts) - ext_r + 1)]
       mean = np.array(counts).mean()
       std = np.array(counts).std()
       counts = [min(x, mean + 10 * std) for x in counts]
-      if is_atac == 1:
+      # Bias correction
+      if is_atac == "se":
         counts_bc = self.bias_correction_atac(counts, peak, ext_l, ext_r)
-      elif is_atac == 2:
+      elif is_atac == "pe":
         counts_bc = self.bias_correction_atac_pe(counts, peak, ext_l, ext_r,
                                                  shift, -shift)
       else:
         counts_bc = self.bias_correction(counts, peak, ext_l, ext_r)
-
+      # Normalize read counts without bias correction by mean of surrounding 10kb
       counts = (self.within_norm(np.array(counts)).tolist())[(ext_l - ext_l_50):(len(counts) - ext_r + ext_r_50)]
+      # Smooth read counts without bias correction by local regression from R
       smoothed = loess_fromR(range(len(counts)), counts, 600 * span/len(counts))
       loessSignal += smoothed[(ext_l_50 + 1):(len(smoothed) - ext_r_50 + 1)]
 
+      # Normalize and smooth bias corrected read counts
       counts = self.within_norm(np.array(counts_bc)).tolist()
       perc = scoreatpercentile(np.array(counts), 98)
       std = np.array(counts).std()
@@ -202,6 +212,7 @@ class Signal:
       smoothedSignal = loess_fromR(range(len(normedSignals)), normedSignals,
                                    600 * span / len(normedSignals))
       bc_loess += smoothedSignal[(ext_l_50 + 1):(len(smoothedSignal) - ext_r_50 + 1)]
+      # Get the first and second derivatives
       slope_2nd += self.get_slope(smoothedSignal, derivative=2)[
                    (ext_l + 1):(len(smoothedSignal) - ext_r + 1)]
       slope_1st += self.get_slope(smoothedSignal, derivative=1)[
@@ -212,68 +223,47 @@ class Signal:
 
 
 def main():
-  try:
-    opts, args = getopt.getopt(sys.argv[1:], "hi:o:b:s:f:r:d:a:t:l:e:",
-                ["ifile=", "ofile=", "bfile=", "sfile=", "ffile=", "rfile=",
-                 "dfile=", "span=", "lFile=", "shift="])
-  except getopt.GetoptError:
-    print('dataProcessing.py -i <peak.file> -o <seq.file> -b <bamfile> '
-          '-s <genome.size> -f <fastafile> -r <count.file> -d <slope.file> '
-          '-a <span> -t')
-    sys.exit(2)
-  outputFile = False
-  is_atac = False
-  loessFile = False
-  shift = 0
-  for opt, arg in opts:
-    if opt == '-h':
-      print('dataProcessing.py -i <peak.file> -o <seq.file> -b <bamfile> '
-            '-s <genome.size> -f <fastafile> -r <count.file> -d <slope.file> '
-            '-a <span> -t')
-      sys.exit()
-    elif opt in ("-i", "--ifile"):
-      bedFile = arg
-    elif opt in ("-o", "--ofile"):
-      outputFile = arg
-    elif opt in ("-b", "--bfile"):
-      bamFile = arg
-    elif opt in ("-s", "--sfile"):
-      sizeFile = arg
-    elif opt in ("-f", "--ffile"):
-      fastaFile = arg
-    elif opt in ("-r", "--rfile"):
-      countFile = arg
-    elif opt in ("-d", "--dfile"):
-      slopeFile = arg
-    elif opt in ("-l", "--lFile"):
-      loessFile = arg
-    elif opt in ("-a", "--span"):
-      span = float(arg)
-    elif opt in ("-t", "--atac"):
-      is_atac = int(arg)
-    elif opt in ("-e", "--shift"):
-      shift = int(arg)
-  signal = Signal(bamFile, bedFile, sizeFile)
-  signal.load_sequence(fastaFile, outputFile)
-  signal.fastaFile = fastaFile
-  loessSignal, deriv2nd, deriv1st, bc_loess = signal.get_signal(span, is_atac, shift)
-  print(np.array(counts_raw).mean(), np.array(loessSignal).mean(),
-        np.array(deriv2nd).mean(), np.array(bc_loess).mean())
-  print(len(counts_raw), len(loessSignal), len(deriv2nd), len(deriv1st),
-        len(bc_counts), len(bc_within_normed), len(bc_loess))
-  if loessFile:
-    s = scale(bc_loess)
-    with open(loessFile, "w") as outFile:
-      for i in range(len(bc_loess)):
-        print(s[i], file=outFile)
-  with open(countFile, "w") as outFile:
+  parser = argparse.ArgumentParser()
+  # Optional parameters
+  parser.add_argument("--atac-seq", type=str, dest = "is_atac", default=False,
+                      choices=["pe", "se"],
+                      help="If set, ATAC-seq based data processing will be used. "
+                           "choose between two types: pair-end(pe) and single-end(se). "
+                           "DEFAULT: False")
+  parser.add_argument("--span", type=float, dest="span", default=0.05,
+                      help='span number for loess, DEFAULT: 0.05')
+  parser.add_argument("--prefix", type=str, dest = "prefix",
+                      default="TRACE",
+                      help="The prefix for results files. DEFAULT: TRACE")
+  parser.add_argument("--shift", type=int, dest = "shift", default=0,
+                      help="Number of bases for reads to be shifted")
+  # Required input
+  parser.add_argument(dest = "input_files", metavar="peak_3.file bam.file genome.size fasta.file",
+                      type=str, nargs='*', help='BED files of interesting regions, '
+                                                'BAM file of reads, genome size file, '
+                                                'sequence file ')
+  args = parser.parse_args()
+  if (len(args.input_files) < 4):
+    print("Error: missing requird files")
+    parser.print_help()
+    exit(1)
+
+  signal = Signal(args.input_files[1], args.input_files[0], args.input_files[2])
+  # Generate sequence file
+  signal.load_sequence(args.input_files[3], args.prefix + "seq.txt")
+  signal.fastaFile = args.input_files[3]
+  # Process DNase-seq or ATAC-seq data
+  loessSignal, deriv2nd, deriv1st, bc_loess = signal.get_signal(args.span, args.is_atac, args.shift)
+
+  # Generate count and slope files
+  with open(args.prefix + "_count.txt", "w") as outFile:
     s = scale(loessSignal)
     for i in range(len(loessSignal)):
       print(s[i], file=outFile)
-  with open(slopeFile+'_2.txt', "w") as outFile:
+  with open(args.prefix +'_slope_2.txt', "w") as outFile:
     for i in range(len(deriv2nd)):
       print(deriv2nd[i], file=outFile)
-  with open(slopeFile+'_1.txt', "w") as outFile:
+  with open(args.prefix +'_slope_1.txt', "w") as outFile:
     for i in range(len(deriv1st)):
       print(deriv1st[i], file=outFile)
   return

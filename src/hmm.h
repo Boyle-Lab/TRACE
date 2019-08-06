@@ -6,14 +6,14 @@
 
 typedef struct {
 /* make sure to put TF motif at the first states */
-  int N;		/* number of states;  Q={1,2,...,N} */
-  int M; 		/* number of TFs*/
+  int N; /* number of states;  Q={1,2,...,N} */
+  int M; /* number of TFs*/
   int K; /*number of values in each state. (slop and pwm scrore for each TF)*/
   int inactive;
-  int model; /*0:independent normal, 1: multivariance*/
-  int lPeak; /*length of states in peak*/
+  int model; /* 0: independent, 1: multivariance */
+  int lPeak; /* length of states in peak surrounding FPs */
   int extraState; /* number of states that are not FPs */
-  double **A;	/* A[1..N][1..N]. a[i][j] is the transition prob
+  double **A; /* A[1..N][1..N]. a[i][j] is the transition prob
 			   of going from state i at time t to state j
 			   at time t+1 */
   //int P; /*number of the peaks*/
@@ -26,10 +26,12 @@ typedef struct {
   double *bg; /*background percentage for ACGT */
   double	*pi;	/* pi[1..N] pi[i] is the initial state distribution. */
   double *thresholds; /* thresholds of pwm scores */
-  gsl_matrix ** cov_matrix;
-  gsl_matrix * mean_matrix;
-  gsl_matrix * var_matrix;
-  gsl_matrix * log_A_matrix;
+  gsl_matrix ** cov_matrix; /* N x N Covariance matrix */
+  gsl_matrix * mean_matrix; /* K x N mean matrix, each row is a vector of means
+                             * for each state for each feature*/
+  gsl_matrix * var_matrix; /* K x N standard deviation matrix, each row is a vector
+                            * of std for each state for each feature*/
+  gsl_matrix * log_A_matrix; /* N x N transition prob matrix */
 } HMM;
 
 /* BaumWelch.c */
@@ -57,8 +59,7 @@ void ComputeXi_sum_P(HMM* phmm, double **alpha, double **beta, double *xi_sum,
                    gsl_matrix * emission_matrix, int T);
 void ComputeGamma_P(HMM *phmm, int T, double **alpha, double **beta, 
                     double **gamma);
-void getParameters_all_P(FILE *fpIn, HMM *phmm, int T, gsl_matrix *obs_matrix, 
-                        int P, int *peakPos);                 
+
 /*fwd_bwd.c*/
 void Forward_P(HMM *phmm, int T, double **alpha, double *pprob, int P, 
                int *peakPos, gsl_matrix * emission_matrix);
@@ -87,10 +88,7 @@ void ReadInitHMM(FILE *fp, HMM *phmm);
 void ReadHMM(FILE *fp, HMM *phmm);
 void PrintHMM(FILE *fp, HMM *phmm);
 void getRho(HMM *phmm);
-void FreeHMM(HMM *phmm); 
-
-void ReadSequence(FILE *fp, int *pT, double *GC, int **pO, int *pP, 
-                  int **peakPos);
+void FreeHMM(HMM *phmm);
                   
 /* viterbi.c */
 void Viterbi(HMM *phmm, int T, double *g, double  **alpha, double	**beta, 
@@ -100,12 +98,8 @@ void Viterbi(HMM *phmm, int T, double *g, double  **alpha, double	**beta,
              gsl_matrix * emission_matrix);
 void getPosterior_P(FILE *fpIn, FILE *fpOut,int T, int *peakPos, 
                     double **posterior, int indexTF, HMM *phmm);
-int getPosterior_all_P(FILE *fpIn, FILE *fpOut1, FILE *fpOut2, int T, 
-                        int *peakPos, double **posterior,
-                        HMM *phmm, int *q, double *vprob);
-int getPosterior_one_P(FILE *fpIn, FILE *fpOut1, FILE *fpOut2, int index, int T,
-                       int *peakPos, double **posterior,
-                       HMM *phmm, int *q, double *vprob);
+int getPosterior_all_P(FILE *fpIn, FILE *fpOut, int T, int *peakPos,
+                       double **posterior, HMM *phmm, int *q, double *vprob);
 void getPosterior_labels(FILE *fpIn, FILE *fpOut, int T, int *q,
                          int *peakPos, double **posterior, HMM *phmm);
                                                                         

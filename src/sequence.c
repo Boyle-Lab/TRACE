@@ -45,37 +45,52 @@ quiet_sqrt (double x)
   return (x >= 0) ? sqrt(x) : GSL_NAN;
 }
 
+/* Read the sequence file to get length T, GC content, sequence O,
+ * number of peaks P and peak start position peakPos */
 void ReadSequence(FILE *fp, int *pT, double *GC, int **pO, int *pP, int **peakPos)
 {
-  int *O, *peaks;
+  int *O, unused_num, *peaks;
   int i;
-  fscanf(fp, "T= %d\n", pT);
-  fscanf(fp, "GC: ");
+  unused_num = fscanf(fp, "T= %d\n", pT);
+  unused_num = fscanf(fp, "GC: ");
   for (i = 0; i < 4; i++) {
-    fscanf(fp, "%lf\t", &GC[i]);
+    if(fscanf(fp, "%lf\t", &GC[i]) == EOF){
+      fprintf(stderr, "Error: sequence file error \n");
+      exit (1);
+    }
   }
-  fscanf(fp,"\n");
+  unused_num = fscanf(fp,"\n");
   O = ivector(*pT);
-  for (i=0; i < *pT; i++) {
-    fscanf(fp,"%d", &O[i]);
+  for (i = 0; i < *pT; i++) {
+    if(fscanf(fp,"%d", &O[i]) == EOF){
+      fprintf(stderr, "Error: sequence file error \n");
+      exit (1);
+    }
   }
-  fscanf(fp,"\n");
+  unused_num = fscanf(fp,"\n");
   *pO = O;
-  fscanf(fp, "P= %d\n", pP);
+  unused_num = fscanf(fp, "P= %d\n", pP);
   peaks = ivector(*pP + 1);
   for (i=0; i < *pP + 1; i++){
-    fscanf(fp,"%d", &peaks[i]);
+    if(fscanf(fp,"%d", &peaks[i]) == EOF){
+      fprintf(stderr, "Error: sequence file error \n");
+      exit (1);
+    }
   }
   *peakPos = peaks;
 }
 
-
+/* Read count or slope file to store numbers in data_vector,
+ * with a optional adjust, which is used to change the scale of original numbers*/
 void ReadTagFile(FILE *fp, int T, gsl_vector * data_vector, double adjust)
 {
   double tmp;
   int i;
   for (i=0; i < T; i++) {
-    fscanf(fp,"%lf\t", &tmp);
+    if(fscanf(fp,"%lf\t", &tmp) == EOF){
+      fprintf(stderr, "Error: input file error \n");
+      exit (1);
+    }
     gsl_vector_set(data_vector, i, tmp*adjust);
   }
 }
@@ -326,6 +341,7 @@ void EmissionMatrix_mv(HMM* phmm, gsl_matrix * obs_matrix, int P, int *peakPos,
 }
 
 /*compute emission probability on k-dimensional multivariate Gaussian distribution,
+ * the difference between this function and EmissionMatrix_mv is:
  * if a hidden state has a emission probability of Inf, that state will be removed*/
 void EmissionMatrix_mv_reduce(HMM* phmm, gsl_matrix * obs_matrix, int P, int *peakPos, 
                        gsl_matrix * emission_matrix, int T)
@@ -514,7 +530,7 @@ void EmissionMatrix_mv_reduce(HMM* phmm, gsl_matrix * obs_matrix, int P, int *pe
   } 
 }
 
-
+/* Calculate the covariance matrix based on known standard deviation and correlation */
 void covarMatrix_GSL(HMM *phmm, int state, gsl_matrix * cov_matrix)
 {
   int i, j, n, k;

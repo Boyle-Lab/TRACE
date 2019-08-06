@@ -17,39 +17,64 @@
 /* Read the M parameter in model file */
 void ReadM(FILE *fp, HMM *phmm)
 {
-  fscanf(fp, "M= %d\n", &(phmm->M)); 
+  if(fscanf(fp, "M = %d\n", &(phmm->M)) == EOF){
+    fprintf(stderr, "Error: model file error \n");
+    exit (1);
+  }
 }
 
 /* Read parameters in a initial model file */
 void ReadInitHMM(FILE *fp, HMM *phmm)
 {
-  int i, j, k, n, totalStates = 0;
+  int i, j, k, n, unused_num, totalStates = 0;
   double sum;
   double tmp;
 
-  fscanf(fp, "N= %d\n", &(phmm->N));
+  if(fscanf(fp, "N = %d\n", &(phmm->N)) == EOF){
+    fprintf(stderr, "Error: model file error \n");
+    exit (1);
+  }
+  if(fscanf(fp, "P = %d\n", &(phmm->lPeak)) == EOF){
+    fprintf(stderr, "Error: model file error \n");
+    exit (1);
+  }
+  if(fscanf(fp, "D = %d\n", &(phmm->inactive)) == EOF){
+    fprintf(stderr, "Error: model file error \n");
+    exit (1);
+  }
   /* Read transition matrix */
-  fscanf(fp, "A:\n");
-  phmm->log_A_matrix = gsl_matrix_alloc(phmm->N, phmm->N);
-  for (i = 0; i < phmm->N; i++) {
-    for (j = 0; j < phmm->N; j++) {
-      fscanf(fp, "%lf", &tmp);
-      gsl_matrix_set(phmm->log_A_matrix, i, j, log(tmp));
+  if(fscanf(fp, "A:\n") != EOF) {
+    phmm->log_A_matrix = gsl_matrix_alloc(phmm->N, phmm->N);
+    for (i = 0; i < phmm->N; i++) {
+      for (j = 0; j < phmm->N; j++) {
+        if (fscanf(fp, "%lf", &tmp) == EOF){
+          fprintf(stderr, "Error: model file error \n");
+          exit (1);
+        }
+        gsl_matrix_set(phmm->log_A_matrix, i, j, log(tmp));
+      }
+      unused_num = fscanf(fp, "\n");
     }
-    fscanf(fp,"\n");
+  }
+  else{
+    fprintf(stderr, "Error: model file error \n");
+    exit (1);
   }
   /* Read PWMs */
   phmm->D = (int *) ivector(phmm->M);
   phmm->pwm = (double ***)malloc(phmm->M*sizeof(double**));
   for (i = 0; i < phmm->M; i++) {
-    fscanf(fp, "PWM: n=%d\n", &(phmm->D[i]));
+    unused_num = fscanf(fp, "PWM: n=%d\n", &(phmm->D[i]));
     totalStates += phmm->D[i];
     phmm->pwm[i] = (double **) dmatrix(phmm->D[i], 4);
     for (j = 0; j < phmm->D[i]; j++) {
       for (k = 0; k < 4; k++) {
-        fscanf(fp, "%lf", &(phmm->pwm[i][j][k]));
+        if(fscanf(fp, "%lf", &(phmm->pwm[i][j][k])) == EOF){
+          fprintf(stderr, "Error: model file error \n");
+          exit (1);
+        }
       }
-      fscanf(fp,"\n");
+      unused_num = fscanf(fp,"\n");
     }
   }
   totalStates *= (phmm->inactive * 2);
@@ -59,18 +84,24 @@ void ReadInitHMM(FILE *fp, HMM *phmm)
   phmm->pi = (double *) dvector(phmm->N);
   phmm->bg = (double *) dvector(4);
   /* Read initial probability for each hidden state */
-  fscanf(fp, "pi:\n");
+  unused_num = fscanf(fp, "pi:\n");
   for (i = 0; i < phmm->N; i++){
-    fscanf(fp, "%lf\t", &(phmm->pi[i]));
+    if (fscanf(fp, "%lf\t", &(phmm->pi[i])) == EOF){
+      fprintf(stderr, "Error: model file error \n");
+      exit (1);
+    }
   }
   /* Read initial means for each hidden state and each feature */
-  fscanf(fp, "mu:\n");
+  unused_num = fscanf(fp, "mu:\n");
   for (i = 0; i < phmm->K; i++) {
     for (j = 0; j < phmm->N; j++) {
-      fscanf(fp, "%lf", &tmp);
+      if (fscanf(fp, "%lf", &tmp) == EOF){
+        fprintf(stderr, "Error: model file error \n");
+        exit (1);
+      }
       gsl_matrix_set(phmm->mean_matrix, i, j, tmp/2.0);
     }
-    fscanf(fp,"\n");
+    unused_num = fscanf(fp,"\n");
   }
 
   /* Set initial covariance matrix */
@@ -102,33 +133,41 @@ void ReadInitHMM(FILE *fp, HMM *phmm)
 /* Read parameters in a trained model file */
 void ReadHMM(FILE *fp, HMM *phmm)
 {
-  int i, j, k, n, totalStates = 0;
+  int i, j, k, n, unused_num, totalStates = 0;
   double sum;
-  double tmp;  
-  
-  fscanf(fp, "N= %d\n", &(phmm->N));
+  double tmp;
+
+  unused_num = fscanf(fp, "N = %d\n", &(phmm->N));
+  unused_num = fscanf(fp, "P = %d\n", &(phmm->lPeak));
+  unused_num = fscanf(fp, "D = %d\n", &(phmm->inactive));
   /* Read transition matrix */
-  fscanf(fp, "A:\n");
+  unused_num = fscanf(fp, "A:\n");
   phmm->log_A_matrix = gsl_matrix_alloc(phmm->N, phmm->N);
   for (i = 0; i < phmm->N; i++) {
     for (j = 0; j < phmm->N; j++) {
-      fscanf(fp, "%lf", &tmp);
+      if(fscanf(fp, "%lf", &tmp) == EOF){
+        fprintf(stderr, "Error: model file error \n");
+        exit (1);
+      }
       gsl_matrix_set(phmm->log_A_matrix, i, j, log(tmp));
     }
-    fscanf(fp,"\n");
+    unused_num = fscanf(fp,"\n");
   }
   /* Read PWMs */
   phmm->D = (int *) ivector(phmm->M);
   phmm->pwm = (double ***)malloc(phmm->M*sizeof(double**));
   for (i = 0; i < phmm->M; i++) {
-    fscanf(fp, "PWM: n=%d\n", &(phmm->D[i]));
+    unused_num = fscanf(fp, "PWM: n=%d\n", &(phmm->D[i]));
     totalStates += phmm->D[i];
     phmm->pwm[i] = (double **) dmatrix(phmm->D[i], 4);
     for (j = 0; j < phmm->D[i]; j++) {
       for (k = 0; k < 4; k++) {
-        fscanf(fp, "%lf", &(phmm->pwm[i][j][k]));
+        if(fscanf(fp, "%lf", &(phmm->pwm[i][j][k])) == EOF){
+          fprintf(stderr, "Error: model file error \n");
+          exit (1);
+        }
       }
-      fscanf(fp,"\n");
+      unused_num = fscanf(fp,"\n");
     }
   }
   totalStates *= (phmm->inactive * 2);
@@ -138,37 +177,49 @@ void ReadHMM(FILE *fp, HMM *phmm)
   phmm->pi = (double *) dvector(phmm->N);
   phmm->bg = (double *) dvector(4);
   /* Read initial probability for each hidden state */
-  fscanf(fp, "pi:\n");
+  unused_num = fscanf(fp, "pi:\n");
   for (i = 0; i < phmm->N; i++){
-    fscanf(fp, "%lf\t", &(phmm->pi[i])); 
+    if(fscanf(fp, "%lf\t", &(phmm->pi[i])) == EOF){
+      fprintf(stderr, "Error: model file error \n");
+      exit (1);
+    }
   }
   /* Read means for each hidden state and each feature */
-  fscanf(fp, "mu:\n");
+  unused_num = fscanf(fp, "mu:\n");
   for (i = 0; i < phmm->K; i++) {
     for (j = 0; j < phmm->N; j++) {
-      fscanf(fp, "%lf", &tmp);
+      if(fscanf(fp, "%lf", &tmp) == EOF){
+        fprintf(stderr, "Error: model file error \n");
+        exit (1);
+      }
       gsl_matrix_set(phmm->mean_matrix, i, j, tmp);  
     }
-    fscanf(fp,"\n");
+    unused_num = fscanf(fp,"\n");
   }
   /* Read variance, correlation and set covariance matrix */
-  fscanf(fp, "sigma:\n");
+  unused_num = fscanf(fp, "sigma:\n");
   for (i = 0; i < phmm->K; i++) {
     for (j = 0; j < phmm->N ; j++) {
-      fscanf(fp, "%lf", &tmp); 
-      gsl_matrix_set(phmm->var_matrix, i, j, tmp);
+      if(fscanf(fp, "%lf", &tmp)== EOF){
+        fprintf(stderr, "Error: model file error \n");
+        exit(1);
+      }
+      gsl_matrix_set(phmm->var_matrix, i, j, tmp) ;
     }
-    fscanf(fp,"\n");
+    unused_num = fscanf(fp,"\n");
   }
   if (phmm->model == 1 || phmm->model == 2){
   phmm->rho = (double **) dmatrix(phmm->K*(phmm->K-1)/2, phmm->N);
   phmm->cov_matrix = (gsl_matrix **)malloc((phmm->N)*sizeof(gsl_matrix *));
-  fscanf(fp, "rho:\n");
+    unused_num = fscanf(fp, "rho:\n");
   for (i = 0; i < phmm->K*(phmm->K-1)/2; i++) {
     for (j = 0; j < phmm->N ; j++) {
-      fscanf(fp, "%lf", &(phmm->rho[i][j])); 
+      if(fscanf(fp, "%lf", &(phmm->rho[i][j])) == EOF){
+        fprintf(stderr, "Error: model file error \n");
+        exit (1);
+      }
     }
-    fscanf(fp,"\n");
+    unused_num = fscanf(fp,"\n");
   }
   for (i = 0; i < phmm->N; i++){
     phmm->cov_matrix[i] = gsl_matrix_alloc(phmm->K, phmm->K);
@@ -203,9 +254,11 @@ void FreeHMM(HMM *phmm)
 void PrintHMM(FILE *fp, HMM *phmm)
 {
   int i, j, k, n, m, x;
-	fprintf(fp, "M= %d\n", phmm->M);
-	fprintf(fp, "N= %d\n", phmm->N);
-	fprintf(fp, "A:\n");
+  fprintf(fp, "M = %d\n", phmm->M);
+  fprintf(fp, "N = %d\n", phmm->N);
+  fprintf(fp, "P = %d\n", phmm->lPeak);
+  fprintf(fp, "D = %d\n", phmm->inactive);
+  fprintf(fp, "A:\n");
   for (i = 0; i < phmm->N; i++) {
     for (j = 0; j < phmm->N; j++) {
       fprintf(fp, "%e ", exp(gsl_matrix_get(phmm->log_A_matrix, i, j)));

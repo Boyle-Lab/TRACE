@@ -17,6 +17,8 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <time.h>
+#include <getopt.h>
+
 #include <gsl/gsl_math.h>
 #include <gsl/gsl_errno.h>
 #include <gsl/gsl_vector.h>
@@ -47,27 +49,39 @@ int main (int argc, char **argv)
   int **pos;
   int	*q;	/* state sequence q[1..T] */
   int	**psi;
-
+  gsl_vector * slop_vector, *counts_vector;
+  gsl_matrix *pwm_matrix, *obs_matrix;
   int 	t, range, i, j;
 
   /* Get all command-line options */
-  int	errflg=0, hflg=0, cflg=0, qflg=0, lflg=0, oflg=0, rflg=0, sflg=0, vflg=0;
-  int	tflg=0, pflg=0, zflg=0, nflg=0, dflg=0, aflg=0, bflg=0, eflg=0, xflg=0;
+  int	errflg=0, oflg=0, rflg=0, sflg=0, vflg=0, fflg=0;
+  int	tflg=0, pflg=0, nflg=0, dflg=0, aflg=0, bflg=0, eflg=0, xflg=0;
   extern char *optarg;
   extern int optind, opterr, optopt;
   int	indexTF = 0; 
-  char	hmmfile[50], *slopfile, *countsfile, *seqfile, *outfile, intsectfile[50];
-  char  *listfile1, *listfile2, *thresholdfile, *pValuefile;
+  char	hmmfile[50], *slopefile, *countfile, *seqfile, *outfile, peakfile[50];
+  char  *listfile, *motiffile, *thresholdfile;
   int c;
   int ifMulti = 0, ifDbl=0, ifSet = 0, peakLength = 2;
   hmmfile[0] = '\0';
-  intsectfile[0] = '\0';
-  MAXITERATION = 200;
+  peakfile[0] = '\0';
   THREAD_NUM = 40;
-  gsl_vector * slop_vector, *counts_vector; 
-  gsl_matrix *pwm_matrix, *obs_matrix;
 
-  while ((c= getopt(argc, argv, "vhH:C:Q:L:A:B:T:P:N:D:S:E:V:O:X:Z")) != EOF){
+  static struct option longopts[] = {
+          {"peak-file", required_argument, NULL, 'P'},
+          {"motif-file", required_argument, NULL, 'F'},
+          {"predictions-file", required_argument, NULL, 'A'},
+          {"thread", required_argument, NULL, 'T'},
+          {"threshold-file", required_argument, NULL, 'E'},
+          {"model", required_argument, NULL, 'N'},
+          {"TF-index", required_argument, NULL, 'X'},
+          //{.name = "seq.file", .has_arg = no_argument, .val = 'Q'},
+          //{.name = "count.file", .has_arg = no_argument, .val = 'C'},
+          //{.name = "slope.file", .has_arg = no_argument, .val = 'S'},
+          //{.name = "init.model", .has_arg = no_argument, .val = 'I'},
+          {0,         0,                 0,  0 }
+  };
+  while ((c= getopt(argc, argv, "vhA:T:P:N:D:E:F:X:")) != EOF){
     switch (c) {
 	case 'v':
 	  vflg++;
@@ -103,104 +117,33 @@ int main (int argc, char **argv)
         thresholdfile = optarg;
       }
       break;
-    case 'V':
-      /* get the p-value file name*/
-      if (vflg)
-        errflg++;
-      else {
-        vflg++;
-        pValuefile = optarg;
-      }
-      break;
-    case 'Z':  
-    /* set z score or not */
-      if (zflg) 
-        errflg++; 
-      else { 
-        zflg++;  
-      } 
-      break;   
-    case 'O':
-    /* get the HMM input file name */
-      if (oflg)
-        errflg++; 
-      else { 
-        oflg++;
-        strcat(hmmfile, optarg);
-      }
-      break;
-    case 'H':
-      /* length of states in peak*/
-      if (hflg)
-        errflg++;
-      else {
-        hflg++;
-        peakLength = atoi(optarg);
-      }
-        break;
     case 'A':
     /* get the output file nam */
       if (aflg)
         errflg++;
       else {
         aflg++;
-        listfile1 = optarg;
+        listfile = optarg;
       }
       break;
-    case 'C':  
-    /* get the tag counts input file name */
-      if (cflg) 
-        errflg++; 
-      else { 
-        cflg++;  
-        countsfile = optarg;
-      } 
-      break;  
-    case 'Q':  
-    /* get the sequence input file name*/
-      if (qflg) 
-        errflg++; 
-      else { 
-        qflg++;  
-        seqfile = optarg;
-      } 
-      break;    
-    case 'L':  
-    /* get the slop input file name*/
-      if (lflg) 
-        errflg++; 
-      else { 
-        lflg++;  
-        slopfile = optarg;
-      } 
-      break;   
-    case 'B':
-    /* get the output file name*/
-      if (bflg)
-        errflg++; 
-      else { 
-        bflg++;
-        listfile2 = optarg;
-      } 
-      break;   
     case 'P':  
     /* get the intersect input file name*/
       if (pflg) 
         errflg++; 
       else { 
         pflg++;
-        strcat(intsectfile, optarg);
+        strcat(peakfile, optarg);
       } 
-      break;  
-    case 'D':  
-    /* if double the TFs */
-      if (dflg) 
-        errflg++; 
-      else { 
-        dflg++;  
-        ifDbl = atoi(optarg);
-      } 
-      break;  
+      break;
+    case 'F':
+      /* get the peak with motif sites file name */
+      if (fflg)
+        errflg++;
+      else {
+        fflg++;
+        motiffile = optarg;
+      }
+      break;
     case 'N':  
     /* choose independ normal or multivariance, default is independent(0)*/
       if (nflg) 
@@ -210,94 +153,78 @@ int main (int argc, char **argv)
         ifMulti = atoi(optarg);
       } 
       break;
-    case 'S':
-      /* if use the individually learned parameters */
-      if (sflg)
-        errflg++;
-      else {
-        sflg++;
-        ifSet=atoi(optarg);
-      }
-            break;
     case '?':
       errflg++;
     }
 	}
- 
-  if (!hflg || (!cflg && !qflg && !lflg)) {
-    errflg++; 
+
+  /* Check the required 4 input files were provided */
+  if (argc - optind < 3){
+    errflg++;
   }
   if (errflg) {
     Usage(argv[0]);
     exit (1);
   }
+  /* Get required input files */
+  int index = optind;
+  seqfile = argv[index++]; /* Sequence input file */
+  countfile = argv[index++]; /* Counts file */
+  slopefile = argv[index++]; /* Slopes file */
+  strcat(hmmfile, argv[index++]); /* final model file */
 
-  if (qflg){ 
-    //int *O1; /* sequence, represented by number, 0=A, 1=C, 2=G, 3=T */
-    /* read the observed sequence */
-    fp = fopen(seqfile, "r");
-    if (fp == NULL) {
-      fprintf(stderr, "Error: File %s not found \n", seqfile);
-      exit (1);
-    }
-    GC = dvector(4);
-    ReadSequence(fp, &T, GC, &O1, &P, &peakPos);
-    fclose(fp);
+  /* read the observed sequence */
+  fp = fopen(seqfile, "r");
+  if (fp == NULL) {
+    fprintf(stderr, "Error: File %s not found \n", seqfile);
+    exit (1);
   }
-  
-  if (lflg){
-    /* read the slop file */
-    fp = fopen(slopfile, "r");
-    if (fp == NULL) {
-      fprintf(stderr, "Error: File %s not found \n", slopfile);
-      exit (1);
-    }
-    slop_vector = gsl_vector_alloc(T);
-    ReadTagFile(fp, T, slop_vector, 1.0);
-    fclose(fp);
+  GC = dvector(4);
+  ReadSequence(fp, &T, GC, &O1, &P, &peakPos);
+  fclose(fp);
+
+  /* read the slop file */
+  fp = fopen(slopefile, "r");
+  if (fp == NULL) {
+    fprintf(stderr, "Error: File %s not found \n", slopefile);
+    exit (1);
   }
-  
-  if (cflg){
-    /* read the tag counts file */
-    fp = fopen(countsfile, "r");
-    if (fp == NULL) {
-      fprintf(stderr, "Error: File %s not found \n", countsfile);
-      exit (1);
-    }
-    counts_vector = gsl_vector_alloc(T);
-    ReadTagFile(fp, T, counts_vector, 2.0);
-    fclose(fp);
+  slop_vector = gsl_vector_alloc(T);
+  ReadTagFile(fp, T, slop_vector, 1.0);
+  fclose(fp);
+
+  /* read the tag counts file */
+  fp = fopen(countfile, "r");
+  if (fp == NULL) {
+    fprintf(stderr, "Error: File %s not found \n", countfile);
+    exit (1);
   }
+  counts_vector = gsl_vector_alloc(T);
+  ReadTagFile(fp, T, counts_vector, 1.0);
+  fclose(fp);
 
   /* read the hmm model */
-  if (oflg) {
-    /*read HMM input file */
-    fp = fopen(hmmfile, "r");	
-    if (fp == NULL) {
-      fprintf(stderr, "Error: File %s not found \n", hmmfile);
-      exit (1);
-    }
-    hmm.model = ifMulti;
-    hmm.inactive = ifDbl;
-    ReadM(fp, &hmm);
-    hmm.K = cflg + lflg + qflg * hmm.M; /*number of data that can include 
+  /* read HMM input file */
+  fp = fopen(hmmfile, "r");
+  if (fp == NULL) {
+    fprintf(stderr, "Error: File %s not found \n", hmmfile);
+    exit (1);
+  }
+  hmm.model = ifMulti;
+  ReadM(fp, &hmm);
+  hmm.K = 2 + (hmm.inactive+1) * hmm.M; /*number of data that can include
                                           tag counts, slop, PWM score for each TF*/
-    ReadHMM(fp, &hmm);
-    hmm.lPeak = peakLength;
-    fclose(fp);
-    if (qflg){
-      hmm.bg[0] = hmm.bg[3] = GC[0];
-      hmm.bg[2] = hmm.bg[1] = GC[1];
+  ReadHMM(fp, &hmm);
+  fclose(fp);
+  if (GC){
+    hmm.bg[0] = hmm.bg[3] = GC[0];
+    hmm.bg[2] = hmm.bg[1] = GC[1];
       
-    }
-    else{
-      hmm.bg[0]=hmm.bg[1]=hmm.bg[2]=hmm.bg[3]=0.25;
-    }
+  }
+  else{
+    hmm.bg[0]=hmm.bg[1]=hmm.bg[2]=hmm.bg[3]=0.25;
   }
 
-  fp = fopen("test.txt", "w");	
-  PrintHMM(fp, &hmm);
-  fclose(fp);
   fprintf(stdout, "M: %d T:%d K: %d\n", hmm.M,T,hmm.K);
 
   /* Calculate PWM scores for each motif at each position */
@@ -313,20 +240,21 @@ int main (int argc, char **argv)
   }
   gsl_matrix_free(pwm_matrix);
   gsl_vector_free(tmp_vector);
-  if (lflg){
-    gsl_matrix_set_row(obs_matrix, hmm.M, slop_vector);
-    gsl_vector_free(slop_vector);
-  }
-  if (cflg){
-    gsl_matrix_set_row(obs_matrix, hmm.M+1, counts_vector);
-    gsl_vector_free(counts_vector);
-  }
+
+  gsl_matrix_set_row(obs_matrix, hmm.M, slop_vector);
+  gsl_vector_free(slop_vector);
+
+  gsl_matrix_set_row(obs_matrix, hmm.M+1, counts_vector);
+  gsl_vector_free(counts_vector);
 
   hmm.thresholds = (double *) dvector(hmm.M);
   if (eflg) {
     fp = fopen(thresholdfile, "r");  //TODO: thresholds function
     for (i = 0; i < hmm.M; i++) {
-      fscanf(fp, "%lf\t", &(hmm.thresholds[i]));
+      if(fscanf(fp, "%lf\n", &(hmm.thresholds[i])) == EOF){
+        fprintf(stderr, "Error: threshold file error \n");
+        exit (1);
+      }
     }
     fclose(fp);
   }
@@ -368,60 +296,33 @@ int main (int argc, char **argv)
 
   int TF_end;
   if (pflg){
-    if (aflg & bflg){
-      fp1 = fopen(listfile1, "w");
+    if (fflg){
+      fp1 = fopen(listfile, "w");
       if (fp1 == NULL) {
-        fprintf(stderr, "Error: File %s not valid \n", listfile1);
+        fprintf(stderr, "Error: File %s not valid \n", listfile);
         exit (1);
       }
-      fp2 = fopen(listfile2, "w");
-      if (fp2 == NULL) {
-        fprintf(stderr, "Error: File %s not valid \n", listfile2);
-        exit (1);
-      }
-      fp = fopen(intsectfile, "r");
+      fp = fopen(motiffile, "r");
       if (fp == NULL) {
-        fprintf(stderr, "Error: File %s not valid \n", intsectfile);
+        fprintf(stderr, "Error: File %s not valid \n", motiffile);
         exit (1);
       }
-      if (xflg){
-        getPosterior_one_P(fp, fp1, fp2, indexTF, T, peakPos, posterior, &hmm, q, vprob);
-        fclose(fp);
-        fclose(fp1);
-        fclose(fp2);
-      }
-      else {
-        TF_end = getPosterior_all_P(fp, fp1, fp2, T, peakPos, posterior, &hmm, q, vprob);
-        fclose(fp);
-        fclose(fp1);
-        fclose(fp2);
-        strcat(hmmfile, "_viterbi_result_v.txt");
-        fp1 = fopen(hmmfile, "w");
-        strcat(intsectfile,"_with.txt");
-        fp = fopen(intsectfile, "r");//TODO:change the peak file
-        if (fp == NULL) {
-          fprintf(stderr, "Error: File %s not valid \n", intsectfile);
-          exit(1);
-        }
-        getPosterior_labels(fp, fp1, T, q, peakPos, posterior, &hmm);
-        fclose(fp);
-        fclose(fp1);
-      }
-    }
 
-    else{
-      fp = fopen(intsectfile, "r");
-      if (fp == NULL) {
-        fprintf(stderr, "Error: File %s not valid \n", intsectfile);
-        exit (1);
-      }
-      strcat(hmmfile,"_viterbi_result_v.txt");
-      fp1 = fopen(hmmfile, "w");
-      getPosterior_labels(fp, fp1, T, q, peakPos, posterior, &hmm);
+      TF_end = getPosterior_all_P(fp, fp1, T, peakPos, posterior, &hmm, q, vprob);
       fclose(fp);
       fclose(fp1);
     }
 
+    fp = fopen(peakfile, "r");
+    if (fp == NULL) {
+      fprintf(stderr, "Error: File %s not valid \n", peakfile);
+      exit (1);
+    }
+    strcat(hmmfile,"_viterbi_result_v.txt");
+    fp1 = fopen(hmmfile, "w");
+    getPosterior_labels(fp, fp1, T, q, peakPos, posterior, &hmm);
+    fclose(fp);
+    fclose(fp1);
   }
   free_ivector(q, T);
   free_imatrix(psi, T, hmm.N);
@@ -434,7 +335,7 @@ void Usage(char *name)
   printf("Usage: %s [-v] -Q <seq.file> -L <slope.file> -C <counts.file> "
          "-O <final.model.file> -P <peak_6.file> -A <output1.file> -B <output2.file> "
          "-T <thread.num>\n", name);
-  printf("  file.counts - file containing the obs. tag counts\n");
+  printf("  count.file - file containing the obs. tag counts\n");
   printf("  sequence.file - file containing the obs. sequence\n");
   printf("  slope.file - file containing the obs. slope\n");
   printf("  peak.file - file containing regions to detect TFBSs\n");

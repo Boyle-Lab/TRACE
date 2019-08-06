@@ -164,9 +164,8 @@ void getPosterior_P(FILE *fpIn, FILE *fpOut,int T, int *peakPos,
 	
 }
 
-int getPosterior_all_P(FILE *fpIn, FILE *fpOut1, FILE *fpOut2, int T, 
-                        int *peakPos, double **posterior,
-                        HMM *phmm, int *q, double *vprob)
+int getPosterior_all_P(FILE *fpIn, FILE *fpOut, int T, int *peakPos,
+                       double **posterior, HMM *phmm, int *q, double *vprob)
 {
   int *O, *peaks, start, end, TFstart, TFend, length, init, t, j, m, n;
   int old_start = -1;
@@ -248,115 +247,27 @@ int getPosterior_all_P(FILE *fpIn, FILE *fpOut1, FILE *fpOut2, int T,
           maxTF = q[t];
           prob = posterior[t][maxTF];
         }
-        fprintf(fpOut2,"%s\t%d\t%d\t%d\t%e\n", chr, TFstart, TFend, maxTF, prob);
-        fprintf(fpOut1,"%s\t%d\t%d", chr, TFstart, TFend);
-
+        fprintf(fpOut,"%s\t%d\t%d", chr, TFstart, TFend);
         TF = -1;
         for (j = 0; j < phmm->M * (phmm->inactive+1); j++){
           TF += lengthList[j];
           prob = -INFINITY;
           for (m = 0; m <= length+MIN(lengthList[j]-1,end-TFend); m ++) prob = MAX(prob, posterior[(init + TFstart - start + m - 1)][TF]);
-          fprintf(fpOut1,"\t%e", prob);
+          fprintf(fpOut,"\t%e", prob);
         }
-
+        /* posterior probability of being a generic footprint */
         prob = 0.0;
         for (m = 0; m < length; m ++) prob += posterior[(init + TFstart - start + m)][phmm->N-4];
-        fprintf(fpOut1,"\t%e", prob/length);
+        fprintf(fpOut,"\t%e", prob/length);
         prob = 0.0;
         for (m = 0; m < length; m ++) prob += posterior[(init + TFstart - start + m)][phmm->N-3];
-        fprintf(fpOut1,"\t%e", prob/length);
-        fprintf(fpOut1,"\n");
+        fprintf(fpOut,"\t%e", prob/length);
+        fprintf(fpOut,"\n");
       }
     }
     old_start = start;
 	}
 	return indexTF_end;
-}
-
-int getPosterior_one_P(FILE *fpIn, FILE *fpOut1, FILE *fpOut2, int index, int T,
-                       int *peakPos, double **posterior,
-                       HMM *phmm, int *q, double *vprob)
-{
-  int *O, *peaks, start, end, TFstart, TFend, length, init, t, j, m, n;
-  int old_start = -1;
-  int i= -1;
-  int TF, maxTF, indexTF_end, state, pos;
-  int half;
-  int ifProb;
-  double prob;
-  char chr[8];
-  char chr_[8];
-  int *lengthList = ivector(phmm->M * (phmm->inactive+1));
-  lengthList[0] = phmm->D[0];
-  lengthList[1] = phmm->D[0]*2;
-
-  for (j = 1; j < phmm->M; j++){
-    if (phmm->inactive == 1){
-      lengthList[j*2] = lengthList[j*2-1]+phmm->D[j];
-      lengthList[j*2+1] = lengthList[j*2]+phmm->D[j];
-    }
-    else{
-      lengthList[j] = lengthList[j-1]+phmm->D[j];
-    }
-  }
-  fprintf(stdout,"scanning list file and getting posterior\n");
-
-  while (fscanf(fpIn, "%s\t%d\t%d\t%s\t%d\t%d\t%d", chr, &start, &end, chr_, &TFstart, &TFend, &length) != EOF) {
-    if (start != old_start){
-      i++;
-    }
-    if (TFstart != -1){
-      if (length + 1 > (TFend-TFstart) && TFend <= end) {
-        init = peakPos[i] - 1;
-        state = 100000;
-        for (m = init + TFstart - start - 1; m <= init + TFend - start - 1; m++) {
-          if (state >= q[m]) {
-            state = q[m];
-            pos = m;
-          }
-        }
-        ifProb = -1;
-        TF = -1;
-        half = length / 2;
-        t = init + TFstart - start - 1 + half;
-        for (j = 0; j < phmm->M * (phmm->inactive+1); j++){
-          TF += lengthList[j];
-          if (state <= TF){
-            maxTF = j + 1;
-            prob = posterior[pos][state];
-            ifProb = 1;
-            break;
-          }
-        }
-        if (ifProb == -1){
-          maxTF = q[t];
-          prob = -1000000000.0;
-        }
-        fprintf(fpOut2,"%s\t%d\t%d\t%d\t%e\n", chr, TFstart, TFend, maxTF, prob);
-        fprintf(fpOut1,"%s\t%d\t%d", chr, TFstart, TFend);
-        TF = -1;
-        TF = lengthList[(index-1) * (phmm->inactive+1)]-1;
-        prob = -INFINITY;
-        for (m = 0; m <= length+MIN(phmm->D[index-1]-1,end-TFend); m ++) prob = MAX(prob, posterior[(init + TFstart - start + m - 1)][TF]);
-        fprintf(fpOut1,"\t%e", prob);
-
-        TF = lengthList[(index-1) * (phmm->inactive+1)+1]-1;
-        prob = -INFINITY;
-        for (m = 0; m <= length+MIN(phmm->D[index-1]-1,end-TFend); m ++) prob = MAX(prob, posterior[(init + TFstart - start + m - 1)][TF]);
-        fprintf(fpOut1,"\t%e", prob);
-
-        prob = 0.0;
-        for (m = 0; m <= length; m ++) prob += posterior[(init + TFstart - start + m - 1)][phmm->N-4];
-        fprintf(fpOut1,"\t%e", prob/length);
-        prob = 0.0;
-        for (m = 0; m <= length; m ++) prob += posterior[(init + TFstart - start + m - 1)][phmm->N-3];
-        fprintf(fpOut1,"\t%e", prob/length);
-        fprintf(fpOut1,"\n");
-      }
-    }
-    old_start = start;
-  }
-  return indexTF_end;
 }
 
 void getPosterior_labels(FILE *fpIn, FILE *fpOut, int T, int *q,
