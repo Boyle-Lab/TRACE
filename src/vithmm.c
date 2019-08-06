@@ -332,12 +332,12 @@ int main (int argc, char **argv)
 void Usage(char *name)
 {
   printf("Usage error. \n");
-  printf("Usage: %s [-v] -Q <seq.file> -L <slope.file> -C <counts.file> "
-         "-O <final.model.file> -P <peak_6.file> -A <output1.file> -B <output2.file> "
+  printf("Usage: %s [-v] <seq.file> <slope.file> <counts.file> <final.model.file> "
+         "-peak-file <peak_3.file> --motif-file <peak_7.file> "
          "-T <thread.num>\n", name);
+  printf("  seq.file - file containing the obs. sequence\n");
   printf("  count.file - file containing the obs. tag counts\n");
-  printf("  sequence.file - file containing the obs. sequence\n");
   printf("  slope.file - file containing the obs. slope\n");
-  printf("  peak.file - file containing regions to detect TFBSs\n");
   printf("  final.model.file - output file containing the learned HMM\n");
+  printf("  peak.file - file containing regions to detect TFBSs\n");
 }
