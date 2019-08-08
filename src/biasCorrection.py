@@ -1,7 +1,7 @@
-##
-##  The bias correction codes and tables are borrowed and modified from
-##  RGT - Regulatory Genomics Toolbox from CostaLab, which is licensed GPLv3.
-##
+##-----------------------------------------------------------------------------##
+##  The bias correction codes and tables are borrowed and modified from        ##
+##  RGT - Regulatory Genomics Toolbox from CostaLab, which is licensed GPLv3.  ##
+##-----------------------------------------------------------------------------##
 
 from pysam import AlignmentFile, Samfile, Fastafile
 from math import log, ceil, floor, isnan

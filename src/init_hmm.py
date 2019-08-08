@@ -148,13 +148,14 @@ def eMatrix_all_top(outFile, lenList):
       print('-2.5 ' * lenList[j], file = outFile, end = '')
       j += 1
     print('-5.0 ' * extraState, file = outFile)
-  for i in range(len(lenList)):
-    print('-0.25 ' * lenList[j] / 2, file = outFile, end='')
-    print('-0.0 ' * lenList[j] / 2, file = outFile, end='')
+  for j in range(len(lenList)):
+
+    print('-0.25 ' * int(lenList[j] / 2), file = outFile, end='')
+    print('-0.0 ' * int(lenList[j] / 2), file = outFile, end='')
   print('0.4 0.5 0.4 0.0 0.0 0.0 -0.1 0.0 0.0 0.0', file = outFile)
-  for i in range(len(lenList)):
-    print('-0.2 ' * lenList[j] / 2, file = outFile, end='')
-    print('0.0 ' * lenList[j] / 2, file = outFile, end='')
+  for j in range(len(lenList)):
+    print('-0.2 ' * int(lenList[j] / 2), file = outFile, end='')
+    print('0.0 ' * int(lenList[j] / 2), file = outFile, end='')
   print('0.6 0.7 0.6 0.2 0.2 0.2 -0.1 -0.1 0.0 0.0', file = outFile)
 
   #print('0.0 ' * sum(lenList), file = outFile, end = '')
@@ -162,21 +163,21 @@ def eMatrix_all_top(outFile, lenList):
   #print('0.0 ' * sum(lenList), file = outFile, end = '')
   #print('2.0 2.0 2.0 0.0 0.0 0.0 ' + '0.0 ' * (extraFP + 2), file = outFile)
   print('sigma:', file = outFile)
-  for i in range(sum(lenList) + extraState):
+  for i in range(len(lenList) + 2):
     for j in range(sum(lenList) + extraState):
       print('2.0 ', file = outFile, end='')
     print("\n", file = outFile, end='')
   print('rho:', file = outFile)
-  for i in range(((sum(lenList) + extraState) * (sum(lenList) + extraState)) / 2):
-    print('0.5 ' * (len(lenList) + 2), file=outFile)
+  for i in range(int((len(lenList) + 2)* ((len(lenList) + 2) - 1) / 2)):
+    print('0.5 ' * (sum(lenList) + extraState), file=outFile)
   return
 
 
 def main():
   parser = argparse.ArgumentParser()
   # Optional parameters
-  parser.add_argument("--motif-number", type=int, dest="motif_num", default=9,
-                      help='number of extra motifs in model, DEFAULT: 9')
+  parser.add_argument("--motif-number", type=int, dest="motif_num", default=10,
+                      help='number of extra motifs in model, DEFAULT: 10')
 
   # Required input
   parser.add_argument(dest="TF", metavar="transcription factor",
@@ -200,9 +201,10 @@ def main():
   jaspar = motif_info.iloc[np.where(motif_info[0] == args.TF)].iloc[0, 1]
   cluster = motif_info.iloc[np.where(motif_info[0] == args.TF)].iloc[0, 2]
   rank = np.where(cluster_info[0] == cluster)[0][0]
-  cluster_info = cluster_info.drop([rank])[:9]
+  cluster_info = cluster_info.drop([rank])[:(args.motif_num-1)]
   fileList.append(os.path.dirname(__file__) + '/../data/motif/' + jaspar + '.jaspar')
-  for motif in cluster_info[:9][0]:
+  motifList.append(jaspar)
+  for motif in cluster_info[:(args.motif_num-1)][0]:
     #print(motif)
     fileList.append(os.path.dirname(__file__) + '/../data/motif/' + motif + '_root.jaspar')
     motifList.append(motif)
@@ -221,8 +223,8 @@ def main():
   matrix, sumLen = tMatrix_table(transition_t)
   fileName = os.path.dirname(__file__) + '/../data/' + args.TF + '_init_model.txt'
   with open(fileName, "w") as outFile:
-    print('M = ', len(lenList), file = outFile) # M is number of motifs in model
-    print('N = ', len(transition_t), file = outFile) # N is number of hidden states in model
+    print('M =', len(lenList), file = outFile) # M is number of motifs in model
+    print('N =', len(transition_t), file = outFile) # N is number of hidden states in model
     print('P = 3', file = outFile) # number of states in a peak
                                    # surrounding FP is 3 in our model
     print('D = 1', file = outFile) # D > 0 means there are double sets of TFBSs,
