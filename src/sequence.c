@@ -29,13 +29,14 @@
 #include "logmath.h"
 #include <omp.h>
 
+/* The following two functions were borrowed and slightly modified from GSL library */
 int gsl_ran_multivariate_gaussian_log_pdf (const gsl_vector * x,
                                            const gsl_vector * mu,
                                            const gsl_matrix * L,
                                            double * result,
                                            gsl_vector * work);
 
-int gsl_linalg_cholesky_decomp_check (gsl_matrix * A, int *error_row, char *tmp_str,
+int gsl_linalg_cholesky_decomp_check (gsl_matrix * A, int *error_row,
                                       gsl_matrix * covar, HMM* phmm, int state);
 static inline 
 double
@@ -105,19 +106,17 @@ void CalMotifScore_P(HMM *phmm, gsl_matrix * S, int *O1, int P, int *peakPos)
   gsl_vector * tempList;
   for (m = 0; m < phmm->M; m++) {
     D = phmm->D[m];
-    
 #pragma omp parallel num_threads(THREAD_NUM) \
-  private(thread_id, nloops, start, end, tempF, tempR, tmpL, tmpR, tmp, \
-  t, i, j, n, tempList) 
+  private(thread_id, start, end, tempF, tempR, tmpL, tmpR, tmp, t, i, j, n, tempList)
   {
-    nloops = 0;
-#pragma omp for
+#pragma omp for /* Do the calculation in parallel, peak by peak */
     for (k = 0; k < P; k++) {
-      ++nloops;
       tempList = gsl_vector_alloc(D);
       start = peakPos[k];
-      end = peakPos[k+1] - 1;
+      end = peakPos[k+1] - 1; /* The starting and ending position for peak k */
 
+      /* First, calculate motif score for forward and reverse strand for the
+       * first and last D positions separately */
       tmpL = -INFINITY;
       t = start - 1;
       i = 1;
@@ -129,7 +128,7 @@ void CalMotifScore_P(HMM *phmm, gsl_matrix * S, int *O1, int P, int *peakPos)
         tempR -= log_2(phmm->bg[3-O1[t-i+j]]);
       }
       tmpL=MAX(tmpL, MAX(tempF, tempR));
-      tmpR = -INFINITY;
+
       t = end - D;
       i = 1;
       tempF = tempR = 0.0;
@@ -140,7 +139,8 @@ void CalMotifScore_P(HMM *phmm, gsl_matrix * S, int *O1, int P, int *peakPos)
         tempR -= log_2(phmm->bg[3-O1[t-i+j]]);
       }
       tmpR=MAX(tmpR, MAX(tempF, tempR));
-        
+
+      /* Calculate motif score for forward and reverse strand for all other positions */
       t = start + D - 2;
       for (i = 1; i <= D; i++){
         tempF = tempR = 0.0;
@@ -149,11 +149,10 @@ void CalMotifScore_P(HMM *phmm, gsl_matrix * S, int *O1, int P, int *peakPos)
           tempR += log_2(phmm->pwm[m][D-j][3-O1[t-i+j]]);
           tempF -= log_2(phmm->bg[O1[t-i+j]]);
           tempR -= log_2(phmm->bg[3-O1[t-i+j]]);
-        }  
+        }
         gsl_vector_set(tempList, i-1, MAX(tempF, tempR));
-      } 
+      }
       for (t = start - 1; t < end; t++) {
-        
         if (t < (start + D - 1)){
           gsl_matrix_set (S, m, t, tmpL);
         }
@@ -183,7 +182,7 @@ void CalMotifScore_P(HMM *phmm, gsl_matrix * S, int *O1, int P, int *peakPos)
   }
 }
 
-/*compute emission probability treating each feature as independent*/
+/*compute emission probability treating each feature as independent */
 void EmissionMatrix(HMM* phmm, gsl_matrix * obs_matrix, int P, int *peakPos,
                     gsl_matrix * emission_matrix, int T)
 {
@@ -233,15 +232,15 @@ void EmissionMatrix_mv(HMM* phmm, gsl_matrix * obs_matrix, int P, int *peakPos,
       }
     }
   }
+  /* If there are only two features, use the bivariate function */
   else if (phmm->K == 2){
     gsl_vector * mu_vector[phmm->N];
     int n = -1;
     int l;
-    char tmp_str[1000];
     int error_row;
     int x, y;
 #pragma omp parallel num_threads(THREAD_NUM) \
-  private(thread_id, j, n, l, x, y, tmp_str)
+  private(thread_id, j, n, l, x, y)
     {
 #pragma omp for
       for (i = 0; i < phmm->N; i++){
@@ -282,17 +281,17 @@ void EmissionMatrix_mv(HMM* phmm, gsl_matrix * obs_matrix, int P, int *peakPos,
       gsl_vector_free(mu_vector[i]);
     }
   }
+  /* If there are more than two features, use the multivariate function */
   if (phmm->K > 2){
     gsl_matrix * cov_matrix_tmp[phmm->N];
     gsl_matrix * tmp_matrix;
     gsl_vector * mu_vector[phmm->N]; 
     int n = -1;
     int l;
-    char tmp_str[1000]; 
     int error_row;
     int x, y;
 #pragma omp parallel num_threads(THREAD_NUM) \
-  private(thread_id, nloops, j, n, l, x, y, tmp_str, tmp_matrix, error_row)
+  private(thread_id, nloops, j, n, l, x, y, tmp_matrix, error_row)
   {
     nloops = 0;
 #pragma omp for   
@@ -302,7 +301,7 @@ void EmissionMatrix_mv(HMM* phmm, gsl_matrix * obs_matrix, int P, int *peakPos,
       mu_vector[i] = gsl_vector_alloc(phmm->K);
       gsl_matrix_get_col(mu_vector[i], phmm->mean_matrix, i);
       gsl_set_error_handler_off ();
-      gsl_linalg_cholesky_decomp_check(cov_matrix_tmp[i], &error_row, tmp_str,
+      gsl_linalg_cholesky_decomp_check(cov_matrix_tmp[i], &error_row,
                                        phmm->cov_matrix[i], phmm, i);
     }
   }
@@ -355,20 +354,17 @@ void EmissionMatrix_mv_reduce(HMM* phmm, gsl_matrix * obs_matrix, int P, int *pe
       stateList[i] = j;
     }
     TF += phmm->D[j];
-    fprintf(stdout,"%d ", stateList[TF-1]);
     if (phmm->inactive == 1){
       for (i = TF; i < TF + phmm->D[j]; i++) {
         stateList[i] = j;
       }
       TF += phmm->D[j];
-      fprintf(stdout,"%d ", stateList[TF-1]);
     }
   }
   TF -= 1;
 
   for (j = phmm->N - phmm->extraState; j < phmm->N; j++){
     stateList[j] = phmm->M;
-    fprintf(stdout,"%d ", stateList[j]);
   }
 
   if (phmm->K > 1) {
@@ -382,11 +378,10 @@ void EmissionMatrix_mv_reduce(HMM* phmm, gsl_matrix * obs_matrix, int P, int *pe
     const int EMPTY = -2;
     int n;
     int l;
-    char tmp_str[100];
     int error_row = FULL;
     int x, y;
 #pragma omp parallel num_threads(THREAD_NUM) \
-  private(thread_id, nloops, j, n, l, x, y, tmp_str, tmp_matrix, error_row, \
+  private(thread_id, nloops, j, n, l, x, y, tmp_matrix, error_row, \
           tmp_vector, tmp_vector2)
     {
       nloops = 0;
@@ -399,11 +394,11 @@ void EmissionMatrix_mv_reduce(HMM* phmm, gsl_matrix * obs_matrix, int P, int *pe
         gsl_matrix_memcpy(cov_matrix_tmp[i], phmm->cov_matrix[i]);
         mu_vector[i] = gsl_vector_alloc(phmm->K);
         gsl_matrix_get_col(mu_vector[i], phmm->mean_matrix, i);
-        sprintf(tmp_str, "%s%d", "./cov/", i);
-        strcat(tmp_str, ".txt");
         do {
           n++;
           if (n != 0) {
+            /* store errow_row in deleted_vector, which will be used to
+             * remove features later in pdf calculation*/
             if (n == 1) {
               gsl_vector_set(deleted_vector[i], 0, error_row);
             } else {
@@ -445,8 +440,13 @@ void EmissionMatrix_mv_reduce(HMM* phmm, gsl_matrix * obs_matrix, int P, int *pe
 
           error_row = FULL;
           gsl_set_error_handler_off();
-          gsl_linalg_cholesky_decomp_check(cov_matrix_tmp[i], &error_row, tmp_str,
+          /* Check if the matrix is positive-definite, if not,
+           * store the row that caused the problem in error_row*/
+          gsl_linalg_cholesky_decomp_check(cov_matrix_tmp[i], &error_row,
                                            phmm->cov_matrix[i], phmm, i);
+          /* If non positive-definite problem started from first row in matrix,
+           * set deleted_vector[i] to EMPTY, which means the state i will be
+           * removed from model */
           if (error_row == 0) {
             gsl_vector_set(deleted_vector[i], 0, EMPTY);
             error_row = FULL;
@@ -477,17 +477,24 @@ void EmissionMatrix_mv_reduce(HMM* phmm, gsl_matrix * obs_matrix, int P, int *pe
       for (t = start-1; t < end; t++) {
         gsl_matrix_get_col(data_vector, obs_matrix, t);
         for (i = 0; i < phmm->N; i++){
+          /* If thresholds were provided and the PWM score for that motif is
+           * smaller than that, the log emission probability will be -INFINITY */
           if(phmm->thresholds[stateList[i]] != -INFINITY && i < (phmm->N - phmm->extraState) &&
              gsl_vector_get(data_vector, stateList[i]) < phmm->thresholds[stateList[i]]){
             tmp = -INFINITY;
           }
+          /* If no data needs to be deleted, calculate log pdf directly */
           else if (gsl_vector_get(deleted_vector[i], 0) == FULL) {
             gsl_ran_multivariate_gaussian_log_pdf(data_vector, mu_vector[i],
                     cov_matrix_tmp[i], &tmp, workspace);
           }
+          /* If all data needs to be deleted, the log emission probability
+           * will be -INFINITY */
           else if (gsl_vector_get(deleted_vector[i], 0) == EMPTY) {
             tmp = -INFINITY;
           }
+          /* If some of the data need to be deleted, remove those ones first,
+           * then calculate log pdf */
           else {
             emission = 0.0;
             deleted_data_vector = gsl_vector_alloc(phmm->K-deleted_vector[i]->size);
@@ -557,6 +564,15 @@ void covarMatrix_GSL(HMM *phmm, int state, gsl_matrix * cov_matrix)
     }
 }
 
+void PrintSequenceProb(FILE *fp, int T, int *O, double *vprob, double *g,
+                       double **posterior, int indexTF)
+{
+  int i;
+  fprintf(fp,"%d\t%lf\t%lf\t%lf", O[0], vprob[0], g[0], posterior[0][indexTF]);
+  for (i=1; i < T; i++) {
+    fprintf(fp,"\n%d\t%lf\t%lf\t%lf", O[i], vprob[i], g[i], posterior[i][indexTF]);
+  }
+}
 
 int gsl_ran_multivariate_gaussian_log_pdf (const gsl_vector * x,
                                            const gsl_vector * mu,
@@ -614,18 +630,9 @@ int gsl_ran_multivariate_gaussian_log_pdf (const gsl_vector * x,
     }
 }
 
-void PrintSequenceProb(FILE *fp, int T, int *O, double *vprob, double *g, 
-                       double **posterior, int indexTF)
-{
-  int i;
-  fprintf(fp,"%d\t%lf\t%lf\t%lf", O[0], vprob[0], g[0], posterior[0][indexTF]);
-  for (i=1; i < T; i++) {
-    fprintf(fp,"\n%d\t%lf\t%lf\t%lf", O[i], vprob[i], g[i], posterior[i][indexTF]);
-  }
-}
 
 /*check if matrix is positive-definite, modified from GSL library*/
-int gsl_linalg_cholesky_decomp_check (gsl_matrix * A, int *error_row, char *tmp_str,
+int gsl_linalg_cholesky_decomp_check (gsl_matrix * A, int *error_row,
                                       gsl_matrix * covar, HMM* phmm, int state)
 {
   const size_t M = A->size1;

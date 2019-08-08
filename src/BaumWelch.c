@@ -29,7 +29,6 @@ void BaumWelch(HMM *phmm, int T, gsl_matrix * obs_matrix, int *pniter, int P,
                int *peakPos, double *logprobf, double **alpha, double **beta, 
                double **gamma, gsl_matrix * emission_matrix)
 {
-  clock_t time;
   FILE	*tmp_fp;
   int	i, j, k, n, m, x, TF;
   int start, end;
@@ -41,36 +40,29 @@ void BaumWelch(HMM *phmm, int T, gsl_matrix * obs_matrix, int *pniter, int P,
   
   /*the following are temp values used when calcaulating variables in BW*/
   int numNonZero;
-  double	*logprobb, *freq, *plogprobinit, plogprobfinal;
-  double	numeratorA, denominatorA;
-  double	*mean;
-  double	cov; /*covariance*/
+  double *logprobb, *freq, *plogprobinit, plogprobfinal;
+  double numeratorA, denominatorA;
+  double *mean;
+  double cov; /*covariance*/
   double delta, logprobprev, totalProb;
   double deltaprev = 10e-70;
   double sumGamma, tempSum, tempNumeratorA, xi;
   double **tmp_A;
   double tmp;
-  char tmp_str[1000]; 
-  sprintf(tmp_str, "%d_%d_%d", T,phmm->M,phmm->model);
-  strcat(tmp_str,"_tmp2_hmm.txt");
 
   stateList = ivector(phmm->M * (phmm->inactive+1) + phmm->extraState);
   TF = 0;
   for (j = 0; j < phmm->M; j++){
     stateList[j * (phmm->inactive+1)] = TF;
     TF += phmm->D[j];
-    fprintf(stdout,"%d ", stateList[j * (phmm->inactive+1)]);
     if (phmm->inactive == 1){
       stateList[j * (phmm->inactive+1) + 1] = TF;
       TF += phmm->D[j];
-      fprintf(stdout,"%d ", stateList[j * (phmm->inactive+1) + 1]);
     }
   }
   TF -= 1;
-  fprintf(stdout,"%d ", TF);
   for (j = phmm->M * (phmm->inactive+1); j < phmm->M * (phmm->inactive+1) + phmm->extraState; j++){
     stateList[j] = TF + j - phmm->M * (phmm->inactive+1) + 1;
-    fprintf(stdout,"%d ", stateList[j]);
   }
   TF = 0;
   motifList = ivector(phmm->N);
@@ -126,14 +118,12 @@ void BaumWelch(HMM *phmm, int T, gsl_matrix * obs_matrix, int *pniter, int P,
         tmp_A[i][j] = (gsl_matrix_get(phmm->log_A_matrix, i, j));
       }
     }
-    time = clock();
-    printf("time check: %f \n", ((double)time) / CLOCKS_PER_SEC);
     prob_matrix = gsl_matrix_alloc(phmm->N, T);
 
 /* reestimate transition matrix  and symbol prob in each state */
 #pragma omp parallel num_threads(THREAD_NUM)\
   private(thread_id, nloops, n, x, k, j, m, xi, numeratorA, denominatorA, \
-  mean, cov, tempSum, sumGamma, time, t, start, end, \
+  mean, cov, tempSum, sumGamma, t, start, end, \
   numNonZero,tempNumeratorA, blocklimit ) 
   {
     nloops = 0;
@@ -155,7 +145,6 @@ void BaumWelch(HMM *phmm, int T, gsl_matrix * obs_matrix, int *pniter, int P,
         /*the last base at each peak is used when calculating 
           mean and variance but now aij*/
         sumGamma = logCheckAdd(sumGamma, (logCheckAdd(tempSum, gamma[i][end-1])));
-        
       }
       for (k = 0; k < P; k++) {
         start = peakPos[k];
@@ -211,23 +200,13 @@ void BaumWelch(HMM *phmm, int T, gsl_matrix * obs_matrix, int *pniter, int P,
       gsl_vector_free(prob_vector);
     }
   }
-    time = clock();
-    printf("time check mid3: %f \n", ((double)time) / CLOCKS_PER_SEC);
-    
+
     prob_sum = gsl_vector_alloc(phmm->N);
     if (phmm->model == 0) UpdateVariance_2(phmm, obs_matrix, prob_sum, prob_matrix, T, TF);
     if (phmm->model == 1 || phmm->model == 2) UpdateCovariance_2(phmm, obs_matrix, prob_sum, prob_matrix, T, TF);
     gsl_matrix_free(prob_matrix);
     gsl_vector_free(prob_sum);
-    time = clock();
-    printf("time check2: %f \n", ((double)time) / CLOCKS_PER_SEC);
-    
-    tmp_fp = fopen(tmp_str, "w");
-    if (tmp_fp == NULL) {
-      fprintf(stderr, "Error: tmp File not valid \n");
-      exit (1);
-    }
-    PrintHMM(tmp_fp, phmm);
+
     fclose(tmp_fp);
     if (phmm->model == 0) EmissionMatrix(phmm, obs_matrix, P, peakPos, emission_matrix, T);
     if (phmm->model == 1) EmissionMatrix_mv(phmm, obs_matrix, P, peakPos, emission_matrix, T);
@@ -245,14 +224,11 @@ void BaumWelch(HMM *phmm, int T, gsl_matrix * obs_matrix, int *pniter, int P,
         totalProb += logprobf[i];
       }
     }
-    
     fprintf(stdout, "\n logprobf: %d %lf %lf", l, totalProb, logprobprev);
     delta = totalProb - logprobprev; 
     logprobprev = totalProb;
     l++;	
     fprintf(stdout, "\n %d %lf", l, delta);
-    time = clock();
-    printf("time checkf: %f \n", ((double)time) / CLOCKS_PER_SEC);
 	}
   while ((fabs(delta) > DELTA) && l <= MAXITERATION); /* if log probability does not 
                                              change much, exit */ 
@@ -264,7 +240,6 @@ void BaumWelch(HMM *phmm, int T, gsl_matrix * obs_matrix, int *pniter, int P,
 void UpdateVariance(HMM *phmm, gsl_matrix * obs_matrix, gsl_matrix * post_obs,
                     gsl_vector * prob_sum, gsl_matrix *prob_matrix, int T, int TF)
 {
-  clock_t time;
   int i, j;
   int thread_id, nloops;
   gsl_matrix * obs_trans, * tmp_matrix, * tmp_matrix_2, * obs_obs;
@@ -313,7 +288,6 @@ void UpdateVariance(HMM *phmm, gsl_matrix * obs_matrix, gsl_matrix * post_obs,
 void UpdateCovariance(HMM *phmm, gsl_matrix * obs_matrix, gsl_matrix * post_obs,
                       gsl_vector * prob_sum, gsl_matrix *prob_matrix, int T, int TF)
 {
-  clock_t time;
   int i, j;
   int thread_id, nloops;
   gsl_matrix * obs_trans, * tmp_matrix, * obs_obs;
@@ -340,8 +314,6 @@ void UpdateCovariance(HMM *phmm, gsl_matrix * obs_matrix, gsl_matrix * post_obs,
       gsl_blas_dgemm(CblasNoTrans, CblasNoTrans,
                      1.0, obs_matrix, tmp_matrix,
                      0.0, obs_obs); //stats['obs*obs.T']
-      time = clock();
-      if (i == 1 || i == TF + 1) printf("time check1: %f \n", ((double)time) / CLOCKS_PER_SEC);
       gsl_vector_free(tmp_vector);
       gsl_matrix_free(tmp_matrix);
       tmp_vector = gsl_vector_alloc(phmm->K);
@@ -363,8 +335,6 @@ void UpdateCovariance(HMM *phmm, gsl_matrix * obs_matrix, gsl_matrix * post_obs,
       gsl_matrix_sub(obs_obs, tmp_matrix);
       
       gsl_matrix_get_col(tmp_vector_2, phmm->mean_matrix, i);
-      time = clock();
-      if (i == 1 || i == TF + 1) printf("time check2: %f \n", ((double)time) / CLOCKS_PER_SEC);
       for (j = 0; j < phmm->K; j ++){
         gsl_matrix_get_col(tmp_vector, phmm->mean_matrix, i);
         gsl_vector_scale(tmp_vector, gsl_vector_get(tmp_vector_2, j));
@@ -374,8 +344,6 @@ void UpdateCovariance(HMM *phmm, gsl_matrix * obs_matrix, gsl_matrix * post_obs,
       gsl_matrix_add(obs_obs, tmp_matrix);
       gsl_matrix_scale(obs_obs, 1.0/gsl_vector_get(prob_sum, i));
       gsl_matrix_memcpy(phmm->cov_matrix[i], obs_obs);
-      time = clock();
-      if (i == 1 || i == TF + 1) printf("time check3: %f \n", ((double)time) / CLOCKS_PER_SEC);
       gsl_vector_free(tmp_vector);
       gsl_vector_free(tmp_vector_2);
       gsl_matrix_free(tmp_matrix);
@@ -389,7 +357,6 @@ void UpdateVariance_2(HMM *phmm, gsl_matrix * obs_matrix,
                       gsl_vector * prob_sum, gsl_matrix *prob_matrix, 
                       int T, int TF)
 {
-  clock_t time;
   int i, j;
   int thread_id, nloops;
   double tmp;
@@ -401,8 +368,6 @@ void UpdateVariance_2(HMM *phmm, gsl_matrix * obs_matrix,
     nloops = 0;
 #pragma omp for   
     for (i = 0; i < phmm->N; i++){
-      time = clock();
-      if (i == 1 || i == TF + 1) printf("time check1: %f \n", ((double)time) / CLOCKS_PER_SEC);
       tmp_vector = gsl_vector_alloc(T);
       tmp_vector_2 = gsl_vector_alloc(T);
       for (j = 0; j < phmm->K; j ++){
@@ -416,10 +381,6 @@ void UpdateVariance_2(HMM *phmm, gsl_matrix * obs_matrix,
       }
       gsl_vector_free(tmp_vector);
       gsl_vector_free(tmp_vector_2);
-      
-      time = clock();
-      if (i == 1 || i == TF + 1) printf("time check2: %f \n", ((double)time) / CLOCKS_PER_SEC);
-      
     }
     thread_id = omp_get_thread_num();
   }
@@ -430,7 +391,6 @@ void UpdateCovariance_2(HMM *phmm, gsl_matrix * obs_matrix,
                         gsl_vector * prob_sum, gsl_matrix *prob_matrix, 
                         int T, int TF)
 {
-  clock_t time;
   int i, j;
   int thread_id, nloops;
   double tmp;
@@ -442,8 +402,6 @@ void UpdateCovariance_2(HMM *phmm, gsl_matrix * obs_matrix,
     nloops = 0;
 #pragma omp for   
     for (i = 0; i < phmm->N; i++){
-      time = clock();
-      if (i == 1 || i == TF + 1) printf("time check1: %f \n", ((double)time) / CLOCKS_PER_SEC);
       tmp_vector = gsl_vector_alloc(T);
       tmp_vector_2 = gsl_vector_alloc(T);
       tmp_matrix = gsl_matrix_alloc(phmm->K, T);
@@ -470,9 +428,6 @@ void UpdateCovariance_2(HMM *phmm, gsl_matrix * obs_matrix,
       
       gsl_matrix_free(tmp_matrix);
       gsl_matrix_free(obs_trans);
-      time = clock();
-      if (i == 1 || i == TF + 1) printf("time check2: %f \n", ((double)time) / CLOCKS_PER_SEC);
-      
     }
     thread_id = omp_get_thread_num();
   }

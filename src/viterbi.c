@@ -21,6 +21,7 @@
 
 #define VITHUGE  100000000000.0
 
+/* Get the hidden states sequence using Viterbi algorithm */
 void Viterbi(HMM *phmm, int T, double *g, double  **alpha, double	**beta, 
              double	**gamma, double  *logprobf, double **delta, 
              int **psi, int *q, double *vprob, double *pprob, 
@@ -127,8 +128,7 @@ void Viterbi(HMM *phmm, int T, double *g, double  **alpha, double	**beta,
     }
     g[peakPos[k+1]-2] = gamma[q[peakPos[k+1]-2]][peakPos[k+1]-2];
     vprob[peakPos[k+1]-2] = pprob[k]; 
-	  /* 4. Path (state sequence) backtracking */
-
+    /* 4. Path (state sequence) backtracking */
   	for (t = peakPos[k+1] - 3; t >= peakPos[k] - 1; t--){
 	  	q[t] = psi[t+1][q[t+1]];
       vprob[t] = delta[t+1][q[t+1]];
@@ -164,6 +164,8 @@ void getPosterior_P(FILE *fpIn, FILE *fpOut,int T, int *peakPos,
 	
 }
 
+/* Motif-centric approach. This function will calculate marginal posterior probabilities
+ * for all motif sites provided  */
 int getPosterior_all_P(FILE *fpIn, FILE *fpOut, int T, int *peakPos,
                        double **posterior, HMM *phmm, int *q, double *vprob)
 {
@@ -213,14 +215,17 @@ int getPosterior_all_P(FILE *fpIn, FILE *fpOut, int T, int *peakPos,
   i = -1;
   fprintf(stdout,"scanning list file and getting posterior\n");
   while (fscanf(fpIn, "%s\t%d\t%d\t%s\t%d\t%d\t%d", chr, &start, &end, chr_, &TFstart, &TFend, &length) != EOF) {
+    /* Skip repetitive regions */
     if (start != old_start) {
       i++;
     }
     if (TFstart != -1){
       if (length >= (TFend-TFstart) && TFend <= end) {
         init = peakPos[i] - 1;
+        /*
         state = 100000;
         motif = 100000;
+        // Get the state signed for the motif site from viterbi
         for (m = init + TFend - start - 1; m > init + TFstart - start - 1; m--) {
           if (motif > motifList[q[m]]) {
             motif = motifList[q[m]];
@@ -230,23 +235,30 @@ int getPosterior_all_P(FILE *fpIn, FILE *fpOut, int T, int *peakPos,
         }
         ifProb = -1;
         TF = -1;
-        ///t = init + TFstart - start - 1;
         half = length / 2;
-        t = init + TFstart - start - 1 + half;
+        t = init + TFstart - start - 1 + half; // middle position of motif site
+        // If the assigned state is in one of the motif, check which motif it is
         if (state <= indexTF_end){
           maxTF = motif + 1;
           prob = posterior[pos][state];
           ifProb = 1;
         }
-
+        // If the model doesn't have motif information (Boyle method), get the
+         // state and posterior probability of middle position of motif site
         else if (indexTF_end != -1){
-            maxTF = q[t];
-            prob = -1000000000.0;
+          maxTF = q[t];
+          prob = -1000000000.0;
         }
+        // If the state is not in a motif, get the state and posterior probability
+         // of middle position of motif site
         else{
           maxTF = q[t];
           prob = posterior[t][maxTF];
         }
+        */
+
+        /* Print posterior probabilities of being every active and inactive
+         * motif states and generic footprints states for all motif sites */
         fprintf(fpOut,"%s\t%d\t%d", chr, TFstart, TFend);
         TF = -1;
         for (j = 0; j < phmm->M * (phmm->inactive+1); j++){
@@ -270,6 +282,7 @@ int getPosterior_all_P(FILE *fpIn, FILE *fpOut, int T, int *peakPos,
 	return indexTF_end;
 }
 
+/* Get all binding sites predictions from viterbi */
 void getPosterior_labels(FILE *fpIn, FILE *fpOut, int T, int *q,
                          int *peakPos, double **posterior, HMM *phmm)
 {
@@ -319,55 +332,53 @@ void getPosterior_labels(FILE *fpIn, FILE *fpOut, int T, int *q,
         prob = 0;
         stateLength = 0;
       }
-
-    for (t = dataStart+1; t <= dataEnd; t++){
-
-      if (stateList[q[t]] == stateList[q[t-1]]){
-        stateEnd ++;
-        if (posterior[t][q[t]] != -INFINITY){
-          prob += posterior[t][q[t]];
-          stateLength ++;
-        }
-        maxTF = stateList[q[t]] + 1;
-        if (t == dataEnd)
-          fprintf(fpOut,"%s\t%d\t%d\t%d\t%e\t%e\n", chr, start + stateStart,
-                  start + stateEnd, maxTF, prob/stateLength, prob/stateLength);
-      }
-      else {
-        maxTF = stateList[q[t-1]] + 1;
-        if (maxTF <= phmm->M * (phmm->inactive+1) && phmm->M != 0) {
-          if (maxTF % 2 == 0) {
-            fprintf(fpOut, "%s\t%d\t%d\t%d\t%e\t%e\n", chr, start + stateStart,
-                    start + stateEnd, maxTF, posterior[t - 1][q[t - 1]],
-                    posterior[t - 1][q[t - 1] - phmm->D[maxTF / 2 - 1]]);
+      for (t = dataStart+1; t <= dataEnd; t++){
+        if (stateList[q[t]] == stateList[q[t-1]]){
+          stateEnd ++;
+          if (posterior[t][q[t]] != -INFINITY){
+            prob += posterior[t][q[t]];
+            stateLength ++;
           }
-          else {
-            fprintf(fpOut, "%s\t%d\t%d\t%d\t%e\t%e\n", chr, start + stateStart,
-                    start + stateEnd, maxTF, posterior[t - 1][q[t - 1]],
-                    posterior[t - 1][q[t - 1] + phmm->D[(maxTF - 1) / 2]]);
-          }
-        }
-        else fprintf(fpOut,"%s\t%d\t%d\t%d\t%e\t%e\n", chr, start + stateStart,
-                start + stateEnd, maxTF, prob/stateLength, prob/stateLength);
-        stateEnd ++;
-        stateStart = stateEnd;
-        if (posterior[t][q[t]] != -INFINITY) {
-          prob = posterior[t][q[t]];
-          stateLength = 1;
+          maxTF = stateList[q[t]] + 1;
+          if (t == dataEnd)
+            fprintf(fpOut,"%s\t%d\t%d\t%d\t%e\t%e\n", chr, start + stateStart,
+                    start + stateEnd, maxTF, prob/stateLength, prob/stateLength);
         }
         else {
-          prob = 0;
-          stateLength = 0;
+          maxTF = stateList[q[t-1]] + 1;
+          if (maxTF <= phmm->M * (phmm->inactive+1) && phmm->M != 0) {
+            if (maxTF % 2 == 0) {
+              fprintf(fpOut, "%s\t%d\t%d\t%d\t%e\t%e\n", chr, start + stateStart,
+                      start + stateEnd, maxTF, posterior[t - 1][q[t - 1]],
+                      posterior[t - 1][q[t - 1] - phmm->D[maxTF / 2 - 1]]);
+            }
+            else {
+              fprintf(fpOut, "%s\t%d\t%d\t%d\t%e\t%e\n", chr, start + stateStart,
+                      start + stateEnd, maxTF, posterior[t - 1][q[t - 1]],
+                      posterior[t - 1][q[t - 1] + phmm->D[(maxTF - 1) / 2]]);
+            }
+          }
+          else fprintf(fpOut,"%s\t%d\t%d\t%d\t%e\t%e\n", chr, start + stateStart,
+                       start + stateEnd, maxTF, prob/stateLength, prob/stateLength);
+          stateEnd ++;
+          stateStart = stateEnd;
+          if (posterior[t][q[t]] != -INFINITY) {
+            prob = posterior[t][q[t]];
+            stateLength = 1;
+          }
+          else {
+            prob = 0;
+            stateLength = 0;
+          }
+          if (t == dataEnd)
+            fprintf(fpOut,"%s\t%d\t%d\t%d\t%e\t%e\n", chr, start + stateStart,
+                    start + stateEnd, stateList[q[t]] + 1, prob/stateLength,
+                    prob/stateLength);
         }
-        if (t == dataEnd)
-          fprintf(fpOut,"%s\t%d\t%d\t%d\t%e\t%e\n", chr, start + stateStart,
-                  start + stateEnd, stateList[q[t]] + 1, prob/stateLength, prob/stateLength);
       }
     }
-    }
     old_start = start;
-	}
-	
+  }
 }
 
 
