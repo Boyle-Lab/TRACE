@@ -31,11 +31,12 @@ To call TFBSs, TRACE requies a file of regions of interest, files of sequence in
 ### Generate required files for TRACE 
 To generate data files in required format, you can use our python script dataProcessing.py.      
    
-Required input:      
+Required input:       
 - `<peak_3.file>`: A file containing regions of interest. The 3 columns are chromosome number, start position and end position of regions of interest. To avoid potential errors in our main program, please make sure there are no repetitive regions.  
 - `<bam.file>`: A bam file of aligned reads from DNase-seq or ATAC-seq.   
 - `<genome.size>`: A genome file defining the length of each chromosome.   
-- `<fasta.file>`: A sequence file in FASTA format.    
+- `<fasta.file>`: A sequence file in FASTA format.     
+
 Output:   
 - `<seq.file>`: A file containing sequence information of regions from <peak_3.file>, with required format. (see ./data/E2F1_seq.txt).   
 - `<count.file>`: A file contains processed read counts at each position in regions from <peak_3.file>.   
