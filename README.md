@@ -22,7 +22,7 @@ conda env create -f environment.yml
 Build TRACE: 
   
 ```
-make all
+make
 ```
  
 # Usage information
@@ -78,7 +78,7 @@ You can also set ```--thread``` and  ```--max-inter``` for max threads and itera
 ./esthmm <seq.file> <count.file> <slope.file> <init.model.file> --final-model <final.model.file> --peak-file <peak_3.file> --motif-file <peak_7.file> --thread <N> --max-inter <N>
 ```
  
-If a TRACE model is already trained and you only want to call binding sites based on an exsiting model, you can run decoding step directly: 
+If you already have a trained TRACE model and only want to call binding sites based on an exsiting model, you can run decoding step directly: 
  
 ```
 ./viterbi <seq.file> <count.file> <slope.file> <final.model.file> --peak-file <peak_3.file>
