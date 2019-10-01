@@ -64,7 +64,9 @@ It will generate a starting model `<init.model.file>` for TF of your choice.  Th
 ```
 ./src/init_hmm.py <TF> --motif-number <N>
 ``` 
-   
+ 
+For original Boyle method which doesn't include motif information, there is an initial model available and universal for all TFs in `./data/Boyle_model.txt`.
+ 
 ### Perform footprinting by TRACE
 Besides  `<seq.file> <count.file> <slope.file> <init.model.file>`,  the main TRACE program also requires a file `<peak_3.file>` containing regions of interest. Please make sure they are the same regions that were used in data processing.
  
@@ -74,8 +76,7 @@ To perform footprinting:
 ./TRACE <seq.file> <count.file> <slope.file> <init.model.file> --final-model <final.model.file> --peak-file <peak_3.file> 
 ```
    
-`<seq.file> <count.file> <slope.file> <init.model.file>` are four required input files and they need to be in correct order. It will generate the final model `<final.model.file>`, and a output file that contains all binding sites predicton from provided regions. If `--peak-file` is not set, the program will only learn the model but will not generate binding sites predictions.    
-   
+`<seq.file> <count.file> <slope.file> <init.model.file>` are four required input files and they need to be in correct order. It will generate the final model `<final.model.file>`, and a output file that contains all binding sites predicton from provided regions. If `--peak-file` is not set, the program will only learn the model but will not generate binding sites predictions.       
 If you want to apply TRACE like a motif-centric approach, set argument `--motif-file` and provide `<peak_7.file>`.   
 - `<peak_7.file>`: A file containing regions of interest and motifs sites inside these regions. The first 3 columns and next 3 columns are chromosome number, start position and end position of regions of interest and motif sites, the last column is number of bases overlapping between motif sites and peaks, which can be easily obtained by bedtools intersect.   
 TRACE will then generate a file containing all motif sites included in `<peak_7.file>` and their marginal posterior probabilities of being active binding sites and inactive binding sites.  
