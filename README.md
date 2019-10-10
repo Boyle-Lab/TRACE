@@ -1,13 +1,6 @@
 # TRACE
 Transcription Factor Footprinting Using DNase I Hypersensitivity Data and DNA Sequence
 
-# System Requirements
-
-## Hardware Requirements
-
-## Software Requirements
-
-
 # Installation
 Clone a copy of the TRACE repository:  
   
