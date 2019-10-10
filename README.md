@@ -23,8 +23,9 @@ make
 To call TFBSs, TRACE requies a file of regions of interest, files of sequence infomation, read counts, and slopes at each position and a file containing intial model.    
     
 ### Generate required files for TRACE 
-To generate data files in required format, you can use our python script dataProcessing.py.      
-   
+To generate required files in correct format, you can use our python script dataProcessing.py and init_hmm.py.      
+  
+To generat data files using our python script:    
 Required input:       
 - `<peak_3.file>`: A file containing regions of interest. The 3 columns are chromosome number, start position and end position of regions of interest. To avoid potential errors in our main program, please make sure there are no repetitive regions.  
 - `<bam.file>`: A bam file of aligned reads from DNase-seq or ATAC-seq.   
@@ -36,12 +37,10 @@ Output:
 - `<count.file>`: A file contains processed read counts at each position in regions from <peak_3.file>.   
 - `<slope.file>`: A file contains processed deritives at each position in regions from <peak_3.file>.     
    
-To generat data files using our python script:   
-  
 ```
 ./src/dataProcessing.py <peak_3.file> <bam.file> <genome.size> <fasta.file> 
 ```
-The default setting will use DNase-seq based protocol. To use ATAC-seq data instead, include ```--ATAC-seq``` argument and choose from 'pe' (pair-end) and 'se' (single-end). If you have preferred output directory and name, set argument `--prefix`.     
+The default setting will use DNase-seq based protocol. To use ATAC-seq data instead, include ```--ATAC-seq``` argument and choose from 'pe' (pair-end) and 'se' (single-end). If you have preferred output directory and name, set argument `--prefix`.  Otherwise all files will be saved in ./data.   
     
 ```
 ./src/dataProcessing.py <peak_3.file> <atac-seq.bam.file> <genome.size> <fasta.file> --ATAC-seq pe --prefix ./out/example
@@ -72,6 +71,7 @@ To perform footprinting:
 `<seq.file> <count.file> <slope.file> <init.model.file>` are four required input files and they need to be in correct order. It will generate the final model `<final.model.file>`, and a output file that contains all binding sites predicton from provided regions. If `--peak-file` is not set, the program will only learn the model but will not generate binding sites predictions.       
 If you want to apply TRACE like a motif-centric approach, set argument `--motif-file` and provide `<peak_7.file>`.   
 - `<peak_7.file>`: A file containing regions of interest and motifs sites inside these regions. The first 3 columns and next 3 columns are chromosome number, start position and end position of regions of interest and motif sites, the last column is number of bases overlapping between motif sites and peaks, which can be easily obtained by bedtools intersect.   
+ 
 TRACE will then generate a file containing all motif sites included in `<peak_7.file>` and their marginal posterior probabilities of being active binding sites and inactive binding sites.  
   
 You can also set `--thread` and  `--max-inter` for max threads and iterations used (default is 40 and 200).   
