@@ -26,6 +26,9 @@ To call TFBSs, TRACE requies a file of regions of interest, files of sequence in
 To generate required files in correct format, you can use our python script dataProcessing.py and init_hmm.py.      
   
 To generat data files using our python script:    
+```
+./src/dataProcessing.py <peak_3.file> <bam.file> <genome.size> <fasta.file> 
+```
 Required input:       
 - `<peak_3.file>`: A file containing regions of interest. The 3 columns are chromosome number, start position and end position of regions of interest. To avoid potential errors in our main program, please make sure there are no repetitive regions.  
 - `<bam.file>`: A bam file of aligned reads from DNase-seq or ATAC-seq.   
@@ -37,9 +40,6 @@ Output:
 - `<count.file>`: A file contains processed read counts at each position in regions from <peak_3.file>.   
 - `<slope.file>`: A file contains processed deritives at each position in regions from <peak_3.file>.     
    
-```
-./src/dataProcessing.py <peak_3.file> <bam.file> <genome.size> <fasta.file> 
-```
 The default setting will use DNase-seq based protocol. To use ATAC-seq data instead, include ```--ATAC-seq``` argument and choose from 'pe' (pair-end) and 'se' (single-end). If you have preferred output directory and name, set argument `--prefix`.  Otherwise all files will be saved in ./data.   
     
 ```
