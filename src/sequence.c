@@ -186,7 +186,7 @@ void CalMotifScore_P(HMM *phmm, gsl_matrix * S, int *O1, int P, int *peakPos)
 void EmissionMatrix(HMM* phmm, gsl_matrix * obs_matrix, int P, int *peakPos,
                     gsl_matrix * emission_matrix, int T)
 {
-  int i, j, t, nloops, thread_id;
+  int i, j, t, thread_id;
   double mean, sd, x_minus_mu, emission;
   gsl_matrix_set_zero(emission_matrix);
 #pragma omp parallel num_threads(THREAD_NUM) \
@@ -291,10 +291,9 @@ void EmissionMatrix_mv(HMM* phmm, gsl_matrix * obs_matrix, int P, int *peakPos,
     int error_row;
     int x, y;
 #pragma omp parallel num_threads(THREAD_NUM) \
-  private(thread_id, nloops, j, n, l, x, y, tmp_matrix, error_row)
+  private(thread_id, j, n, l, x, y, tmp_matrix, error_row)
   {
-    nloops = 0;
-#pragma omp for   
+#pragma omp for
     for (i = 0; i < phmm->N; i++){
       cov_matrix_tmp[i] = gsl_matrix_alloc(phmm->K, phmm->K);
       gsl_matrix_memcpy(cov_matrix_tmp[i], phmm->cov_matrix[i]);
@@ -308,12 +307,10 @@ void EmissionMatrix_mv(HMM* phmm, gsl_matrix * obs_matrix, int P, int *peakPos,
   gsl_vector * data_vector;  
   gsl_vector * workspace;
 #pragma omp parallel num_threads(THREAD_NUM) \
-  private(thread_id, nloops, start, end, i, t,workspace, tmp, data_vector) 
+  private(thread_id, start, end, i, t,workspace, tmp, data_vector)
   {
-    nloops = 0;
-#pragma omp for   
+#pragma omp for
     for (k = 0; k < P; k++){
-      ++nloops;
       start = peakPos[k];
       end = peakPos[k+1] - 1;
       data_vector = gsl_vector_alloc(phmm->K);
@@ -381,10 +378,9 @@ void EmissionMatrix_mv_reduce(HMM* phmm, gsl_matrix * obs_matrix, int P, int *pe
     int error_row = FULL;
     int x, y;
 #pragma omp parallel num_threads(THREAD_NUM) \
-  private(thread_id, nloops, j, n, l, x, y, tmp_matrix, error_row, \
+  private(thread_id, j, n, l, x, y, tmp_matrix, error_row, \
           tmp_vector, tmp_vector2)
     {
-      nloops = 0;
 #pragma omp for
       for (i = 0; i < phmm->N; i++) {
         n = -1;
@@ -656,7 +652,7 @@ int gsl_linalg_cholesky_decomp_check (gsl_matrix * A, int *error_row,
        {
           status = GSL_EDOM ;
           *error_row = 0;
-          printf("nan %d\t", state);
+          //printf("nan %d\t", state);
           return GSL_SUCCESS;
        }
       double L_00 = quiet_sqrt(A_00);
@@ -681,7 +677,7 @@ int gsl_linalg_cholesky_decomp_check (gsl_matrix * A, int *error_row,
           
           if (diag <= 0)
             {
-              printf("%d %d\t", state,1);
+              //printf("%d %d\t", state,1);
 
               status = GSL_EDOM;
               *error_row = 1;

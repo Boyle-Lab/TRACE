@@ -29,14 +29,13 @@ void BaumWelch(HMM *phmm, int T, gsl_matrix * obs_matrix, int *pniter, int P,
                int *peakPos, double *logprobf, double **alpha, double **beta, 
                double **gamma, gsl_matrix * emission_matrix)
 {
-  FILE	*tmp_fp;
-  int	i, j, k, n, m, x, TF;
+  int i, j, k, n, m, x, TF;
   int start, end;
-  int	t, l = 0;
+  int t, l = 0;
   int thread_id, nloops;
-  int *stateList; /*states that have none-one transition probability */
+  int *stateList; /*list of states that have none-one transition probability */
   int *motifList;
-  int blocklimit; /*for loop unrolling */
+  //int blocklimit; /*for loop unrolling */
   
   /*the following are temp values used when calcaulating variables in BW*/
   int numNonZero;
@@ -82,11 +81,10 @@ void BaumWelch(HMM *phmm, int T, gsl_matrix * obs_matrix, int *pniter, int P,
     motifList[i] = i;
   }
   TF -= 1;
-
   if (phmm->model == 0) EmissionMatrix(phmm, obs_matrix, P, peakPos, emission_matrix, T);
   if (phmm->model == 1) EmissionMatrix_mv(phmm, obs_matrix, P, peakPos, emission_matrix, T);
   if (phmm->model == 2) EmissionMatrix_mv_reduce(phmm, obs_matrix, P, peakPos, emission_matrix, T);
-  
+
   double *xi_sum = dvector(T);
   Forward_P(phmm, T, alpha, logprobf, P, peakPos, emission_matrix);
   Backward_P(phmm, T, beta, P, peakPos, emission_matrix);
@@ -98,6 +96,7 @@ void BaumWelch(HMM *phmm, int T, gsl_matrix * obs_matrix, int *pniter, int P,
       logprobprev += logprobf[i];
     }
   }
+
   gsl_matrix * prob_matrix;
   gsl_matrix * prob_trans;
   gsl_matrix * post_obs;
@@ -124,11 +123,10 @@ void BaumWelch(HMM *phmm, int T, gsl_matrix * obs_matrix, int *pniter, int P,
 #pragma omp parallel num_threads(THREAD_NUM)\
   private(thread_id, nloops, n, x, k, j, m, xi, numeratorA, denominatorA, \
   mean, cov, tempSum, sumGamma, t, start, end, \
-  numNonZero,tempNumeratorA, blocklimit ) 
+  numNonZero,tempNumeratorA)
   {
-    nloops = 0;
   #pragma omp for
-    for (i = 0; i < phmm->N; i++) { 
+    for (i = 0; i < phmm->N; i++) {
       denominatorA = -INFINITY; /*denominator when calculating aij,
                                which is sum of gamma(i)*/
       sumGamma = -INFINITY; /* sum of gamma used to calculate mean and variance
@@ -207,7 +205,6 @@ void BaumWelch(HMM *phmm, int T, gsl_matrix * obs_matrix, int *pniter, int P,
     gsl_matrix_free(prob_matrix);
     gsl_vector_free(prob_sum);
 
-    fclose(tmp_fp);
     if (phmm->model == 0) EmissionMatrix(phmm, obs_matrix, P, peakPos, emission_matrix, T);
     if (phmm->model == 1) EmissionMatrix_mv(phmm, obs_matrix, P, peakPos, emission_matrix, T);
     if (phmm->model == 2) EmissionMatrix_mv_reduce(phmm, obs_matrix, P, peakPos, emission_matrix, T);
@@ -224,19 +221,23 @@ void BaumWelch(HMM *phmm, int T, gsl_matrix * obs_matrix, int *pniter, int P,
         totalProb += logprobf[i];
       }
     }
-    fprintf(stdout, "\n logprobf: %d %lf %lf", l, totalProb, logprobprev);
-    delta = totalProb - logprobprev; 
+    delta = totalProb - logprobprev;
+    //fprintf(stdout, "\n logprobf: %d %lf %lf", l, totalProb, logprobprev);
+
     logprobprev = totalProb;
-    l++;	
-    fprintf(stdout, "\n %d %lf", l, delta);
-	}
+    l++;
+    if(l == 1||ceilf((l*10.0)/MAXITERATION)==(l*10.0)/MAXITERATION) {
+      fprintf(stdout, "iteration: %d delta: %lf \n", l, delta);
+    }
+  }
   while ((fabs(delta) > DELTA) && l <= MAXITERATION); /* if log probability does not 
                                              change much, exit */ 
                                              /*defult max iterations is 200*/
   gsl_vector_free(mul_vector);
   *pniter = l;
 }
-	
+
+/*
 void UpdateVariance(HMM *phmm, gsl_matrix * obs_matrix, gsl_matrix * post_obs,
                     gsl_vector * prob_sum, gsl_matrix *prob_matrix, int T, int TF)
 {
@@ -352,6 +353,7 @@ void UpdateCovariance(HMM *phmm, gsl_matrix * obs_matrix, gsl_matrix * post_obs,
     thread_id = omp_get_thread_num();
   }
 }
+*/
 
 void UpdateVariance_2(HMM *phmm, gsl_matrix * obs_matrix, 
                       gsl_vector * prob_sum, gsl_matrix *prob_matrix, 
@@ -457,9 +459,9 @@ void ComputeGamma(HMM *phmm, int T, gsl_matrix * alpha_matrix,
     }
     if (denominator == -INFINITY){
       fprintf(stdout, "ERROR: gamma t:%d ",t);
-      fprintf(stdout, "ab: %d   %lf %lf %lf\t", t, 
-              gsl_matrix_get(alpha_matrix, j, t), 
-              gsl_matrix_get(beta_matrix, j, t), denominator);
+      //fprintf(stdout, "ab: %d   %lf %lf %lf\t", t,
+              //gsl_matrix_get(alpha_matrix, j, t),
+              //gsl_matrix_get(beta_matrix, j, t), denominator);
       exit(1);
     }
     for (i = 0; i < phmm->N; i++) {
@@ -573,19 +575,19 @@ void ComputeGamma_P(HMM *phmm, int T, double **alpha, double **beta,
     }
     if (denominator == -INFINITY){
       fprintf(stdout, "ERROR: -inf gamma t:%d ",t);
-      fprintf(stdout, "ab: %d   %lf %lf %lf\t", t, alpha[1][t], beta[1][t],denominator);
+      //fprintf(stdout, "ab: %d   %lf %lf %lf\t", t, alpha[1][t], beta[1][t],denominator);
       exit(1);
     }
     if (denominator != denominator){
       fprintf(stdout, "ERROR: na gamma t:%d ",t);
-      fprintf(stdout, "ab: %d   %lf %lf %lf\t", t, alpha[1][t], beta[1][t],denominator);
+      //fprintf(stdout, "ab: %d   %lf %lf %lf\t", t, alpha[1][t], beta[1][t],denominator);
       exit(1);
     }
     for (i = 0; i < phmm->N; i++) {
       gamma[i][t] -= denominator;
       if (gamma[i][t] != gamma[i][t]){
         fprintf(stdout, "ERROR: gamma NA t:%d ",t);
-        fprintf(stdout, "ab: %d   %lf %lf %lf\t", t, alpha[i][t], beta[i][t], gamma[i][t]);
+        //fprintf(stdout, "ab: %d   %lf %lf %lf\t", t, alpha[i][t], beta[i][t], gamma[i][t]);
         exit(1);
       }
     }
