@@ -94,6 +94,8 @@ The data folder contains example data for DNase-seq on K562 cell and a initial m
 ```
 
 ## Interpreting TRACE’s Output
-Our demo above will generate two files `E2F1_peak_7.bed_with_probs.txt` and `E2F1_hmm.txt_viterbi_results.txt`. 
-`E2F1_peak_7.bed_with_probs.txt` contains all provided motif sites followed with states probability for all motifs included in the model as well as generic footprints. You can only use the first two scores (fourth and fifth colunm) which are probabilities of being actve binding sites or inactive binding sites for the first motif (your TF of interest). For assessment, we recommend using the value of fourth colunm minus fifth colunm.
+Our demo shown above will generate two files: `E2F1_peak_7.bed_with_probs.txt` and `E2F1_hmm.txt_viterbi_results.txt`.   
+  
+`E2F1_peak_7.bed_with_probs.txt` contains all provided motif sites followed with states probability for all motifs included in the model as well as generic footprints. You can only use the first two scores (fourth and fifth colunm) which are probabilities of being actve binding sites or inactive binding sites for the first motif (your TF of interest). For assessment, we recommend using the value of fourth colunm minus fifth colunm.  
+  
 `E2F1_hmm.txt_viterbi_results.txt` contains all positions in the provided peak regions, with their assigned states and probabilities. The fourth colunm is the labeled states, 1-10 represent corresponding motifs in the model, so state 1 will be the sites that you want. State numbers that are are greater than the number of motifs are the peak states that you can ignore. The fifth and sixth colunms are the probabilities of being active or inactive binding sites.
