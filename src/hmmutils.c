@@ -23,7 +23,7 @@ void ReadM(FILE *fp, HMM *phmm)
   }
 }
 
-/* Read parameters in a initial model file */
+/* Read parameters in a initial model file without variants values*/
 void ReadInitHMM(FILE *fp, HMM *phmm)
 {
   int i, j, k, n, unused_num, totalStates = 0;
@@ -42,6 +42,9 @@ void ReadInitHMM(FILE *fp, HMM *phmm)
     fprintf(stderr, "Error: model file error \n");
     exit (1);
   }
+  phmm->K = 2 + (phmm->inactive+1) * phmm->M; /* Number of data provided for each state:
+                                           tag counts, slop, and PWM score for each TF*/
+
   /* Read transition matrix */
   if(fscanf(fp, "A:\n") != EOF) {
     phmm->log_A_matrix = gsl_matrix_alloc(phmm->N, phmm->N);
@@ -130,7 +133,7 @@ void ReadInitHMM(FILE *fp, HMM *phmm)
   }
 }
 
-/* Read parameters in a trained model file */
+/* Read parameters in a complete model file */
 void ReadHMM(FILE *fp, HMM *phmm)
 {
   int i, j, k, n, unused_num, totalStates = 0;
@@ -140,6 +143,9 @@ void ReadHMM(FILE *fp, HMM *phmm)
   unused_num = fscanf(fp, "N = %d\n", &(phmm->N));
   unused_num = fscanf(fp, "P = %d\n", &(phmm->lPeak));
   unused_num = fscanf(fp, "D = %d\n", &(phmm->inactive));
+  phmm->K = 2 + phmm->M; /* Number of data provided for each state:
+                         tag counts, slop, and PWM score for each TF*/
+
   /* Read transition matrix */
   unused_num = fscanf(fp, "A:\n");
   phmm->log_A_matrix = gsl_matrix_alloc(phmm->N, phmm->N);
@@ -170,7 +176,7 @@ void ReadHMM(FILE *fp, HMM *phmm)
       unused_num = fscanf(fp,"\n");
     }
   }
-  totalStates *= (phmm->inactive * 2);
+  totalStates *= (phmm->inactive + 1);
   phmm->extraState = phmm->N - totalStates;
   phmm->mean_matrix = gsl_matrix_alloc(phmm->K, phmm->N);
   phmm->var_matrix = gsl_matrix_alloc(phmm->K, phmm->N);
@@ -215,7 +221,7 @@ void ReadHMM(FILE *fp, HMM *phmm)
   for (i = 0; i < phmm->K*(phmm->K-1)/2; i++) {
     for (j = 0; j < phmm->N ; j++) {
       if(fscanf(fp, "%lf", &(phmm->rho[i][j])) == EOF){
-        fprintf(stderr, "Error: model file error \n");
+        fprintf(stderr, "Error: model file error 6\n");
         exit (1);
       }
     }
