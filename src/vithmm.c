@@ -23,23 +23,21 @@
 #include <gsl/gsl_errno.h>
 #include <gsl/gsl_vector.h>
 #include <gsl/gsl_matrix.h>
-#include <gsl/gsl_blas.h>
-#include <gsl/gsl_linalg.h>
 
 void Usage(char *name);
 
 int main (int argc, char **argv)
 {
   /* The following are read from input files */
-  FILE *fp,*fp1,*fp2;
-  HMM hmm;
+  FILE *fp, *fp1, *fp2;
+  HMM hmm; /* Trained HMM structure */
   int *O1; /* Observation sequence of PWM scores O[1..T] */
   double *O2, *O3; /* Observation sequence of counts and slopes O[1..T] */
   double *GC; /* GC content */
   int T; /* Total length*/
   int P; /* Total number of peaks */
   int *peakPos; /* Starting location of each peaks*/
-
+  /* some numbers calculated during decoding */
   double **delta, *vprob;
   double proba, *logproba;
   double *logprobf;
@@ -50,25 +48,28 @@ int main (int argc, char **argv)
   gsl_vector * slop_vector, *counts_vector;
   gsl_matrix *pwm_matrix, *obs_matrix;
   int t, range, i, j, indexTF = 0;
-
+  /* Set default numbers for max iteration and number of threads */
+  THREAD_NUM = 40;
   /* Get all command-line options */
   extern char *optarg;
   extern int optind, opterr, optopt;
   /* Flags for all command line options */
-  int errflg=0, vflg=0, fflg=0, tflg=0, pflg=0, nflg=0, dflg=0, aflg=0, eflg=0, xflg=0;
-  char hmmfile[50], *slopefile, *countfile, *seqfile, *outfile, peakfile[50];
-  char *listfile, motiffile[50], *thresholdfile;
+  int errflg=0, vflg=0, fflg=0, tflg=0, pflg=0, nflg=0, dflg=0, aflg=0, bflg=0, eflg=0, xflg=0;
+  char hmmfile[100], *slopefile, *countfile, *seqfile, *thresholdfile;
+  char peakfile[100], motiffile[100], predfile[100], scorefile[100];
   int c;
-  int ifMulti = 0, ifDbl=0, ifSet = 0, peakLength = 2;
+  int ifMulti = 2; /* defalult model is multivaraint normal distribution
+                      with problematic hidden state dropped */
   hmmfile[0] = '\0';
   peakfile[0] = '\0';
+  scorefile[0] = '\0';
   motiffile[0] = '\0';
-  THREAD_NUM = 40;
-
+  predfile[0] = '\0';
   static struct option longopts[] = {
           {"peak-file", required_argument, NULL, 'P'},
           {"motif-file", required_argument, NULL, 'F'},
-          {"predictions-file", required_argument, NULL, 'A'},
+          {"scores-file", required_argument, NULL, 'A'},
+          {"predictions-file", required_argument, NULL, 'B'},
           {"thread", required_argument, NULL, 'T'},
           {"threshold-file", required_argument, NULL, 'E'},
           {"model", required_argument, NULL, 'N'},
@@ -79,7 +80,8 @@ int main (int argc, char **argv)
           //{.name = "init.model", .has_arg = no_argument, .val = 'I'},
           {0,         0,                 0,  0 }
   };
-  while ((c= getopt(argc, argv, "vhA:T:P:N:D:E:F:X:")) != EOF){
+  int option_index = 0;
+  while ((c = getopt_long(argc, argv, "vhO:A:B:M:N:P:T:E:F:", longopts, &option_index)) != EOF){
     switch (c) {
 	case 'v':
 	  vflg++;
@@ -116,12 +118,21 @@ int main (int argc, char **argv)
       }
       break;
     case 'A':
-    /* get the output file nam */
+    /* get the output file name */
       if (aflg)
         errflg++;
       else {
         aflg++;
-        listfile = optarg;
+        strcat(scorefile, optarg);
+      }
+      break;
+    case 'B':
+    /* get the output file name */
+      if (bflg)
+        errflg++;
+      else {
+        bflg++;
+        strcat(predfile, optarg);
       }
       break;
     case 'P':  
@@ -154,16 +165,22 @@ int main (int argc, char **argv)
     case '?':
       errflg++;
     }
-	}
+  }
 
   /* Check the required 4 input files were provided */
   if (argc - optind < 3){
+    fprintf(stderr, "Error: required files not provided \n", seqfile);
+    errflg++;
+  }
+  if (fflg + pflg < 1){
+    fprintf(stderr, "Error: peak file or motif file is required \n", seqfile);
     errflg++;
   }
   if (errflg) {
     Usage(argv[0]);
     exit (1);
   }
+
   /* Get required input files */
   int index = optind;
   seqfile = argv[index++]; /* Sequence input file */
@@ -172,52 +189,37 @@ int main (int argc, char **argv)
   strcat(hmmfile, argv[index++]); /* final model file */
 
   /* Read the observed sequence */
+  checkFile(seqfile, "r");
   fp = fopen(seqfile, "r");
-  if (fp == NULL) {
-    fprintf(stderr, "Error: File %s not found \n", seqfile);
-    exit (1);
-  }
   GC = dvector(4);
   ReadSequence(fp, &T, GC, &O1, &P, &peakPos);
   fclose(fp);
 
   /* Read the slop file */
+  checkFile(slopefile, "r");
   fp = fopen(slopefile, "r");
-  if (fp == NULL) {
-    fprintf(stderr, "Error: File %s not found \n", slopefile);
-    exit (1);
-  }
   slop_vector = gsl_vector_alloc(T);
   ReadTagFile(fp, T, slop_vector, 1.0);
   fclose(fp);
 
   /* Read the tag counts file */
+  checkFile(countfile, "r");
   fp = fopen(countfile, "r");
-  if (fp == NULL) {
-    fprintf(stderr, "Error: File %s not found \n", countfile);
-    exit (1);
-  }
   counts_vector = gsl_vector_alloc(T);
   ReadTagFile(fp, T, counts_vector, 1.0);
   fclose(fp);
 
   /* Get the learned HMM model */
   /* Read HMM input file */
+  checkFile(hmmfile, "r");
   fp = fopen(hmmfile, "r");
-  if (fp == NULL) {
-    fprintf(stderr, "Error: File %s not found \n", hmmfile);
-    exit (1);
-  }
   hmm.model = ifMulti;
   ReadM(fp, &hmm);
-  hmm.K = 2 + (hmm.inactive+1) * hmm.M; /* Number of data that can include
-                                          tag counts, slop, PWM score for each TF*/
   ReadHMM(fp, &hmm);
   fclose(fp);
   if (GC){
     hmm.bg[0] = hmm.bg[3] = GC[0];
     hmm.bg[2] = hmm.bg[1] = GC[1];
-      
   }
   else{
     hmm.bg[0]=hmm.bg[1]=hmm.bg[2]=hmm.bg[3]=0.25;
@@ -244,8 +246,10 @@ int main (int argc, char **argv)
 
   gsl_matrix_set_row(obs_matrix, hmm.M+1, counts_vector);
   gsl_vector_free(counts_vector);
-
+  
   hmm.thresholds = (double *) dvector(hmm.M);
+  /* with a given threshold file, TRACE can limit the state labeling to the
+     regions with PWM score higher than the provided value */
   if (eflg) {
     fp = fopen(thresholdfile, "r");  //TODO: thresholds function
     for (i = 0; i < hmm.M; i++) {
@@ -282,8 +286,10 @@ int main (int argc, char **argv)
   delta = dmatrix(T, hmm.N);
   psi = imatrix(T, hmm.N);
   logproba = dvector(P);
-
-  /* Viterbi step */
+ 
+  /*                    */
+  /* Start Viterbi step */
+  /*                    */
   Viterbi(&hmm, T, g, alpha, beta, gamma, logprobf, delta, psi, q,
           vprob, logproba, posterior, P, peakPos, emission_matrix);
   gsl_matrix_free(emission_matrix);
@@ -293,32 +299,40 @@ int main (int argc, char **argv)
   free_dmatrix(beta, hmm.N, T);
 
   int TF_end;
-  if (pflg){
-    if (fflg){
-      fp = fopen(motiffile, "r");
-      if (fp == NULL) {
-        fprintf(stderr, "Error: File %s not valid \n", motiffile);
-        exit (1);
-      }
-      strcat(motiffile,"_with_probs.txt");
-      fp1 = fopen(motiffile, "w");
-      if (fp1 == NULL) {
-        fprintf(stderr, "Error: File %s not valid \n", motiffile);
-        exit (1);
-      }
-      TF_end = getPosterior_all_P(fp, fp1, T, peakPos, posterior, &hmm, q, vprob);
-      fclose(fp);
-      fclose(fp1);
-    }
-
-    fp = fopen(peakfile, "r");
+  if (fflg){
+    fp = fopen(motiffile, "r");
     if (fp == NULL) {
-      fprintf(stderr, "Error: File %s not valid \n", peakfile);
+      fprintf(stderr, "Error: File path %s not valid \n", motiffile);
       exit (1);
     }
-    strcat(hmmfile,"_viterbi_results.txt");
-    fp1 = fopen(hmmfile, "w");
-    getPosterior_labels(fp, fp1, T, q, peakPos, posterior, &hmm);
+    if (aflg) fp1 = fopen(scorefile, "w");
+    else {
+      strcat(scorefile, motiffile);
+      strcat(scorefile, "_with_probs.txt");
+      fp1 = fopen(scorefile, "w");
+    }
+    if (fp1 == NULL) {
+      fprintf(stderr, "Error: File path %s not valid \n", motiffile);
+      exit (1);
+    }
+    printf("%s: %s\n", scorefile, motiffile);
+    TF_end = getPosterior_motif(fp, fp1, T, peakPos, posterior, &hmm, q, vprob);
+    fclose(fp);
+    fclose(fp1);
+  }
+  if (pflg){
+    fp = fopen(peakfile, "r");
+    if (fp == NULL) {
+      fprintf(stderr, "Error: File path %s not valid \n", peakfile);
+      exit (1);
+    }
+    if (bflg) fp1 = fopen(predfile, "w");
+    else{
+      strcat(predfile, hmmfile);
+      strcat(predfile, "_viterbi_results.txt");
+      fp1 = fopen(predfile, "w");
+    }
+    getPosterior_all(fp, fp1, T, q, peakPos, posterior, &hmm);
     fclose(fp);
     fclose(fp1);
   }

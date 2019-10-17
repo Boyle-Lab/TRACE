@@ -139,34 +139,11 @@ void Viterbi(HMM *phmm, int T, double *g, double  **alpha, double	**beta,
   }
 
 }
-  
-void getPosterior_P(FILE *fpIn, FILE *fpOut,int T, int *peakPos, 
-                    double **posterior, int indexTF, HMM *phmm)
-{
-  int *O, *peaks, start, end, TFstart, TFend, length, init, t;
-  int old_start = -1;
-  int i= -1;
-  char chr[4];
-  
-  while (fscanf(fpIn, "%s\t%d\t%d\t%s\t%d\t%d\t%d", chr, &start, &end, chr, &TFstart, &TFend, &length) != EOF) {
-    if (start != old_start){
-      i++;
-    }
-    if (TFstart != -1){
-      if (length + 1 > (TFend-TFstart)) {
-        init = peakPos[i] - 1;
-        t = init + TFstart - start + phmm->D[0] - 2;
-        fprintf(fpOut,"%s\t%d\t%d\t%lf\n", chr, TFstart, TFend, posterior[t][indexTF]);
-      }
-    }
-    old_start = start;
-	}
-	
-}
+
 
 /* Motif-centric approach. This function will calculate marginal posterior probabilities
  * for all motif sites provided  */
-int getPosterior_all_P(FILE *fpIn, FILE *fpOut, int T, int *peakPos,
+int getPosterior_motif(FILE *fpIn, FILE *fpOut, int T, int *peakPos,
                        double **posterior, HMM *phmm, int *q, double *vprob)
 {
   int *O, *peaks, start, end, TFstart, TFend, length, init, t, j, m, n;
@@ -213,7 +190,7 @@ int getPosterior_all_P(FILE *fpIn, FILE *fpOut, int T, int *peakPos,
   }
   TF -= 1;
   i = -1;
-  fprintf(stdout,"scanning list file and getting posterior\n");
+  fprintf(stdout,"scanning motif sites and calculating posterior probabilities \n");
   while (fscanf(fpIn, "%s\t%d\t%d\t%s\t%d\t%d\t%d", chr, &start, &end, chr_, &TFstart, &TFend, &length) != EOF) {
     /* Skip repetitive regions */
     if (start != old_start) {
@@ -283,7 +260,7 @@ int getPosterior_all_P(FILE *fpIn, FILE *fpOut, int T, int *peakPos,
 }
 
 /* Get all binding sites predictions from viterbi */
-void getPosterior_labels(FILE *fpIn, FILE *fpOut, int T, int *q,
+void getPosterior_all(FILE *fpIn, FILE *fpOut, int T, int *q,
                          int *peakPos, double **posterior, HMM *phmm)
 {
   int *O, *peaks, start, end, TFstart, TFend, length, init, t, i, j;
@@ -292,7 +269,7 @@ void getPosterior_labels(FILE *fpIn, FILE *fpOut, int T, int *q,
   int TF, maxTF;
   double prob;
   char chr[20];
-  fprintf(stdout,"scanning peak file and getting posterior for all positions\n");
+  fprintf(stdout,"scanning peak file and calculating posterior probabilities for all positions\n");
 
   int * stateList = ivector(phmm->N);
   TF = 0;
@@ -307,13 +284,11 @@ void getPosterior_labels(FILE *fpIn, FILE *fpOut, int T, int *q,
         stateList[i] = j * (phmm->inactive + 1) + 1;
       }
       TF += phmm->D[j];
-      fprintf(stdout,"%d ", stateList[TF-1]);
     }
   }
   TF -= 1;
   for (j = phmm->N - phmm->extraState; j < phmm->N; j++){
     stateList[j] = j;
-    fprintf(stdout,"%d ", stateList[j]);
   }
   i = -1;
   while (fscanf(fpIn, "%s\t%d\t%d", chr, &start, &end) != EOF) {

@@ -51,7 +51,6 @@ void Forward_P(HMM *phmm, int T, double **alpha, double *pprob, int P,
       else {
         alpha[i][peakPos[k]-1] = log(phmm->pi[i]) + gsl_matrix_get(emission_matrix, i, peakPos[k]-1);
       }
-      
    }
    
 /* 2. Induction */
@@ -110,7 +109,6 @@ void Forward_P(HMM *phmm, int T, double **alpha, double *pprob, int P,
           == alpha[i][end-1]) {
         if (pprob[k] != -INFINITY) {
           pprob[k] = logadd(pprob[k], alpha[i][end-1]);
-          if (end==peakPos[2] - 1 && i > phmm->N - 6) fprintf(stdout, "a:%e %e\t", alpha[i][end-1], pprob[k]);
         }
         else {
           pprob[k] = alpha[i][end-1];

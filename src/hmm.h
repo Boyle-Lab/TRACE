@@ -38,12 +38,6 @@ typedef struct {
 void BaumWelch(HMM *phmm, int T, gsl_matrix * obs_matrix, int *pniter, int P, 
                int *peakPos, double *logprobf, double **alpha, double **beta, 
                double **gamma, gsl_matrix * emission_matrix);
-void UpdateVariance(HMM *phmm, gsl_matrix * obs_matrix, gsl_matrix * post_obs,
-                    gsl_vector * prob_sum, gsl_matrix *prob_matrix, int T, 
-                    int TF);
-void UpdateCovariance(HMM *phmm, gsl_matrix * obs_matrix, 
-                      gsl_matrix * post_obs, gsl_vector * prob_sum, 
-                      gsl_matrix *prob_matrix, int T, int TF);
 void UpdateVariance_2(HMM *phmm, gsl_matrix * obs_matrix, 
                       gsl_vector * prob_sum, gsl_matrix *prob_matrix, 
                       int T, int TF);
@@ -66,10 +60,7 @@ void Forward_P(HMM *phmm, int T, double **alpha, double *pprob, int P,
 void Backward_P(HMM *phmm, int T, double **beta, int P, int *peakPos, 
                 gsl_matrix * emission_matrix);
                 
-/* sequence.c */
-void ReadSequence(FILE *fp, int *pT, double *GC, int **pO, int *pP, 
-                  int **peakPos);
-void ReadTagFile(FILE *fp, int T, gsl_vector * data_vector, double adjust);
+/* emutils.c */
 void CalMotifScore_P(HMM *phmm, gsl_matrix * S, int *O1, int P, int *peakPos);
 void EmissionMatrix(HMM* phmm, gsl_matrix * obs_matrix, int P, int *peakPos, 
                     gsl_matrix * emission_matrix, int T);
@@ -79,9 +70,15 @@ void EmissionMatrix_mv_reduce(HMM* phmm, gsl_matrix * obs_matrix, int P,
                               int *peakPos, gsl_matrix * emission_matrix, 
                               int T);
 void covarMatrix_GSL(HMM *phmm, int state, gsl_matrix * cov_matrix);
+
+/* fileutils.c */
+void ReadSequence(FILE *fp, int *pT, double *GC, int **pO, int *pP,
+                  int **peakPos);
+void ReadTagFile(FILE *fp, int T, gsl_vector * data_vector, double adjust);
 void PrintSequenceProb(FILE *fp, int T, int *O, double *vprob, double *g, 
                        double **posterior, int indexTF);
-                       
+void checkFile(char *filename, char *mode);
+
 /* hmmutils.c */
 void ReadM(FILE *fp, HMM *phmm);
 void ReadInitHMM(FILE *fp, HMM *phmm);
@@ -96,11 +93,9 @@ void Viterbi(HMM *phmm, int T, double *g, double  **alpha, double	**beta,
              int **psi, int *q, double *vprob, double *pprob, 
              double **posterior, int P, int *peakPos,
              gsl_matrix * emission_matrix);
-void getPosterior_P(FILE *fpIn, FILE *fpOut,int T, int *peakPos, 
-                    double **posterior, int indexTF, HMM *phmm);
-int getPosterior_all_P(FILE *fpIn, FILE *fpOut, int T, int *peakPos,
+int getPosterior_motif(FILE *fpIn, FILE *fpOut, int T, int *peakPos,
                        double **posterior, HMM *phmm, int *q, double *vprob);
-void getPosterior_labels(FILE *fpIn, FILE *fpOut, int T, int *q,
+void getPosterior_all(FILE *fpIn, FILE *fpOut, int T, int *q,
                          int *peakPos, double **posterior, HMM *phmm);
                                                                         
 int hmmgetseed(void);
@@ -109,8 +104,10 @@ double hmmgetrand(void);
 
 #define MAX(x,y)        ((x) > (y) ? (x) : (y))
 #define MIN(x,y)        ((x) < (y) ? (x) : (y))
+
+/* some globle values */
 #define SQRT_TWO_PI 2.5066282746310002
 #define D_LOG2E 1.44269504088896340736
-#define TINY 1.0e-20
+#define TINY 1.0e-15
 int MAXITERATION;
 int THREAD_NUM;

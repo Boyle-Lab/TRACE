@@ -42,7 +42,7 @@ void ReadInitHMM(FILE *fp, HMM *phmm)
     fprintf(stderr, "Error: model file error \n");
     exit (1);
   }
-  phmm->K = 2 + (phmm->inactive+1) * phmm->M; /* Number of data provided for each state:
+  phmm->K = 2 + phmm->M; /* Number of data provided for each state:
                                            tag counts, slop, and PWM score for each TF*/
 
   /* Read transition matrix */
@@ -221,7 +221,7 @@ void ReadHMM(FILE *fp, HMM *phmm)
   for (i = 0; i < phmm->K*(phmm->K-1)/2; i++) {
     for (j = 0; j < phmm->N ; j++) {
       if(fscanf(fp, "%lf", &(phmm->rho[i][j])) == EOF){
-        fprintf(stderr, "Error: model file error 6\n");
+        fprintf(stderr, "Error: model file error \n");
         exit (1);
       }
     }
