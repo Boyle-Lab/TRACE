@@ -27,7 +27,7 @@ To generate required files in correct format, you can use our python script data
   
 To generat data files using our python script:    
 ```
-./src/dataProcessing.py <peak_3.file> <bam.file> <genome.size> <fasta.file> 
+./scripts/dataProcessing.py <peak_3.file> <bam.file> <genome.size> <fasta.file> 
 ```
 Required input:       
 - `<peak_3.file>`: A file containing regions of interest. The 3 columns are chromosome number, start position and end position of regions of interest. To avoid potential errors in our main program, please make sure there are no repetitive regions.  
@@ -43,18 +43,18 @@ Output:
 The default setting will use DNase-seq based protocol. To use ATAC-seq data instead, include ```--ATAC-seq``` argument and choose from 'pe' (pair-end) and 'se' (single-end). If you have preferred output directory and name, set argument `--prefix`.  Otherwise all files will be saved in ./data.   
     
 ```
-./src/dataProcessing.py <peak_3.file> <atac-seq.bam.file> <genome.size> <fasta.file> --ATAC-seq pe --prefix ./out/example
+./scripts/dataProcessing.py <peak_3.file> <atac-seq.bam.file> <genome.size> <fasta.file> --ATAC-seq pe --prefix ./out/example
 ```
  
 To build an intial TRACE model: 
  
 ```
-./src/init_hmm.py <TF>
+./scripts/init_hmm.py <TF>
 ```
 It will generate a starting model `<init.model.file>` for TF of your choice.  The default setting will generate a 10-motif model, to change the number of extra motifs, set argument `--motif-number`.       
   
 ```
-./src/init_hmm.py <TF> --motif-number <N>
+./scripts/init_hmm.py <TF> --motif-number <N>
 ``` 
  
 For original Boyle method which doesn't include motif information, there is an initial model available and universal for all TFs in `./data/Boyle_model.txt`.
@@ -93,7 +93,7 @@ The data folder contains example data for DNase-seq on K562 cell and a initial m
 ./TRACE ./data/E2F1_seq.txt ./data/E2F1_slope_2.txt ./data/E2F1_count.txt ./data/E2F1_init_model.txt --final-model ./data/E2F1_hmm.txt --peak-file ./data/E2F1_peak_3.bed --motif-file ./data/E2F1_peak_7.bed
 ```
 
-## Interpreting TRACE’s Output
+## Interprete TRACE’s Output
 Our demo shown above will generate two files: `E2F1_peak_7.bed_with_probs.txt` and `E2F1_hmm.txt_viterbi_results.txt`.   
   
 `E2F1_peak_7.bed_with_probs.txt` contains all provided motif sites followed with states probability for all motifs included in the model as well as generic footprints. You can only use the first two scores (fourth and fifth colunm) which are probabilities of being actve binding sites or inactive binding sites for the first motif (your TF of interest). For assessment, we recommend using the value of fourth colunm minus fifth colunm.  
