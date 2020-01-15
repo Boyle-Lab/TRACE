@@ -250,7 +250,7 @@ def main():
 
   signal = Signal(args.input_files[1], args.input_files[0], args.input_files[2])
   # Generate sequence file
-  signal.load_sequence(args.input_files[3], args.prefix + "seq.txt")
+  signal.load_sequence(args.input_files[3], args.prefix + ".seq.txt")
   signal.fastaFile = args.input_files[3]
   # Process DNase-seq or ATAC-seq data
   loessSignal, deriv2nd, deriv1st, bc_loess = signal.get_signal(args.span, args.is_atac, args.shift)
