@@ -178,7 +178,9 @@ def main():
   # Optional parameters
   parser.add_argument("--motif-number", type=int, dest="motif_num", default=10,
                       help='number of extra motifs in model, DEFAULT: 10')
-
+  parser.add_argument("--prefix", type=str, dest = "prefix",
+                      default="",
+                      help="The prefix for model file.")
   # Required input
   parser.add_argument(dest="TF", metavar="transcription factor",
                       type=str, help='transcription factor of interest')
@@ -221,7 +223,8 @@ def main():
 
   transition_t = build_transition_all_top(lenList)
   matrix, sumLen = tMatrix_table(transition_t)
-  fileName = os.path.dirname(__file__) + '/../data/' + args.TF + '_init_model.txt'
+  #fileName = os.path.dirname(__file__) + '/../data/' + args.TF + '_init_model.txt'
+  fileName = args.prefix + args.TF + '_init_model.txt'
   with open(fileName, "w") as outFile:
     print('M =', len(lenList), file = outFile) # M is number of motifs in model
     print('N =', len(transition_t), file = outFile) # N is number of hidden states in model
