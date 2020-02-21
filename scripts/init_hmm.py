@@ -181,7 +181,7 @@ def main():
   parser.add_argument("--prefix", type=str, dest = "prefix",
                       default="",
                       help="The prefix for model file.")
-  parser.add_argument("--file-path", type=str, dest = "prefix",
+  parser.add_argument("--file-path", type=str, dest = "file_path",
                       default=os.path.dirname(__file__) + '/../data/',
                       help="The file path for all input file")
   # Required input
@@ -194,9 +194,11 @@ def main():
   pwmList = []
   motifList = []
   fileList = []
-  motif_info_file = os.path.join(args.prefix,
+  if not os.path.isfile(args.file_path):
+    
+  motif_info_file = os.path.join(args.file_path,
                                 'motif_info.txt')
-  cluster_info_file = os.path.join(args.prefix,
+  cluster_info_file = os.path.join(args.file_path,
                                    'cluster_info.txt')
   with open(motif_info_file , "r") as inFile:
     motif_info = pandas.read_table(inFile,header=None)
@@ -207,11 +209,11 @@ def main():
   cluster = motif_info.iloc[np.where(motif_info[0] == args.TF)].iloc[0, 2]
   rank = np.where(cluster_info[0] == cluster)[0][0]
   cluster_info = cluster_info.drop([rank])[:(args.motif_num-1)]
-  fileList.append(args.prefix + '/motif/' + jaspar + '.jaspar')
+  fileList.append(args.file_path + '/motif/' + jaspar + '.jaspar')
   motifList.append(jaspar)
   for motif in cluster_info[:(args.motif_num-1)][0]:
     #print(motif)
-    fileList.append(args.prefix + '/motif/' + motif + '_root.jaspar')
+    fileList.append(args.file_path + '/motif/' + motif + '_root.jaspar')
     motifList.append(motif)
 
   for filename in fileList:
