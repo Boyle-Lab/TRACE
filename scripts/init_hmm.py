@@ -179,8 +179,11 @@ def main():
   parser.add_argument("--motif-number", type=int, dest="motif_num", default=10,
                       help='number of extra motifs in model, DEFAULT: 10')
   parser.add_argument("--prefix", type=str, dest = "prefix",
-                      default=os.path.dirname(__file__) + '/../data/',
+                      default="",
                       help="The prefix for model file.")
+  parser.add_argument("--file-path", type=str, dest = "prefix",
+                      default=os.path.dirname(__file__) + '/../data/',
+                      help="The file path for all input file")
   # Required input
   parser.add_argument(dest="TF", metavar="transcription factor",
                       type=str, help='transcription factor of interest')
@@ -191,10 +194,10 @@ def main():
   pwmList = []
   motifList = []
   fileList = []
-  motif_info_file = os.path.join(os.path.dirname(__file__),
-                                '../data/motif_info.txt')
-  cluster_info_file = os.path.join(os.path.dirname(__file__),
-                                   '../data/cluster_info.txt')
+  motif_info_file = os.path.join(args.prefix,
+                                'motif_info.txt')
+  cluster_info_file = os.path.join(args.prefix,
+                                   'cluster_info.txt')
   with open(motif_info_file , "r") as inFile:
     motif_info = pandas.read_table(inFile,header=None)
   with open(cluster_info_file, "r") as inFile:
@@ -204,11 +207,11 @@ def main():
   cluster = motif_info.iloc[np.where(motif_info[0] == args.TF)].iloc[0, 2]
   rank = np.where(cluster_info[0] == cluster)[0][0]
   cluster_info = cluster_info.drop([rank])[:(args.motif_num-1)]
-  fileList.append(os.path.dirname(__file__) + '/../data/motif/' + jaspar + '.jaspar')
+  fileList.append(args.prefix + '/motif/' + jaspar + '.jaspar')
   motifList.append(jaspar)
   for motif in cluster_info[:(args.motif_num-1)][0]:
     #print(motif)
-    fileList.append(os.path.dirname(__file__) + '/../data/motif/' + motif + '_root.jaspar')
+    fileList.append(args.prefix + '/motif/' + motif + '_root.jaspar')
     motifList.append(motif)
 
   for filename in fileList:
