@@ -179,7 +179,7 @@ def main():
   parser.add_argument("--motif-number", type=int, dest="motif_num", default=10,
                       help='number of extra motifs in model, DEFAULT: 10')
   parser.add_argument("--prefix", type=str, dest = "prefix",
-                      default="",
+                      default=os.path.dirname(__file__) + '/../data/',
                       help="The prefix for model file.")
   # Required input
   parser.add_argument(dest="TF", metavar="transcription factor",
