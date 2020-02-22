@@ -194,7 +194,7 @@ def main():
   pwmList = []
   motifList = []
   fileList = []
-  if not os.path.isfile(args.file_path):
+  if not os.path.isdir(args.file_path):
     print('file path invalid:' + args.file_path)
     exit(1)
   motif_info_file = os.path.join(args.file_path,
