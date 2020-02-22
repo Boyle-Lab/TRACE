@@ -195,7 +195,8 @@ def main():
   motifList = []
   fileList = []
   if not os.path.isfile(args.file_path):
-    
+    print('file path invalid:' + args.file_path)
+    exit(1)
   motif_info_file = os.path.join(args.file_path,
                                 'motif_info.txt')
   cluster_info_file = os.path.join(args.file_path,
@@ -224,8 +225,8 @@ def main():
         pwmList.append(pwm)
         lenList.append(len(pwm))
     else:
-      print('file path invalid' + filename)
-
+      print('file path invalid:' + filename)
+      exit(1)
   transition_t = build_transition_all_top(lenList)
   matrix, sumLen = tMatrix_table(transition_t)
   #fileName = os.path.dirname(__file__) + '/../data/' + args.TF + '_init_model.txt'
