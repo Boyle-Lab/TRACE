@@ -56,7 +56,7 @@ int main (int argc, char **argv)
   int oflg=0, mflg=0, nflg=0, aflg =0, bflg =0, pflg =0, fflg=0, eflg=0, tflg=0;
   int errflg=0, vflg=0;
   char *hmminitfile, *slopefile, *countfile, *seqfile, *thresholdfile;
-  char *listfile, motiffile[100], peakfile[100], outfile[100], predfile[100], scorefile[100];
+  char *listfile, motiffile[150], peakfile[150], outfile[150], predfile[150], scorefile[150];
   int ifMulti = 2; /* defalult model is multivaraint normal distribution
                       with problematic hidden state dropped */
   peakfile[0] = '\0';
