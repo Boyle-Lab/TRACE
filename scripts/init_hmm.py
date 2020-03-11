@@ -10,7 +10,7 @@ import pandas
 import argparse
 import re
 import os
-
+from Bio import motifs
 
 def pfm2pwm(pfm):
   pwm =[]
@@ -22,6 +22,12 @@ def pfm2pwm(pfm):
     pwm.append(row)
   return pwm
 
+def convertPWM(m):
+  m.pseudocounts={'A': 0.25,'C': 0.25, 'G': 0.25, 'T':0.25}
+  pwm=[]
+  for i in range(len(m.pwm['A'])):
+    pwm.append([m.pwm['A'][i], m.pwm['C'][i], m.pwm['G'][i], m.pwm['T'][i]])
+  return pwm
 
 def read_pfm(inFile):
   pfm = []
@@ -137,6 +143,7 @@ def eMatrix_all_top(outFile, lenList):
   print('0.0 ' * (sum(lenList) + extraState - 1), file = outFile, end = '')
   print('1.0', file = outFile)
   print('mu:', file = outFile)
+  # initial parameters for mean of PWM scores for each motif
   for i in range(len(lenList)):
     j = 0
     while j < i:
@@ -148,8 +155,8 @@ def eMatrix_all_top(outFile, lenList):
       print('-2.5 ' * lenList[j], file = outFile, end = '')
       j += 1
     print('-5.0 ' * extraState, file = outFile)
+  # initial parameters for mean of cut counts and derivatives
   for j in range(len(lenList)):
-
     print('-0.25 ' * int(lenList[j] / 2), file = outFile, end='')
     print('-0.0 ' * int(lenList[j] / 2), file = outFile, end='')
   print('0.4 0.5 0.4 0.0 0.0 0.0 -0.1 0.0 0.0 0.0', file = outFile)
@@ -158,10 +165,7 @@ def eMatrix_all_top(outFile, lenList):
     print('0.0 ' * int(lenList[j] / 2), file = outFile, end='')
   print('0.6 0.7 0.6 0.2 0.2 0.2 -0.1 -0.1 0.0 0.0', file = outFile)
 
-  #print('0.0 ' * sum(lenList), file = outFile, end = '')
-  #print('2.0 0.0 -2.0 ' * 2 + '0.0 ' * (extraFP + 2), file = outFile)
-  #print('0.0 ' * sum(lenList), file = outFile, end = '')
-  #print('2.0 2.0 2.0 0.0 0.0 0.0 ' + '0.0 ' * (extraFP + 2), file = outFile)
+  # initial parameters for covariance matrix
   print('sigma:', file = outFile)
   for i in range(len(lenList) + 2):
     for j in range(sum(lenList) + extraState):
@@ -178,11 +182,27 @@ def main():
   # Optional parameters
   parser.add_argument("--motif-number", type=int, dest="motif_num", default=10,
                       help='number of extra motifs in model, DEFAULT: 10')
+  parser.add_argument("--cluster-transfec", type=str, dest="cluster_transfec",
+                      default=os.path.join(os.path.dirname(__file__),
+                      '../data/JASPAR_2020_matrix_clustering_vertebrates_cluster_root_motifs.txt'),
+                      help='cluster roots motifs')
+  parser.add_argument("--motif-transfec", type=str, dest="motif_transfec",
+                      default=os.path.join(os.path.dirname(__file__),
+                      '../data/JASPAR2020_CORE_vertebrates_non-redundant_pfms_transfac.txt'),
+                      help='motifs from JASPAR database')
+  parser.add_argument("--motif-info", type=str, dest="motif_info",
+                      default=os.path.join(os.path.dirname(__file__),
+                      '../data/motif_cluster_info_2020.txt'),
+                      help='motifs information with names and clusters they belong')
+  parser.add_argument("--cluster-order", type=str, dest="cluster_order",
+                      default=os.path.join(os.path.dirname(__file__),
+                      '../data/cluster_order_2020.txt'),
+                      help='order of cluster motifs')
   parser.add_argument("--prefix", type=str, dest = "prefix",
-                      default="",
+                      default=os.path.join(os.path.dirname(__file__), '../data/'),
                       help="The prefix for model file.")
   parser.add_argument("--file-path", type=str, dest = "file_path",
-                      default=os.path.dirname(__file__) + '/../data/',
+                      default=os.path.join(os.path.dirname(__file__), '../data/'),
                       help="The file path for all input file")
   # Required input
   parser.add_argument(dest="TF", metavar="transcription factor",
@@ -190,62 +210,79 @@ def main():
 
   args = parser.parse_args()
 
-  lenList = []
-  pwmList = []
-  motifList = []
-  fileList = []
   if not os.path.isdir(args.file_path):
     print('file path invalid:' + args.file_path)
     exit(1)
-  motif_info_file = os.path.join(args.file_path,
-                                'motif_info.txt')
-  cluster_info_file = os.path.join(args.file_path,
-                                   'cluster_info.txt')
-  with open(motif_info_file , "r") as inFile:
+  if not os.path.isfile(args.motif_info):
+    print('file path invalid:' + args.motif_info)
+    exit(1)
+  if not os.path.isfile(args.cluster_order):
+    print('file path invalid:' + args.cluster_order)
+    exit(1)
+  if not os.path.isfile(args.cluster_transfec):
+    print('file path invalid:' + args.cluster_transfec)
+    exit(1)
+  if not os.path.isfile(args.motif_transfec):
+    print('file path invalid:' + args.motif_transfec)
+    exit(1)
+  
+  with open(args.cluster_transfec) as handle:
+    root_transfac = motifs.parse(handle, "TRANSFAC", strict=False)
+  with open(args.motif_transfec) as handle:
+    motif_transfac = motifs.parse(handle, "TRANSFAC", strict=False)
+  with open(args.motif_info, "r") as inFile:
     motif_info = pandas.read_table(inFile,header=None)
-  with open(cluster_info_file, "r") as inFile:
+  with open(args.cluster_order, "r") as inFile:
     cluster_info = pandas.read_table(inFile, header=None)
-
-  jaspar = motif_info.iloc[np.where(motif_info[0] == args.TF)].iloc[0, 1]
+  
+  lenList = []
+  pwmList = []
+  motifList = []
+  fileList = []# a list of pwm files #
+  
+  motif_pwm = next((item for item in motif_transfac if item['ID']==args.TF), None)
+  print(motif_pwm['ID'], motif_pwm['AC'])
+  if motif_pwm==None:
+    print('Error: '+ args.TF +'not exists in built-in motif list')
+    return
+  fileList.append(motif_pwm)
   cluster = motif_info.iloc[np.where(motif_info[0] == args.TF)].iloc[0, 2]
   rank = np.where(cluster_info[0] == cluster)[0][0]
   cluster_info = cluster_info.drop([rank])[:(args.motif_num-1)]
-  fileList.append(args.file_path + '/motif/' + jaspar + '.jaspar')
-  motifList.append(jaspar)
   for motif in cluster_info[:(args.motif_num-1)][0]:
-    #print(motif)
-    fileList.append(args.file_path + '/motif/' + motif + '_root.jaspar')
-    motifList.append(motif)
-
-  for filename in fileList:
-    if os.path.isfile(filename):
-      with open(filename, "r") as inFile:
-        header, pfm = read_pfm(inFile)
-        pwm = pfm2pwm(pfm)
-        pwmList.append(pwm)
-        lenList.append(len(pwm))
-    else:
-      print('file path invalid:' + filename)
-      exit(1)
+    m = next((item for item in root_transfac if item['AC']==motif), None)
+    fileList.append(m)
+    print(m['ID'])
+    if m==None:
+      print('Error: '+ motif +'not exists in list')
+      return
+  for motif in fileList:
+    pwm = convertPWM(motif)
+    pwmList.append(pwm)
+    lenList.append(len(pwm))
+    
+  #build transition matrix
   transition_t = build_transition_all_top(lenList)
   matrix, sumLen = tMatrix_table(transition_t)
   #fileName = os.path.dirname(__file__) + '/../data/' + args.TF + '_init_model.txt'
   fileName = args.prefix + args.TF + '_init_model.txt'
-  with open(fileName, "w") as outFile:
-    print('M =', len(lenList), file = outFile) # M is number of motifs in model
-    print('N =', len(transition_t), file = outFile) # N is number of hidden states in model
-    print('P = 3', file = outFile) # number of states in a peak
+  try:
+    with open(fileName, "w") as outFile:
+      print('M =', len(lenList), file = outFile) # M is number of motifs in model
+      print('N =', len(transition_t), file = outFile) # N is number of hidden states in model
+      print('P = 3', file = outFile) # number of states in a peak
                                    # surrounding FP is 3 in our model
-    print('D = 1', file = outFile) # D > 0 means there are double sets of TFBSs,
+      print('D = 1', file = outFile) # D > 0 means there are double sets of TFBSs,
                                    # including acttive and inavtive
-    printMatrix(outFile, matrix)
-    for pwm in pwmList:
-      printPWM(outFile, pwm)
-    doubleLengthList = []
-    for i in range(len(lenList)):
-      doubleLengthList.append(lenList[i] * 2)
-    eMatrix_all_top(outFile, doubleLengthList)
-
+      printMatrix(outFile, matrix)
+      for pwm in pwmList:
+        printPWM(outFile, pwm)
+      doubleLengthList = []
+      for i in range(len(lenList)):
+        doubleLengthList.append(lenList[i] * 2)
+      eMatrix_all_top(outFile, doubleLengthList)
+  except IOError:
+    print('file path invalid:' + fileName)
   return
 
 
