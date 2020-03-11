@@ -1,0 +1,4981 @@
+AC  cluster_100
+XX
+ID  cluster_100
+XX
+DE  MA1589_1 ZNF140 ; From JASPAR
+P0       A     C     G     T
+1      325   272   258   985
+2     1140   173   341   186
+3      279    38  1223   300
+4       29    10  1788    13
+5     1708    14   108    10
+6       26    11  1787    16
+7       10   875    36   919
+8      522     6  1194   118
+9       11     1  1812    16
+10    1823     2     7     8
+11    1816     9    12     3
+12       8    87    27  1718
+13      71    33    48  1688
+14      19    10  1806     5
+15      29  1606    22   183
+16     221   128    69  1422
+17     310   131  1241   158
+18     338   159  1168   175
+19     455   190  1005   190
+20     234   290   248  1068
+21     280   966   253   341
+XX
+CC  residue_type: 
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_100
+CC  AC: JASPAR_2020_vertebrates_m721_MA1589_1
+CC  id: JASPAR_2020_vertebrates_m721_MA1589_1
+CC  name: cluster_100
+CC  version: 
+CC  name: cluster_100
+CC  description: MA1589_1 ZNF140 ; From JASPAR
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  merge_nb: 1
+CC  merge_type: sum
+CC  merged_AC: JASPAR_2020_vertebrates:::ZNF140
+CC  type: merge
+CC  merged_ID: ZNF140
+XX
+//
+AC  cluster_108
+XX
+ID  cluster_108
+XX
+DE  MA0083_3 SRF ; From JASPAR
+P0       A     C     G     T
+1      214   125    80  1129
+2       75   152  1144   372
+3      627   611   144   167
+4        0  1771    15     0
+5        3  1787    11    19
+6     1137    13    18    61
+7       54     0     6  1571
+8     1163     0     2     0
+9        1     5     8  1610
+10    1162     0     0    16
+11     439    12     0  1074
+12       8     9  1896     0
+13       8     2  1872     7
+14     262   105   670   686
+15     337  1023   145    72
+16     913    63    98   248
+XX
+CC  residue_type: 
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_108
+CC  AC: JASPAR_2020_vertebrates_m609_MA0083_3
+CC  id: JASPAR_2020_vertebrates_m609_MA0083_3
+CC  name: cluster_108
+CC  version: 
+CC  name: cluster_108
+CC  description: MA0083_3 SRF ; From JASPAR
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  merge_type: sum
+CC  merge_nb: 1
+CC  merged_AC: JASPAR_2020_vertebrates:::SRF
+CC  type: merge
+CC  merged_ID: SRF
+XX
+//
+AC  cluster_109
+XX
+ID  cluster_109
+XX
+DE  MA1654_1 ZNF16 ; From JASPAR
+P0       A     C     G     T
+1      664    91    58    20
+2      362   222   227    22
+3       48    79   128   578
+4      353    14   312   154
+5       17     2   809     5
+6       12     4   804    13
+7        1    10   821     1
+8      832     0     1     0
+9       13     1   816     3
+10       7   794     4    28
+11      10   748     0    75
+12     800    17    12     4
+13      31   174    31   597
+14     165    26   436   206
+15      24    16   782    11
+16     611    92    95    35
+17     524    17   215    77
+18      66     4   711    52
+19      89     7   725    12
+20      59   160    75   539
+21      32    56   138   607
+22      62   270   136   365
+23      67   109    95   562
+XX
+CC  residue_type: 
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_109
+CC  AC: JASPAR_2020_vertebrates_m724_MA1654_1
+CC  id: JASPAR_2020_vertebrates_m724_MA1654_1
+CC  name: cluster_109
+CC  version: 
+CC  name: cluster_109
+CC  description: MA1654_1 ZNF16 ; From JASPAR
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  merge_type: sum
+CC  merged_ID: ZNF16
+CC  merged_AC: JASPAR_2020_vertebrates:::ZNF16
+CC  merge_nb: 1
+CC  type: merge
+XX
+//
+AC  cluster_103
+XX
+ID  cluster_103
+XX
+DE  MA0140_2 GATA1::TAL1 ; From JASPAR
+P0       A     C     G     T
+1     1114  2038   967   836
+2      206   807   159  3783
+3      318     0     0  4637
+4     4955     0     0     0
+5        0     0     0  4955
+6        0  4955     0     0
+7     2049    63    55  2788
+8      658  1331  2214   752
+9      963  1214  1244  1534
+10    1191  1127  1520  1117
+11    1778  1130   990  1057
+12    1038  1237  1712   968
+13    1352  1142  1466   995
+14    1885  1033   820  1217
+15    1381  1237  1884   453
+16     110  4822    23     0
+17    4659     0     0   296
+18     160   890  3544   361
+XX
+CC  residue_type: 
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_103
+CC  AC: JASPAR_2020_vertebrates_m194_MA0140_2
+CC  id: JASPAR_2020_vertebrates_m194_MA0140_2
+CC  name: cluster_103
+CC  version: 
+CC  name: cluster_103
+CC  description: MA0140_2 GATA1::TAL1 ; From JASPAR
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  merge_nb: 1
+CC  type: merge
+CC  merged_ID: GATA1::TAL1
+CC  merged_AC: JASPAR_2020_vertebrates:::GATA1::TAL1
+CC  merge_type: sum
+XX
+//
+AC  cluster_101
+XX
+ID  cluster_101
+XX
+DE  MA0863_1 MTF1 ; From JASPAR
+P0       A     C     G     T
+1        1     0     4    50
+2        3     5    10    40
+3        1     1     0    53
+4        2     1    66     0
+5        1    71     0     0
+6       53     0     1     1
+7        2    69     2     0
+8       52     3     1     1
+9        0    67     0     0
+10       1     0    70     1
+11       9     2    42    10
+12       0    63     0     8
+13      46    10     7     2
+14       2    62     1     3
+XX
+CC  residue_type: 
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_101
+CC  AC: JASPAR_2020_vertebrates_m371_MA0863_1
+CC  id: JASPAR_2020_vertebrates_m371_MA0863_1
+CC  name: cluster_101
+CC  version: 
+CC  name: cluster_101
+CC  description: MA0863_1 MTF1 ; From JASPAR
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  type: merge
+CC  merge_type: sum
+CC  merged_ID: MTF1
+CC  merge_nb: 1
+CC  merged_AC: JASPAR_2020_vertebrates:::MTF1
+XX
+//
+AC  cluster_104
+XX
+ID  cluster_104
+XX
+DE  MA1573_1 THAP11 ; From JASPAR
+P0       A     C     G     T
+1      154    73   152    72
+2      200    19   214    18
+3      195     5   243     8
+4      443     5     2     1
+5        0   448     1     2
+6        2    15     1   433
+7      411    16    10    14
+8        1   446     1     3
+9      402     8    34     7
+10     165    39    33   214
+11      32   107    47   265
+12       3    17     5   426
+13       4   440     1     6
+14       1   448     1     1
+15       2   443     2     4
+16     383     5    58     5
+17      34    23   365    29
+18     153   184    89    25
+19     247    84    85    35
+XX
+CC  residue_type: 
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_104
+CC  AC: JASPAR_2020_vertebrates_m672_MA1573_1
+CC  id: JASPAR_2020_vertebrates_m672_MA1573_1
+CC  name: cluster_104
+CC  version: 
+CC  name: cluster_104
+CC  description: MA1573_1 THAP11 ; From JASPAR
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  type: merge
+CC  merge_type: sum
+CC  merged_ID: THAP11
+CC  merge_nb: 1
+CC  merged_AC: JASPAR_2020_vertebrates:::THAP11
+XX
+//
+AC  cluster_102
+XX
+ID  cluster_102
+XX
+DE  MA1155_1 ZSCAN4 ; From JASPAR
+P0       A     C     G     T
+1      257   383   112  1373
+2      290     2  1737     0
+3        0  1676     1     0
+4     1292     0     0     2
+5        0  1665     0     0
+6     1281     0     2     2
+7        3  1702     0    73
+8      772   374   320     8
+9        7  1684     0     2
+10       8    11    75  1699
+11       3    50  1873   218
+12    1118   107   230   362
+13    1225   279     0     6
+14    1269     0     2     1
+15    1000   200   365   229
+XX
+CC  residue_type: 
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_102
+CC  AC: JASPAR_2020_vertebrates_m746_MA1155_1
+CC  id: JASPAR_2020_vertebrates_m746_MA1155_1
+CC  name: cluster_102
+CC  version: 
+CC  name: cluster_102
+CC  description: MA1155_1 ZSCAN4 ; From JASPAR
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  merge_nb: 1
+CC  merged_AC: JASPAR_2020_vertebrates:::ZSCAN4
+CC  merged_ID: ZSCAN4
+CC  merge_type: sum
+CC  type: merge
+XX
+//
+AC  cluster_105
+XX
+ID  cluster_105
+XX
+DE  MA1594_1 ZNF382 ; From JASPAR
+P0       A     C     G     T
+1     3566   119   342   225
+2      620   120  2797   715
+3      305   332  3518    97
+4     1784    47  2131   290
+5      276    41  3822   113
+6     3587   246   307   112
+7      155  2049   305  1743
+8     4177    16    44    15
+9      420   232   163  3437
+10      93  2762    36  1361
+11    4192    12    25    23
+12      58  3882   170   142
+13     600  1693    31  1928
+14    4204    16    24     8
+15      14  4073    39   126
+16    1957  1446    91   758
+17     558    43  3578    73
+18    3943    62   167    80
+19     122  1605    95  2430
+20     915  2982   143   212
+21     184  3607    61   400
+22     360  2615    88  1189
+23    3404   153   249   446
+24     171  3415   143   523
+XX
+CC  residue_type: 
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_105
+CC  AC: JASPAR_2020_vertebrates_m733_MA1594_1
+CC  id: JASPAR_2020_vertebrates_m733_MA1594_1
+CC  name: cluster_105
+CC  version: 
+CC  name: cluster_105
+CC  description: MA1594_1 ZNF382 ; From JASPAR
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  merge_nb: 1
+CC  merged_ID: ZNF382
+CC  merge_type: sum
+CC  type: merge
+CC  merged_AC: JASPAR_2020_vertebrates:::ZNF382
+XX
+//
+AC  cluster_107
+XX
+ID  cluster_107
+XX
+DE  MA0073_1 RREB1 ; From JASPAR
+P0       A     C     G     T
+1        3     8     0     0
+2        1    10     0     0
+3        3     8     0     0
+4        0    11     0     0
+5        7     4     0     0
+6        9     2     0     0
+7        8     3     0     0
+8        4     6     0     1
+9        0    11     0     0
+10      11     0     0     0
+11       4     7     0     0
+12       1    10     0     0
+13       3     8     0     0
+14       4     6     1     0
+15       2     9     0     0
+16       4     5     0     2
+17       4     5     1     1
+18       4     6     0     1
+19       1     7     3     0
+20       4     4     2     1
+XX
+CC  residue_type: 
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_107
+CC  AC: JASPAR_2020_vertebrates_m551_MA0073_1
+CC  id: JASPAR_2020_vertebrates_m551_MA0073_1
+CC  name: cluster_107
+CC  version: 
+CC  name: cluster_107
+CC  description: MA0073_1 RREB1 ; From JASPAR
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  merge_nb: 1
+CC  merged_AC: JASPAR_2020_vertebrates:::RREB1
+CC  type: merge
+CC  merged_ID: RREB1
+CC  merge_type: sum
+XX
+//
+AC  cluster_106
+XX
+ID  cluster_106
+XX
+DE  MA0138_2 REST ; From JASPAR
+P0       A     C     G     T
+1      211   174   366   840
+2       58   269   146  1124
+3       76  1366    50   105
+4     1452    30    94    26
+5       34    44  1516    10
+6      122   978   323   182
+7     1575     7    12    12
+8        3  1586    12     5
+9       35  1481    20    70
+10     913   201   162   329
+11     219   375   124   886
+12      39     7  1551     7
+13      20     5  1577     2
+14    1406   112    34    51
+15      13  1280   233    74
+16    1574     9     7    10
+17      42    13  1530     9
+18     205  1007   183   198
+19     366    31   688   507
+20     213   933   319   125
+21     179  1114    37   260
+XX
+CC  residue_type: 
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_106
+CC  AC: JASPAR_2020_vertebrates_m538_MA0138_2
+CC  id: JASPAR_2020_vertebrates_m538_MA0138_2
+CC  name: cluster_106
+CC  version: 
+CC  name: cluster_106
+CC  description: MA0138_2 REST ; From JASPAR
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  merged_ID: REST
+CC  merge_type: sum
+CC  merge_nb: 1
+CC  merged_AC: JASPAR_2020_vertebrates:::REST
+CC  type: merge
+XX
+//
+AC  cluster_111
+XX
+ID  cluster_111
+XX
+DE  MA1575_1 THRB_var_2_ ; From JASPAR
+P0       A     C     G     T
+1     1010   624  1640   837
+2       26   618    15  4111
+3      252   642  4111   230
+4     4111   351   432  1787
+5       29  4111     2     0
+6        1  4111     2     8
+7        0  1178    77  4111
+8      286  1512   872  1441
+9     2454   241  1353    63
+10    1060  1033   939  1079
+11      63  1266   312  2470
+12    1469   904  1488   251
+13    4111   106  1233     2
+14       0     3  4111     0
+15       0     0  4111    30
+16    1688   470   303  4111
+17     199  4111   686   291
+18    4111     5   629     5
+19     835  1649   610  1017
+XX
+CC  residue_type: 
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_111
+CC  AC: JASPAR_2020_vertebrates_m674_MA1575_1
+CC  id: JASPAR_2020_vertebrates_m674_MA1575_1
+CC  name: cluster_111
+CC  version: 
+CC  name: cluster_111
+CC  description: MA1575_1 THRB_var_2_ ; From JASPAR
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  type: merge
+CC  merged_ID: THRB_var_2_
+CC  merged_AC: JASPAR_2020_vertebrates:::THRB_var_2_
+CC  merge_nb: 1
+CC  merge_type: sum
+XX
+//
+AC  cluster_110
+XX
+ID  cluster_110
+XX
+DE  MA1529_1 NHLH2 ; From JASPAR
+P0       A     C     G     T
+1     4834  2655  9732  4143
+2     4312  2219 13903  5198
+3     3741  1065 18450  2763
+4     4921  6141  4908  5394
+5     5603 15451   671   151
+6     2378  2324 18930  2634
+7        2 21359     2     5
+8    21364     0    26     1
+9        6  2459 20096  1054
+10     525 20268  2266     0
+11       0    14     3 21358
+12       0     2 21363     0
+13     693 20611   275  1230
+14     210   204 20977   740
+15    1184  7207  1520 13503
+16    3766 18351  1183  2533
+17    6392 13462  1579  3330
+18    3601 11271  2264  4228
+XX
+CC  residue_type: 
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_110
+CC  AC: JASPAR_2020_vertebrates_m411_MA1529_1
+CC  id: JASPAR_2020_vertebrates_m411_MA1529_1
+CC  name: cluster_110
+CC  version: 
+CC  name: cluster_110
+CC  description: MA1529_1 NHLH2 ; From JASPAR
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  merge_type: sum
+CC  type: merge
+CC  merged_ID: NHLH2
+CC  merged_AC: JASPAR_2020_vertebrates:::NHLH2
+CC  merge_nb: 1
+XX
+//
+AC  cluster_21
+XX
+ID  cluster_21
+XX
+DE  msmakyAATTAAtgmay
+P0       A     C     G     T
+1      198   180   110   113
+2       83   218   232    66
+3      223   192   103    82
+4      359    57   115    70
+5       53   145   192   208
+6        7   314     0   279
+7      551     1    45     3
+8      555    36     4     6
+9        5     3     0   592
+10       6    18     1   575
+11     550     0    32    16
+12     439     8   121    29
+13     139   131    75   257
+14     127   134   214   126
+15     220   160   149    70
+16     231   111   131   128
+17      81   160   101   257
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_21
+CC  AC: cluster_21
+CC  id: cluster_21
+CC  name: cluster_21
+CC  version: 
+CC  name: cluster_21
+CC  description: msmakyAATTAAtgmay
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: agaatcAATTAAtgaat
+CC  consensus.strict.rc: ATTCATTAATTGATTCT
+CC  consensus.IUPAC: msmakyAATTAAtgmay
+CC  consensus.IUPAC.rc: RTKCATTAATTRMTKSK
+CC  consensus.regexp: [ac][cg][ac]a[gt][ct]AATTAAtg[ac]a[ct]
+CC  consensus.regexp.rc: [AG]T[GT]CATTAATT[AG][AC]T[GT][CG][GT]
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 6
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA0896_1,JASPAR_2020_vertebrates:::MA0897_1,JASPAR_2020_vertebrates:::MA0898_1,JASPAR_2020_vertebrates:::MA0874_1,JASPAR_2020_vertebrates:::MA0854_1,JASPAR_2020_vertebrates:::MA0853_1'
+CC  merged_ID: 'Hmx1,Hmx2,Hmx3,Arx,Alx1,Alx4'
+XX
+//
+AC  cluster_22
+XX
+ID  cluster_22
+XX
+DE  sGTCACGCwTSAsTGmm
+P0       A     C     G     T
+1      468  5567  2599   571
+2        5     4  9081   122
+3      303    95     6  7542
+4        7  8291     2   658
+5     6854   286     5     2
+6        5  8383     1   923
+7        4     2  9290     4
+8        1  8136  1748     1
+9     4076   166    58  2688
+10      13   497     3  7515
+11       6  3195  8229    59
+12    6698     2  1069     1
+13    1457  3063  2205  1196
+14      81   824    35  7351
+15     992    19  7914  1156
+16    2702  4951  1618     0
+17    4827  3470  1424  2142
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_22
+CC  AC: cluster_22
+CC  id: cluster_22
+CC  name: cluster_22
+CC  version: 
+CC  name: cluster_22
+CC  description: sGTCACGCwTSAsTGmm
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: cGTCACGCaTGAcTGca
+CC  consensus.strict.rc: TGCAGTCATGCGTGACG
+CC  consensus.IUPAC: sGTCACGCwTSAsTGmm
+CC  consensus.IUPAC.rc: KKCASTSAWGCGTGACS
+CC  consensus.regexp: [cg]GTCACGC[at]T[CG]A[cg]TG[ac][ac]
+CC  consensus.regexp.rc: [GT][GT]CA[CG]T[CG]A[AT]GCGTGAC[CG]
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 3
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA0069_1,JASPAR_2020_vertebrates:::MA0779_1,JASPAR_2020_vertebrates:::MA0781_1'
+CC  merged_ID: 'PAX6,PAX1,PAX9'
+XX
+//
+AC  cluster_15
+XX
+ID  cluster_15
+XX
+DE  yGTCTAGACaGs
+P0       A     C     G     T
+1     1388  4721   548  4501
+2       74    32  9392    23
+3      528   278   806  9884
+4       54 10408    50    11
+5        1   724   616  9959
+6    10404   577   156    12
+7       25   881  9415   164
+8    10062   681   375   337
+9       42 10376    39    56
+10    9301  1505  1358  2429
+11     127    40   786    44
+12     199   294   326   179
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_15
+CC  AC: cluster_15
+CC  id: cluster_15
+CC  name: cluster_15
+CC  version: 
+CC  name: cluster_15
+CC  description: yGTCTAGACaGs
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: cGTCTAGACaGg
+CC  consensus.strict.rc: CCTGTCTAGACG
+CC  consensus.IUPAC: yGTCTAGACaGs
+CC  consensus.IUPAC.rc: SCTGTCTAGACR
+CC  consensus.regexp: [ct]GTCTAGACaG[cg]
+CC  consensus.regexp.rc: [CG]CTGTCTAGAC[AG]
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 4
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA1602_1,JASPAR_2020_vertebrates:::MA1153_1,JASPAR_2020_vertebrates:::MA0795_1,JASPAR_2020_vertebrates:::MA1557_1'
+CC  merged_ID: 'ZSCAN29,Smad4,SMAD3,SMAD5'
+XX
+//
+AC  cluster_20
+XX
+ID  cluster_20
+XX
+DE  rrGGTCrTGACCyy
+P0       A     C     G     T
+1     3281   742  2994   818
+2     5291   493  2544   146
+3      750   438  8412   549
+4      765   282  8188  1884
+5      537   671  1977  7846
+6      100  9110   195   437
+7     5526    59  3662    55
+8      141   202    58  9034
+9      231   127  9189    28
+10    9077   347   262   299
+11    1513  9139   104    67
+12     245  8915   283   266
+13     459  2912   653  5646
+14     956  3468  1054  3769
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_20
+CC  AC: cluster_20
+CC  id: cluster_20
+CC  name: cluster_20
+CC  version: 
+CC  name: cluster_20
+CC  description: rrGGTCrTGACCyy
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: aaGGTCaTGACCtt
+CC  consensus.strict.rc: AAGGTCATGACCTT
+CC  consensus.IUPAC: rrGGTCrTGACCyy
+CC  consensus.IUPAC.rc: RRGGTCAYGACCYY
+CC  consensus.regexp: [ag][ag]GGTC[ag]TGACC[ct][ct]
+CC  consensus.regexp.rc: [AG][AG]GGTCA[CT]GACC[CT][CT]
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 5
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA0014_3,JASPAR_2020_vertebrates:::MA1552_1,JASPAR_2020_vertebrates:::MA1553_1,JASPAR_2020_vertebrates:::MA1555_1,JASPAR_2020_vertebrates:::MA1556_1'
+CC  merged_ID: 'PAX5,RARB_var_3_,RARG_var_3_,RXRB_var_2_,RXRG_var_2_'
+XX
+//
+AC  cluster_33
+XX
+ID  cluster_33
+XX
+DE  rCGACCMCCgaa
+P0       A     C     G     T
+1      805   277  1258   529
+2      327  2870   439   164
+3      745   147  2870   215
+4     2870   463     8    27
+5       44  2870     1     0
+6        0  2870     7    14
+7     2870  1089    10    13
+8       23  2870     7    18
+9       90  2870    54    97
+10    1056   612  2379   405
+11    2870   739   472   784
+12    1329   624   441   476
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_33
+CC  AC: cluster_33
+CC  id: cluster_33
+CC  name: cluster_33
+CC  version: 
+CC  name: cluster_33
+CC  description: rCGACCMCCgaa
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: gCGACCACCgaa
+CC  consensus.strict.rc: TTCGGTGGTCGC
+CC  consensus.IUPAC: rCGACCMCCgaa
+CC  consensus.IUPAC.rc: TTCGGKGGTCGY
+CC  consensus.regexp: [ag]CGACC[AC]CCgaa
+CC  consensus.regexp.rc: TTCGG[GT]GGTCG[CT]
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 2
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA0694_1,JASPAR_2020_vertebrates:::MA0695_1'
+CC  merged_ID: 'ZBTB7B,ZBTB7C'
+XX
+//
+AC  cluster_30
+XX
+ID  cluster_30
+XX
+DE  rRGGTCAhsyarAGGTCA
+P0       A     C     G     T
+1      345   113   413   129
+2     2207    65   823     6
+3       13     4  3178    32
+4       14     6  2955   260
+5       11    28    89  2768
+6       29  3515    72   117
+7     3015    21   127    12
+8      870   853   258  1126
+9      682   941  1053   503
+10     401  1132   556  1091
+11    1767   352   477   615
+12    1766   160   975   132
+13    2277   109   699    27
+14      30     6  3084    48
+15      13    15  2934   236
+16      70   127   246  2423
+17      78  3401   126   163
+18    2902    56   234    52
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_30
+CC  AC: cluster_30
+CC  id: cluster_30
+CC  name: cluster_30
+CC  version: 
+CC  name: cluster_30
+CC  description: rRGGTCAhsyarAGGTCA
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: gAGGTCAtgcaaAGGTCA
+CC  consensus.strict.rc: TGACCTTTGCATGACCTC
+CC  consensus.IUPAC: rRGGTCAhsyarAGGTCA
+CC  consensus.IUPAC.rc: TGACCTYTRSDTGACCYY
+CC  consensus.regexp: [ag][AG]GGTCA[act][cg][ct]a[ag]AGGTCA
+CC  consensus.regexp.rc: TGACCT[CT]T[AG][CG][AGT]TGACC[CT][CT]
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 4
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA1149_1,JASPAR_2020_vertebrates:::MA0159_1,JASPAR_2020_vertebrates:::MA0730_1,JASPAR_2020_vertebrates:::MA0858_1'
+CC  merged_ID: 'RARA::RXRG,RARA::RXRA,RARA_var_2_,Rarb_var_2_'
+XX
+//
+AC  cluster_13
+XX
+ID  cluster_13
+XX
+DE  rRGGTCAaTGACCYy
+P0       A     C     G     T
+1     8825  1315  5708  1417
+2    12429   152  4711   110
+3      145   126 16999   366
+4      175    12 16867   450
+5      130   285   633 17182
+6      138 17093   492   756
+7    17487   182   595   113
+8     5619  4020  4405  3725
+9       97  4282   154 13380
+10     876   325 17425    54
+11   17236   736   362   132
+12     701 17182    73   197
+13     557 17601   154   135
+14     211  4601   361 12793
+15    1668  5960  1496  8645
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_13
+CC  AC: cluster_13
+CC  id: cluster_13
+CC  name: cluster_13
+CC  version: 
+CC  name: cluster_13
+CC  description: rRGGTCAaTGACCYy
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: aAGGTCAaTGACCTt
+CC  consensus.strict.rc: AAGGTCATTGACCTT
+CC  consensus.IUPAC: rRGGTCAaTGACCYy
+CC  consensus.IUPAC.rc: RRGGTCATTGACCYY
+CC  consensus.regexp: [ag][AG]GGTCAaTGACC[CT][ct]
+CC  consensus.regexp.rc: [AG][AG]GGTCATTGACC[CT][CT]
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 5
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA1110_1,JASPAR_2020_vertebrates:::MA1538_1,JASPAR_2020_vertebrates:::MA1539_1,JASPAR_2020_vertebrates:::MA1146_1,JASPAR_2020_vertebrates:::MA1147_1'
+CC  merged_ID: 'NR1H4,NR2F1_var_3_,NR2F6_var_3_,NR1H4::RXRA,NR4A2::RXRA'
+XX
+//
+AC  cluster_40
+XX
+ID  cluster_40
+XX
+DE  aaTGTAwCaatt
+P0       A     C     G     T
+1     2600   825   694   653
+2     3122   865   666  1389
+3      440   140    45  3434
+4        3     2  3582     0
+5       18    71    15  3582
+6     3582    36   227   678
+7     1332    11   898  1880
+8        6  3582    13     0
+9     3201   879   960   469
+10    3092   543   638  1243
+11     853   627   471  1797
+12     567   359   422  1419
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_40
+CC  AC: cluster_40
+CC  id: cluster_40
+CC  name: cluster_40
+CC  version: 
+CC  name: cluster_40
+CC  description: aaTGTAwCaatt
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: aaTGTAtCaatt
+CC  consensus.strict.rc: AATTGATACATT
+CC  consensus.IUPAC: aaTGTAwCaatt
+CC  consensus.IUPAC.rc: AATTGWTACATT
+CC  consensus.regexp: aaTGTA[at]Caatt
+CC  consensus.regexp.rc: AATTG[AT]TACATT
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 3
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA0610_1,JASPAR_2020_vertebrates:::MA1478_1,JASPAR_2020_vertebrates:::MA1479_1'
+CC  merged_ID: 'DMRT3,DMRTA2,DMRTC2'
+XX
+//
+AC  cluster_17
+XX
+ID  cluster_17
+XX
+DE  tdtTCtrGAAcrTTC
+P0       A     C     G     T
+1      399   386   402   440
+2      449   342   412   424
+3     3892  2971  2753 15955
+4     1523  1443  1838 18207
+5      283 20678   309   149
+6      202  7119  3986 19046
+7    18085  5091  8812   118
+8      118    95 20768   148
+9    20766  1025   170   958
+10   20351   622   722  2012
+11    2316 10643  3345  4801
+12    6000  5046  6111  3946
+13    2879  2217  1947 16373
+14     796   580   575 15110
+15     571 15158   547  1051
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_17
+CC  AC: cluster_17
+CC  id: cluster_17
+CC  name: cluster_17
+CC  version: 
+CC  name: cluster_17
+CC  description: tdtTCtrGAAcrTTC
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: tatTCtaGAAcgTTC
+CC  consensus.strict.rc: GAACGTTCTAGAATA
+CC  consensus.IUPAC: tdtTCtrGAAcrTTC
+CC  consensus.IUPAC.rc: GAAYGTTCYAGAAHA
+CC  consensus.regexp: t[agt]tTCt[ag]GAAc[ag]TTC
+CC  consensus.regexp.rc: GAA[CT]GTTC[CT]AGAA[ACT]A
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 5
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA1579_1,JASPAR_2020_vertebrates:::MA1649_1,JASPAR_2020_vertebrates:::MA0771_1,JASPAR_2020_vertebrates:::MA0486_2,JASPAR_2020_vertebrates:::MA0770_1'
+CC  merged_ID: 'ZBTB26,ZBTB12,HSF4,HSF1,HSF2'
+XX
+//
+AC  cluster_29
+XX
+ID  cluster_29
+XX
+DE  rwdCTAWAAATAGmww
+P0       A     C     G     T
+1      705   321   676   507
+2     5808  2270  4224  6069
+3     7969  2337  9014  8583
+4     2412 21284  1085  2654
+5      630  4006   236 22502
+6    23006  1277  1142  1930
+7    19115   287   853  7073
+8    25740   145   605  2338
+9    25537   234   247  1673
+10   26044   175   207  1015
+11     497   411   215 26201
+12   26712    53   460   111
+13    3392  1216 21728  1469
+14   12903  9611  1922  4150
+15    7180  3973  1936  5282
+16    5254  3812  2479  4617
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_29
+CC  AC: cluster_29
+CC  id: cluster_29
+CC  name: cluster_29
+CC  version: 
+CC  name: cluster_29
+CC  description: rwdCTAWAAATAGmww
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: atgCTAAAAATAGaaa
+CC  consensus.strict.rc: TTTCTATTTTTAGCAT
+CC  consensus.IUPAC: rwdCTAWAAATAGmww
+CC  consensus.IUPAC.rc: WWKCTATTTWTAGHWY
+CC  consensus.regexp: [ag][at][agt]CTA[AT]AAATAG[ac][at][at]
+CC  consensus.regexp.rc: [AT][AT][GT]CTATTT[AT]TAG[ACT][AT][CT]
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 4
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA0660_1,JASPAR_2020_vertebrates:::MA0773_1,JASPAR_2020_vertebrates:::MA0052_4,JASPAR_2020_vertebrates:::MA0497_1'
+CC  merged_ID: 'MEF2B,MEF2D,MEF2A,MEF2C'
+XX
+//
+AC  cluster_36
+XX
+ID  cluster_36
+XX
+DE  arrGGTCArwAGGTCAakk
+P0       A     C     G     T
+1     1098   257   181   413
+2    14246  1705 12213  1404
+3    13272   629  7684   113
+4       55     3 23934  1281
+5       96     8 23089  1944
+6       31   342  2198 20994
+7       67 23593    99  6899
+8    19734    34    64    99
+9    12521  1604  5445  1068
+10   11087   262  1292  8723
+11   15873   135  4336    51
+12      16     1 24572  1914
+13      48     7 20231  3029
+14     361   602  1023 20656
+15      34 22772   292  1124
+16   19946    26  1566   117
+17   13647  6682  4766  7857
+18       2     0   228   328
+19       0   115   226   212
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_36
+CC  AC: cluster_36
+CC  id: cluster_36
+CC  name: cluster_36
+CC  version: 
+CC  name: cluster_36
+CC  description: arrGGTCArwAGGTCAakk
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: aaaGGTCAaaAGGTCAatg
+CC  consensus.strict.rc: CATTGACCTTTTGACCTTT
+CC  consensus.IUPAC: arrGGTCArwAGGTCAakk
+CC  consensus.IUPAC.rc: MMTTGACCTWYTGACCYYT
+CC  consensus.regexp: a[ag][ag]GGTCA[ag][at]AGGTCAa[gt][gt]
+CC  consensus.regexp.rc: [AC][AC]TTGACCT[AT][CT]TGACC[CT][CT]T
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 6
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA1531_1,JASPAR_2020_vertebrates:::MA1532_1,JASPAR_2020_vertebrates:::MA0729_1,JASPAR_2020_vertebrates:::MA0857_1,JASPAR_2020_vertebrates:::MA0728_1,JASPAR_2020_vertebrates:::MA0859_1'
+CC  merged_ID: 'NR1D1,NR1D2,RARA,Rarb,Nr2f6_var_2_,Rarg'
+XX
+//
+AC  cluster_27
+XX
+ID  cluster_27
+XX
+DE  trsyTGGCAysgtGCCAasha
+P0       A     C     G     T
+1     1055   946  1023  1392
+2     1181   839  1298  1098
+3     4279  9298  6525  3777
+4     3749 13190  2377 10224
+5      447    83  2018 23581
+6        5    11 23869    14
+7       16    25 23852    16
+8      607 23703    27    18
+9    22656  2040  2815  2521
+10    4277 10021  3524  6075
+11    5031  7469  6502  4894
+12    5587  4871  9452  3985
+13    4428  5968  2611 10890
+14     189    31 23671  2099
+15      16 23837    26    20
+16       8 23862    11    15
+17   23417  2764   267   197
+18   22467  3623  5584  4909
+19    4189  7868  7816  4008
+20    1156  1193   874  1193
+21    1367  1015   984  1050
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_27
+CC  AC: cluster_27
+CC  id: cluster_27
+CC  name: cluster_27
+CC  version: 
+CC  name: cluster_27
+CC  description: trsyTGGCAysgtGCCAasha
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: tgccTGGCAccgtGCCAacca
+CC  consensus.strict.rc: TGGTTGGCACGGTGCCAGGCA
+CC  consensus.IUPAC: trsyTGGCAysgtGCCAasha
+CC  consensus.IUPAC.rc: TDSTTGGCACSRTGCCARSYA
+CC  consensus.regexp: t[ag][cg][ct]TGGCA[ct][cg]gtGCCAa[cg][act]a
+CC  consensus.regexp.rc: T[AGT][CG]TTGGCAC[CG][AG]TGCCA[AG][CG][CT]A
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 4
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA1643_1,JASPAR_2020_vertebrates:::MA0119_1,JASPAR_2020_vertebrates:::MA1527_1,JASPAR_2020_vertebrates:::MA1528_1'
+CC  merged_ID: 'NFIB,NFIC::TLX1,NFIC_var_2_,NFIX_var_2_'
+XX
+//
+AC  cluster_31
+XX
+ID  cluster_31
+XX
+DE  aGGGgAwTCCCCtchy
+P0       A     C     G     T
+1    14427  5804  3599  3211
+2      109   108 25952    17
+3        3     3 25664     9
+4     2949  2680 29007  3601
+5     6517  2521 25056  3988
+6    31456  2244  3330  1207
+7    19292   626   614 16095
+8     1397  2375  1290 34040
+9     1125 41348   162  2398
+10     801 42910    83   236
+11     262 42853   120   229
+12     209 42643   193   470
+13    9177  5553  5663 16419
+14    2404  3928  2519  2681
+15    2096  2078  1482  2586
+16    1762  2206  1773  2501
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_31
+CC  AC: cluster_31
+CC  id: cluster_31
+CC  name: cluster_31
+CC  version: 
+CC  name: cluster_31
+CC  description: aGGGgAwTCCCCtchy
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: aGGGgAaTCCCCtctt
+CC  consensus.strict.rc: AAGAGGGGATTCCCCT
+CC  consensus.IUPAC: aGGGgAwTCCCCtchy
+CC  consensus.IUPAC.rc: RDGAGGGGAWTCCCCT
+CC  consensus.regexp: aGGGgA[at]TCCCCtc[act][ct]
+CC  consensus.regexp.rc: [AG][AGT]GAGGGGA[AT]TCCCCT
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 6
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA0056_2,JASPAR_2020_vertebrates:::MA1117_1,JASPAR_2020_vertebrates:::MA0105_4,JASPAR_2020_vertebrates:::MA0778_1,JASPAR_2020_vertebrates:::MA0101_1,JASPAR_2020_vertebrates:::MA0107_1'
+CC  merged_ID: 'MZF1,RELB,NFKB1,NFKB2,REL,RELA'
+XX
+//
+AC  cluster_26
+XX
+ID  cluster_26
+XX
+DE  ybGTTGCyATGGyaACs
+P0       A     C     G     T
+1     3798  7269  4715  6555
+2     8025 14584 14318 13387
+3     3184   184 54271   540
+4      617   866   480 52184
+5     9190  4499   391 46782
+6    10500  1228 36088  4714
+7      185 46288   324  4094
+8      118 32124   208 21103
+9    43051  1371  2147  1767
+10    4055  1907  3732 47437
+11    9187   615 47714  1123
+12    9597  2529 45524  1663
+13    8421 23293  4830 13901
+14   31981  2512  7676  9742
+15   22050   180   230    50
+16      66 25230    24   680
+17    4877  8004 11465  3580
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_26
+CC  AC: cluster_26
+CC  id: cluster_26
+CC  name: cluster_26
+CC  version: 
+CC  name: cluster_26
+CC  description: ybGTTGCyATGGyaACs
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: ccGTTGCcATGGcaACg
+CC  consensus.strict.rc: CGTTGCCATGGCAACGG
+CC  consensus.IUPAC: ybGTTGCyATGGyaACs
+CC  consensus.IUPAC.rc: SGTTRCCATRGCAACVR
+CC  consensus.regexp: [ct][cgt]GTTGC[ct]ATGG[ct]aAC[cg]
+CC  consensus.regexp.rc: [CG]GTT[AG]CCAT[AG]GCAAC[ACG][AG]
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 6
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA1554_1,JASPAR_2020_vertebrates:::MA0509_2,JASPAR_2020_vertebrates:::MA0798_2,JASPAR_2020_vertebrates:::MA0799_1,JASPAR_2020_vertebrates:::MA0600_2,JASPAR_2020_vertebrates:::MA0510_2'
+CC  merged_ID: 'RFX7,RFX1,RFX3,RFX4,RFX2,RFX5'
+XX
+//
+AC  cluster_19
+XX
+ID  cluster_19
+XX
+DE  grGwACAywrTGTwCyc
+P0       A     C     G     T
+1    16020  9129 30917 17905
+2    24857   350 41920   779
+3      105    15 86905   104
+4    27652  2267  9688 25129
+5    50416    28    25    22
+6        4 76623    24     2
+7    53933    66  2024   303
+8    10016 29070  5055 27912
+9    26293  9100 15118 17543
+10   35088  3147 23556  6052
+11     515  1838    80 69745
+12       0    24 89666     6
+13      34    36    53 71715
+14   23816 10627  2224 30016
+15      56 69233    14   149
+16     826 41887   772 27154
+17   15723 27401 11218 14780
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_19
+CC  AC: cluster_19
+CC  id: cluster_19
+CC  name: cluster_19
+CC  version: 
+CC  name: cluster_19
+CC  description: grGwACAywrTGTwCyc
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: ggGaACAcaaTGTtCcc
+CC  consensus.strict.rc: GGGAACATTGTGTTCCC
+CC  consensus.IUPAC: grGwACAywrTGTwCyc
+CC  consensus.IUPAC.rc: GRGWACAYWRTGTWCYC
+CC  consensus.regexp: g[ag]G[at]ACA[ct][at][ag]TGT[at]C[ct]c
+CC  consensus.regexp.rc: G[AG]G[AT]ACA[CT][AT][AG]TGT[AT]C[CT]C
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 3
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA0007_3,JASPAR_2020_vertebrates:::MA0113_3,JASPAR_2020_vertebrates:::MA0727_1'
+CC  merged_ID: 'Ar,NR3C1,NR3C2'
+XX
+//
+AC  cluster_32
+XX
+ID  cluster_32
+XX
+DE  vmwTGACAgs
+P0       A     C     G     T
+1        8    11    11     1
+2       10    19     0     2
+3    26012 19122 11833 29725
+4     9187  5964  3475 85701
+5        2  1256 85703     0
+6    85701  2926  1154   118
+7       64 85696     9  1327
+8    85684    20  9742  4016
+9    18997 16851 38481 17267
+10    1117  3043  3538  1063
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_32
+CC  AC: cluster_32
+CC  id: cluster_32
+CC  name: cluster_32
+CC  version: 
+CC  name: cluster_32
+CC  description: vmwTGACAgs
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: cctTGACAgg
+CC  consensus.strict.rc: CCTGTCAAGG
+CC  consensus.IUPAC: vmwTGACAgs
+CC  consensus.IUPAC.rc: SCTGTCAWKB
+CC  consensus.regexp: [acg][ac][at]TGACAg[cg]
+CC  consensus.regexp.rc: [CG]CTGTCA[AT][GT][CGT]
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 4
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA0067_1,JASPAR_2020_vertebrates:::MA0498_2,JASPAR_2020_vertebrates:::MA0774_1,JASPAR_2020_vertebrates:::MA0775_1'
+CC  merged_ID: 'Pax2,MEIS1,MEIS2,MEIS3'
+XX
+//
+AC  cluster_41
+XX
+ID  cluster_41
+XX
+DE  rrhcATAAATCAtwy
+P0       A     C     G     T
+1     7008  3361  5248  4556
+2    15784 11464 18045 11212
+3    14779 19043  5420 17281
+4     9497 37087  2860  7079
+5    51163  1193  2982  1185
+6      463  1153   577 54330
+7    42830  7665  1651  4377
+8    52307  1189   577  2450
+9    52218  1467  1029  1809
+10    1212   764   598 53949
+11    3521 47605   918  4479
+12   45814  2528   972  7209
+13   12723 12457  7252 24091
+14   14781 13313 10878 17551
+15    4882  5768  3311  6212
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_41
+CC  AC: cluster_41
+CC  id: cluster_41
+CC  name: cluster_41
+CC  version: 
+CC  name: cluster_41
+CC  description: rrhcATAAATCAtwy
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: agccATAAATCAttt
+CC  consensus.strict.rc: AAATGATTTATGGCT
+CC  consensus.IUPAC: rrhcATAAATCAtwy
+CC  consensus.IUPAC.rc: RWATGATTTATGDYY
+CC  consensus.regexp: [ag][ag][act]cATAAATCAt[at][ct]
+CC  consensus.regexp.rc: [AG][AT]ATGATTTATG[AGT][CT][CT]
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 4
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA0070_1,JASPAR_2020_vertebrates:::MA1640_1,JASPAR_2020_vertebrates:::MA1639_1,JASPAR_2020_vertebrates:::MA1113_2'
+CC  merged_ID: 'PBX1,MEIS2_var_2_,MEIS1_var_2_,PBX2'
+XX
+//
+AC  cluster_43
+XX
+ID  cluster_43
+XX
+DE  arwACCGTTAyhygkyy
+P0       A     C     G     T
+1     6192  2530  3015  3269
+2    13581  1538 10006  7601
+3    14191  2676  8349 14131
+4    26714  2138  1563  6372
+5      437 30938   231   151
+6      365 30938   497    30
+7       55     7 30938     9
+8       18  1434    28 30938
+9       10    17     9 30938
+10   30938    96   240   575
+11    6251 11460  5953 21858
+12    7844  8549  6839  7878
+13    4573 15421  4530 15990
+14    6146  7860 11420  7254
+15     414   888  1272  1167
+16     228   466    95   766
+17      40   655    18   577
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_43
+CC  AC: cluster_43
+CC  id: cluster_43
+CC  name: cluster_43
+CC  version: 
+CC  name: cluster_43
+CC  description: arwACCGTTAyhygkyy
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: aaaACCGTTAtctggtc
+CC  consensus.strict.rc: GACCAGATAACGGTTTT
+CC  consensus.IUPAC: arwACCGTTAyhygkyy
+CC  consensus.IUPAC.rc: RRMCRDRTAACGGTWYT
+CC  consensus.regexp: a[ag][at]ACCGTTA[ct][act][ct]g[gt][ct][ct]
+CC  consensus.regexp.rc: [AG][AG][AC]C[AG][AGT][AG]TAACGGT[AT][CT]T
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 4
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA0777_1,JASPAR_2020_vertebrates:::MA0776_1,JASPAR_2020_vertebrates:::MA1544_1,JASPAR_2020_vertebrates:::MA1545_1'
+CC  merged_ID: 'MYBL2,MYBL1,OVOL1,OVOL2'
+XX
+//
+AC  cluster_45
+XX
+ID  cluster_45
+XX
+DE  rrCATGyCcrgrCATGTy
+P0       A     C     G     T
+1    10382  1754 13787  6977
+2    20635   298  9579  1777
+3       84 36247   183   853
+4    23230   342  7235  1070
+5     4204   654   280 31169
+6        8     2 34884     0
+7      731 13476   254 18937
+8     2277 27215   859  7623
+9     4431 17089  5250  7374
+10    8106  5774 13372  4933
+11    8294  1565 27032  3020
+12   22021   117 11497   334
+13       1 35158    32     9
+14   26758  1056   483  5684
+15    2027   751   213 28870
+16     327    33 33911    68
+17    1108  6827   546 26326
+18    5276 14071  1164 14323
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_45
+CC  AC: cluster_45
+CC  id: cluster_45
+CC  name: cluster_45
+CC  version: 
+CC  name: cluster_45
+CC  description: rrCATGyCcrgrCATGTy
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: gaCATGtCcggaCATGTt
+CC  consensus.strict.rc: AACATGTCCGGACATGTC
+CC  consensus.IUPAC: rrCATGyCcrgrCATGTy
+CC  consensus.IUPAC.rc: RACATGYCYGGRCATGYY
+CC  consensus.regexp: [ag][ag]CATG[ct]Cc[ag]g[ag]CATGT[ct]
+CC  consensus.regexp.rc: [AG]ACATG[CT]C[CT]GG[AG]CATG[CT][CT]
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 3
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA0106_3,JASPAR_2020_vertebrates:::MA0525_2,JASPAR_2020_vertebrates:::MA0861_1'
+CC  merged_ID: 'TP53,TP63,TP73'
+XX
+//
+AC  cluster_47
+XX
+ID  cluster_47
+XX
+DE  gtACCCGCATvswrCGAA
+P0       A     C     G     T
+1     2409  4829 13412   789
+2     2254  8312  3045 22038
+3    22759   238  5525   238
+4      695 28339    21   735
+5      148 28339     8   144
+6     3883 28339   257   659
+7     1180   896 28339  1296
+8       27 28339  1729  7191
+9    24968   749  1342  1779
+10     603  4742  1888 28339
+11    7343  7167 10050  3780
+12    1293  1767  1479  1041
+13    2168   822   760  1830
+14    3686   694  1893   597
+15     284  5580    11   100
+16     872    85  5580     0
+17    5580   582    61  1903
+18    5580   286    59   201
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_47
+CC  AC: cluster_47
+CC  id: cluster_47
+CC  name: cluster_47
+CC  version: 
+CC  name: cluster_47
+CC  description: gtACCCGCATvswrCGAA
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: gtACCCGCATgcaaCGAA
+CC  consensus.strict.rc: TTCGTTGCATGCGGGTAC
+CC  consensus.IUPAC: gtACCCGCATvswrCGAA
+CC  consensus.IUPAC.rc: TTCGYWSBATGCGGGTAC
+CC  consensus.regexp: gtACCCGCAT[acg][cg][at][ag]CGAA
+CC  consensus.regexp.rc: TTCG[CT][AT][CG][CGT]ATGCGGGTAC
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 3
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA0637_1,JASPAR_2020_vertebrates:::MA0646_1,JASPAR_2020_vertebrates:::MA0767_1'
+CC  merged_ID: 'CENPB,GCM1,GCM2'
+XX
+//
+AC  cluster_24
+XX
+ID  cluster_24
+XX
+DE  ysatTTCCcaGAArgcrw
+P0       A     C     G     T
+1      424  1124   589  1072
+2     1106  1799  1646  1447
+3    14854  6895  9156  8914
+4    16595 17490 13080 37005
+5     1891  2488  2223 71920
+6      662  2259   363 73865
+7     1120 65209   243 10046
+8     1052 66995   191  8725
+9    17928 39938  1094 17730
+10   51017  5282 19866  3428
+11    3446 10773 57654  8333
+12   54539 10301  5262  6268
+13   57780  2763  4188  3585
+14   20371  6784 12277  4466
+15    2695  2439  7949  2649
+16    1527  6895  1201  2243
+17    5257  1381  3169  1413
+18    1498  1289  1345  1714
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_24
+CC  AC: cluster_24
+CC  id: cluster_24
+CC  name: cluster_24
+CC  version: 
+CC  name: cluster_24
+CC  description: ysatTTCCcaGAArgcrw
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: ccatTTCCcaGAAagcat
+CC  consensus.strict.rc: ATGCTTTCTGGGAAATGG
+CC  consensus.IUPAC: ysatTTCCcaGAArgcrw
+CC  consensus.IUPAC.rc: WYGCYTTCTGGGAAATSR
+CC  consensus.regexp: [ct][cg]atTTCCcaGAA[ag]gc[ag][at]
+CC  consensus.regexp.rc: [AT][CT]GC[CT]TTCTGGGAAAT[CG][AG]
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 16
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA1116_1,JASPAR_2020_vertebrates:::MA1601_1,JASPAR_2020_vertebrates:::MA0152_1,JASPAR_2020_vertebrates:::MA0606_1,JASPAR_2020_vertebrates:::MA1525_1,JASPAR_2020_vertebrates:::MA0624_1,JASPAR_2020_vertebrates:::MA0625_1,JASPAR_2020_vertebrates:::MA0520_1,JASPAR_2020_vertebrates:::MA0463_2,JASPAR_2020_vertebrates:::MA0731_1,JASPAR_2020_vertebrates:::MA1625_1,JASPAR_2020_vertebrates:::MA0518_1,JASPAR_2020_vertebrates:::MA0519_1,JASPAR_2020_vertebrates:::MA1624_1,JASPAR_2020_vertebrates:::MA0137_3,JASPAR_2020_vertebrates:::MA0144_2'
+CC  merged_ID: 'RBPJ,ZNF75D,NFATC2,NFAT5,NFATC4,NFATC1,NFATC3,Stat6,BCL6,BCL6B,Stat5b,Stat4,Stat5a::Stat5b,Stat5a,STAT1,STAT3'
+XX
+//
+AC  cluster_42
+XX
+ID  cluster_42
+XX
+DE  rwGTCAGCAtwTttww
+P0       A     C     G     T
+1    17630  8058 19708 13751
+2    35652 21367  9063 22475
+3     8810  8895 71300  3497
+4      861   556   620 86567
+5     3630 84662   473  1129
+6    86738   225   662  1009
+7      923   697 82910  5378
+8      623 86331   632   993
+9    83489   960  5066  3372
+10   19904 15338 13357 39958
+11   25078  4449  4648 56517
+12   19625  4665  2989 62232
+13   17258 14374  5133 56316
+14   20499 17532 10545 37799
+15   15899 11847 10634 20767
+16   11387  7342  7213 11804
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_42
+CC  AC: cluster_42
+CC  id: cluster_42
+CC  name: cluster_42
+CC  version: 
+CC  name: cluster_42
+CC  description: rwGTCAGCAtwTttww
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: gaGTCAGCAttTtttt
+CC  consensus.strict.rc: AAAAAAATGCTGACTC
+CC  consensus.IUPAC: rwGTCAGCAtwTttww
+CC  consensus.IUPAC.rc: WWAAAWATGCTGACWY
+CC  consensus.regexp: [ag][at]GTCAGCAt[at]Ttt[at][at]
+CC  consensus.regexp.rc: [AT][AT]AAA[AT]ATGCTGAC[AT][CT]
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 4
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA0495_3,JASPAR_2020_vertebrates:::MA0659_2,JASPAR_2020_vertebrates:::MA0117_2,JASPAR_2020_vertebrates:::MA0842_2'
+CC  merged_ID: 'MAFF,MAFG,Mafb,NRL'
+XX
+//
+AC  cluster_54
+XX
+ID  cluster_54
+XX
+DE  rTGACCTytsgTGACCTTwg
+P0       A     C     G     T
+1      119    31   157    82
+2        0    64    33  6336
+3      190   121  6818    62
+4     5667   262   156   236
+5      565  6400    12    69
+6       59  7360    62   148
+7       93  1226   198  4742
+8      426  2585   494  3146
+9     1116   843   907  3559
+10    1431  2663  2170   522
+11    1160   491  3785  1463
+12      77    12    13  5625
+13     559    77  7085   198
+14    5598   200   203    86
+15     455  6924    20    34
+16     126  7317     7   116
+17      11   778    49  5646
+18     166  1489   279  4718
+19     604   204   407   459
+20     237   290   439   303
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_54
+CC  AC: cluster_54
+CC  id: cluster_54
+CC  name: cluster_54
+CC  version: 
+CC  name: cluster_54
+CC  description: rTGACCTytsgTGACCTTwg
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: gTGACCTttcgTGACCTTag
+CC  consensus.strict.rc: CTAAGGTCACGAAAGGTCAC
+CC  consensus.IUPAC: rTGACCTytsgTGACCTTwg
+CC  consensus.IUPAC.rc: CWAAGGTCACSARAGGTCAY
+CC  consensus.regexp: [ag]TGACCT[ct]t[cg]gTGACCTT[at]g
+CC  consensus.regexp.rc: C[AT]AAGGTCAC[CG]A[AG]AGGTCA[CT]
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 3
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA0494_1,JASPAR_2020_vertebrates:::MA0860_1,JASPAR_2020_vertebrates:::MA1576_1'
+CC  merged_ID: 'Nr1h3::Rxra,Rarg_var_2_,THRB_var_3_'
+XX
+//
+AC  cluster_37
+XX
+ID  cluster_37
+XX
+DE  wwTAATywAATyAwww
+P0       A     C     G     T
+1    18530  7301  8172 19233
+2    19667  7349  6938 20296
+3    20109  6780  4139 78071
+4    92361  2165  5403  7340
+5    102479   502   555  1003
+6     8509 17147  3241 82353
+7     3130 59002  9367 35965
+8    44542 20827  7715 33945
+9    96851  5153  3361  2357
+10   101915   660  1126  1494
+11     923   340   379 102854
+12    5251 41141  1322 58904
+13   89690  2194  3038 12491
+14   16452  5087  5852 26859
+15   20366  8280  7630 16960
+16   18565  7409  6999 20263
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_37
+CC  AC: cluster_37
+CC  id: cluster_37
+CC  name: cluster_37
+CC  version: 
+CC  name: cluster_37
+CC  description: wwTAATywAATyAwww
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: ttTAATcaAATtAtat
+CC  consensus.strict.rc: ATATAATTTGATTAAA
+CC  consensus.IUPAC: wwTAATywAATyAwww
+CC  consensus.IUPAC.rc: WWWTRATTWRATTAWW
+CC  consensus.regexp: [at][at]TAAT[ct][at]AAT[ct]A[at][at][at]
+CC  consensus.regexp.rc: [AT][AT][AT]T[AG]ATT[AT][AG]ATTA[AT][AT]
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 5
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA0681_2,JASPAR_2020_vertebrates:::MA0884_1,JASPAR_2020_vertebrates:::MA0468_1,JASPAR_2020_vertebrates:::MA0713_1,JASPAR_2020_vertebrates:::MA0715_1'
+CC  merged_ID: 'PHOX2B,DUXA,DUX4,PHOX2A,PROP1'
+XX
+//
+AC  cluster_55
+XX
+ID  cluster_55
+XX
+DE  WgarGGTCAscstGaCCyks
+P0       A     C     G     T
+1       20     1     0     7
+2        5     6    12     5
+3      233    65   106   110
+4     5825   102  2781   177
+5      432     0  7818   678
+6       61     0  8808    42
+7       75   147   997  7604
+8        2  8093   538    93
+9     8594     3    87    88
+10     614  4558  2793   828
+11    2225  3468  2035  1298
+12    2047  2602  2472  1770
+13    1603   998   535  5669
+14    1123   401  7313    68
+15    3792  2061  1393  1518
+16     435  6955   365   978
+17    1126  6336     1  1278
+18     834  2860   613  4616
+19      60    68   209   207
+20       3    14     8     3
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_55
+CC  AC: cluster_55
+CC  id: cluster_55
+CC  name: cluster_55
+CC  version: 
+CC  name: cluster_55
+CC  description: WgarGGTCAscstGaCCyks
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: AgaaGGTCAccctGaCCtgc
+CC  consensus.strict.rc: GCAGGTCAGGGTGACCTTCT
+CC  consensus.IUPAC: WgarGGTCAscstGaCCyks
+CC  consensus.IUPAC.rc: SMRGGTCASGSTGACCYTCW
+CC  consensus.regexp: [AT]ga[ag]GGTCA[cg]c[cg]tGaCC[ct][gt][cg]
+CC  consensus.regexp.rc: [CG][AC][AG]GGTCA[CG]G[CG]TGACC[CT]TC[AT]
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 3
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA0066_1,JASPAR_2020_vertebrates:::MA0112_3,JASPAR_2020_vertebrates:::MA0258_2'
+CC  merged_ID: 'PPARG,ESR1,ESR2'
+XX
+//
+AC  cluster_38
+XX
+ID  cluster_38
+XX
+DE  wGtTAATkATTwAykag
+P0       A     C     G     T
+1     4475  2275  3427  3972
+2     8013  3834 47711  5335
+3     6530 11747 11891 61857
+4    13919  6002 13360 75274
+5    78124  6163  2732   260
+6    82669  2144   218  1612
+7     2783 11193   164 83720
+8    21314 19148 42056 27726
+9    65083  1749 18280  7168
+10    5508  3605  5893 83117
+11    8774  1157   498 82991
+12   63882  2730  9229 26591
+13   66229  6066  6741 17781
+14    9427 31771  8082 39017
+15    5201  5165 12146  9610
+16    6140  1598  1165  1217
+17    1762  1512  4581   978
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_38
+CC  AC: cluster_38
+CC  id: cluster_38
+CC  name: cluster_38
+CC  version: 
+CC  name: cluster_38
+CC  description: wGtTAATkATTwAykag
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: aGtTAATgATTaAtgag
+CC  consensus.strict.rc: CTCATTAATCATTAACT
+CC  consensus.IUPAC: wGtTAATkATTwAykag
+CC  consensus.IUPAC.rc: CTMRTWAATMATTAACW
+CC  consensus.regexp: [at]GtTAAT[gt]ATT[at]A[ct][gt]ag
+CC  consensus.regexp.rc: CT[AC][AG]T[AT]AAT[AC]ATTAAC[AT]
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 6
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA0790_1,JASPAR_2020_vertebrates:::MA0683_1,JASPAR_2020_vertebrates:::MA0791_1,JASPAR_2020_vertebrates:::MA1471_1,JASPAR_2020_vertebrates:::MA0046_2,JASPAR_2020_vertebrates:::MA0153_2'
+CC  merged_ID: 'POU4F1,POU4F2,POU4F3,BARX2,HNF1A,HNF1B'
+XX
+//
+AC  cluster_52
+XX
+ID  cluster_52
+XX
+DE  cmAATCACdGCa
+P0       A     C     G     T
+1     3668 11575  7376  7527
+2    20270 10593   916   660
+3    31929     2     0     0
+4    31909     0     2     1
+5        0   338    28 31556
+6       15 31900     0    10
+7    30288    21     0  2301
+8      899 29081  4276     0
+9     8864    54  8350 14640
+10    2351   267 29190   915
+11     434 29219    76  3917
+12   17453  5654  4209  4592
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_52
+CC  AC: cluster_52
+CC  id: cluster_52
+CC  name: cluster_52
+CC  version: 
+CC  name: cluster_52
+CC  description: cmAATCACdGCa
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: caAATCACtGCa
+CC  consensus.strict.rc: TGCAGTGATTTG
+CC  consensus.IUPAC: cmAATCACdGCa
+CC  consensus.IUPAC.rc: TGCHGTGATTKG
+CC  consensus.regexp: c[ac]AATCAC[agt]GCa
+CC  consensus.regexp.rc: TGC[ACT]GTGATT[GT]G
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 2
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA0038_2,JASPAR_2020_vertebrates:::MA0483_1'
+CC  merged_ID: 'GFI1,Gfi1b'
+XX
+//
+AC  cluster_58
+XX
+ID  cluster_58
+XX
+DE  ryGAMCysraYGAMCyc
+P0       A     C     G     T
+1       58    18    55    33
+2        4    62    10   110
+3       10     0   173     2
+4      173    40    24    14
+5      174    61     0     0
+6        3   174     1     0
+7        7    55     3   119
+8        9    94    51    20
+9       53    32    60    29
+10      70    23    42    40
+11       0    47     0   126
+12      22     2   173     9
+13     174    41    12     5
+14     165    60     2     0
+15       0   174     0     3
+16       1    61     5   112
+17      11    83    33    37
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_58
+CC  AC: cluster_58
+CC  id: cluster_58
+CC  name: cluster_58
+CC  version: 
+CC  name: cluster_58
+CC  description: ryGAMCysraYGAMCyc
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: atGAACtcgaTGAACtc
+CC  consensus.strict.rc: GAGTTCATCGAGTTCAT
+CC  consensus.IUPAC: ryGAMCysraYGAMCyc
+CC  consensus.IUPAC.rc: GRGKTCRTYSRGKTCRY
+CC  consensus.regexp: [ag][ct]GA[AC]C[ct][cg][ag]a[CT]GA[AC]C[ct]c
+CC  consensus.regexp.rc: G[AG]G[GT]TC[AG]T[CT][CG][AG]G[GT]TC[AG][CT]
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 2
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA1533_1,JASPAR_2020_vertebrates:::MA0074_1'
+CC  merged_ID: 'NR1I2,RXRA::VDR'
+XX
+//
+AC  cluster_11
+XX
+ID  cluster_11
+XX
+DE  mGACCmCCCrCkgyGm
+P0       A     C     G     T
+1    23803 21533 17716  8226
+2     2616  8947 92251 20367
+3    84157 12778 16508    56
+4     1479 95081   123   258
+5     1642 95368   389   497
+6    38508 57758  1324  2573
+7       21 95832    13    13
+8     8729 93084    13    40
+9      809 79328    40 15625
+10   48346   162 60586   197
+11    3450 88703  3022 16057
+12   13510 16077 48323 51696
+13   23367  5208 69987 19115
+14   23519 40498  7874 43478
+15    1642  6797 103461  9259
+16   10069 15963  2512  7354
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_11
+CC  AC: cluster_11
+CC  id: cluster_11
+CC  name: cluster_11
+CC  version: 
+CC  name: cluster_11
+CC  description: mGACCmCCCrCkgyGm
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: aGACCcCCCgCtgtGc
+CC  consensus.strict.rc: GCACAGCGGGGGGTCT
+CC  consensus.IUPAC: mGACCmCCCrCkgyGm
+CC  consensus.IUPAC.rc: KCRCMGYGGGKGGTCK
+CC  consensus.regexp: [ac]GACC[ac]CCC[ag]C[gt]g[ct]G[ac]
+CC  consensus.regexp.rc: [GT]C[AG]C[AC]G[CT]GGG[GT]GGTC[GT]
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 9
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA0696_1,JASPAR_2020_vertebrates:::MA1584_1,JASPAR_2020_vertebrates:::MA0697_1,JASPAR_2020_vertebrates:::MA0751_1,JASPAR_2020_vertebrates:::MA0734_2,JASPAR_2020_vertebrates:::MA1491_1,JASPAR_2020_vertebrates:::MA0735_1,JASPAR_2020_vertebrates:::MA0736_1,JASPAR_2020_vertebrates:::MA0737_1'
+CC  merged_ID: 'ZIC1,ZIC5,ZIC3,ZIC4,GLI2,GLI3,GLIS1,GLIS2,GLIS3'
+XX
+//
+AC  cluster_35
+XX
+ID  cluster_35
+XX
+DE  rrwkCAACAGGTggtw
+P0       A     C     G     T
+1    35175 27463 31987 31194
+2    46242 23046 32011 24520
+3    46981 15012 22627 41199
+4     9766 14661 52165 49227
+5     2834 113996  2636  6353
+6    99031 14287  4100  8401
+7    119637   783  3444  1955
+8      444 124413   543   419
+9    122638   528   411  2242
+10   14323  1285 107435  2776
+11    3526  1438 117136  3719
+12    2961  4573  1427 116858
+13   18294  8957 79323 19245
+14   24105 20139 52261 29314
+15   29440 30988 28186 37205
+16   34365 26683 23479 41292
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_35
+CC  AC: cluster_35
+CC  id: cluster_35
+CC  name: cluster_35
+CC  version: 
+CC  name: cluster_35
+CC  description: rrwkCAACAGGTggtw
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: aaagCAACAGGTggtt
+CC  consensus.strict.rc: AACCACCTGTTGCTTT
+CC  consensus.IUPAC: rrwkCAACAGGTggtw
+CC  consensus.IUPAC.rc: WACCACCTGTTGMWYY
+CC  consensus.regexp: [ag][ag][at][gt]CAACAGGTggt[at]
+CC  consensus.regexp.rc: [AT]ACCACCTGTTG[AC][AT][CT][CT]
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 2
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA0743_2,JASPAR_2020_vertebrates:::MA0744_2'
+CC  merged_ID: 'SCRT1,SCRT2'
+XX
+//
+AC  cluster_23
+XX
+ID  cluster_23
+XX
+DE  ywwATTTGCATawwAAwr
+P0       A     C     G     T
+1      962  2763   881  1571
+2    20113  9229 13528 25271
+3    28785 22266 16149 23163
+4    91172  8491  7326 12542
+5     1312   841   658 110255
+6     7523  4518  2050 104044
+7    16899   695   343 94358
+8    18369  5850 102373  2823
+9     8479 105239   697  2390
+10   108975  1914  1571  1715
+11    1408  1079   450 109635
+12   82612  7169 14672 17253
+13   29127 14109  9636 41826
+14   19350 13451 14006 24380
+15    1231    79    12    47
+16    1270    36    50    11
+17     701    28    58   579
+18     389    66   846    63
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_23
+CC  AC: cluster_23
+CC  id: cluster_23
+CC  name: cluster_23
+CC  version: 
+CC  name: cluster_23
+CC  description: ywwATTTGCATawwAAwr
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: ctaATTTGCATattAAag
+CC  consensus.strict.rc: CTTTAATATGCAAATTAG
+CC  consensus.IUPAC: ywwATTTGCATawwAAwr
+CC  consensus.IUPAC.rc: YWTTWWTATGCAAATWWR
+CC  consensus.regexp: [ct][at][at]ATTTGCATa[at][at]AA[at][ag]
+CC  consensus.regexp.rc: [CT][AT]TT[AT][AT]TATGCAAAT[AT][AT][AG]
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 12
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA0619_1,JASPAR_2020_vertebrates:::MA0142_1,JASPAR_2020_vertebrates:::MA0789_1,JASPAR_2020_vertebrates:::MA0792_1,JASPAR_2020_vertebrates:::MA0784_1,JASPAR_2020_vertebrates:::MA0788_1,JASPAR_2020_vertebrates:::MA0786_1,JASPAR_2020_vertebrates:::MA0787_1,JASPAR_2020_vertebrates:::MA0785_1,JASPAR_2020_vertebrates:::MA0627_2,JASPAR_2020_vertebrates:::MA0507_1,JASPAR_2020_vertebrates:::MA1115_1'
+CC  merged_ID: 'LIN54,Pou5f1::Sox2,POU3F4,POU5F1B,POU1F1,POU3F3,POU3F1,POU3F2,POU2F1,POU2F3,POU2F2,POU5F1'
+XX
+//
+AC  cluster_51
+XX
+ID  cluster_51
+XX
+DE  arAACAGGTTtyAgww
+P0       A     C     G     T
+1    17389 10724 11931  9778
+2    21464  7802 13486  9690
+3    43119  2638  3576  2411
+4    40242   811  2938  7662
+5      718 49367   734   689
+6    40039  4814   878  6542
+7     3881   863 45332  2152
+8     1463  1179 48016   859
+9     2222  2454   797 46338
+10    2198  2318  1534 45906
+11    9742 10437  8632 24236
+12    9830 14741 11290 15069
+13    3837   561   215   840
+14     752   828  2910   963
+15    1378  1226  1242  1607
+16    1401  1145  1234  1673
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_51
+CC  AC: cluster_51
+CC  id: cluster_51
+CC  name: cluster_51
+CC  version: 
+CC  name: cluster_51
+CC  description: arAACAGGTTtyAgww
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: aaAACAGGTTttAgtt
+CC  consensus.strict.rc: AACTAAAACCTGTTTT
+CC  consensus.IUPAC: arAACAGGTTtyAgww
+CC  consensus.IUPAC.rc: WWCTRAAACCTGTTYT
+CC  consensus.regexp: a[ag]AACAGGTTt[ct]Ag[at][at]
+CC  consensus.regexp.rc: [AT][AT]CT[AG]AAACCTGTT[CT]T
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 5
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA0145_3,JASPAR_2020_vertebrates:::MA0647_1,JASPAR_2020_vertebrates:::MA1105_2,JASPAR_2020_vertebrates:::MA1118_1,JASPAR_2020_vertebrates:::MA1119_1'
+CC  merged_ID: 'TFCP2,GRHL1,GRHL2,SIX1,SIX2'
+XX
+//
+AC  cluster_53
+XX
+ID  cluster_53
+XX
+DE  gttTGAgTGACAGsyrs
+P0       A     C     G     T
+1     1595  1711  2192  1523
+2    11321 11227 11533 12903
+3    11565 11677 11463 12279
+4     5818  1850  3825 35491
+5     1882  1387 42512  1203
+6    43185   803  1544  1452
+7     2660  4911 31111  8302
+8     1387  1077  1312 43208
+9      701  1246 44263   774
+10   42538   518  3063   865
+11     801 44370   789  1024
+12   40073  1073  2833  3005
+13    3114  5171 33058  5641
+14    9336 17718 13205  6725
+15    9868 12040 10651 14425
+16   12391 10887 12364 11342
+17    1495  1801  2217  1508
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_53
+CC  AC: cluster_53
+CC  id: cluster_53
+CC  name: cluster_53
+CC  version: 
+CC  name: cluster_53
+CC  description: gttTGAgTGACAGsyrs
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: gttTGAgTGACAGctag
+CC  consensus.strict.rc: CTAGCTGTCACTCAAAC
+CC  consensus.IUPAC: gttTGAgTGACAGsyrs
+CC  consensus.IUPAC.rc: SYRSCTGTCACTCAAAC
+CC  consensus.regexp: gttTGAgTGACAG[cg][ct][ag][cg]
+CC  consensus.regexp.rc: [CG][CT][AG][CG]CTGTCACTCAAAC
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 2
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA1114_1,JASPAR_2020_vertebrates:::MA0782_2'
+CC  merged_ID: 'PBX3,PKNOX1'
+XX
+//
+AC  cluster_65
+XX
+ID  cluster_65
+XX
+DE  MA0057_1 MZF1_var_2_ ; From JASPAR
+P0       A     C     G     T
+1        1     4     7     4
+2        2     0     7     7
+3       15     1     0     0
+4        0     0    11     5
+5        0     0    15     1
+6        0     2    14     0
+7        0     0    14     2
+8        3     1     8     4
+9       10     0     4     2
+10       8     2     4     2
+XX
+CC  residue_type: 
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_65
+CC  AC: JASPAR_2020_vertebrates_m383_MA0057_1
+CC  id: JASPAR_2020_vertebrates_m383_MA0057_1
+CC  name: cluster_65
+CC  version: 
+CC  name: cluster_65
+CC  description: MA0057_1 MZF1_var_2_ ; From JASPAR
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  merged_AC: JASPAR_2020_vertebrates:::MZF1_var_2_
+CC  type: merge
+CC  merged_ID: MZF1_var_2_
+CC  merge_nb: 1
+CC  merge_type: sum
+XX
+//
+AC  cluster_57
+XX
+ID  cluster_57
+XX
+DE  dttTGwGGTTwt
+P0       A     C     G     T
+1     7513  6868  7596  7400
+2     7197  6127  6461  9592
+3     4197  6902  3903 20995
+4      752   796   897 34678
+5      361   465 34508   664
+6    18897  6745   525  9987
+7      289   385 34816   508
+8      476   240 34762   520
+9      398   831   891 34203
+10    2792  5178  3299 27082
+11   12513  4031  6388 14483
+12    6841  6685  6083  7768
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_57
+CC  AC: cluster_57
+CC  id: cluster_57
+CC  name: cluster_57
+CC  version: 
+CC  name: cluster_57
+CC  description: dttTGwGGTTwt
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: gttTGaGGTTtt
+CC  consensus.strict.rc: AAAACCTCAAAC
+CC  consensus.IUPAC: dttTGwGGTTwt
+CC  consensus.IUPAC.rc: AWAACCWCAAAH
+CC  consensus.regexp: [agt]ttTG[at]GGTT[at]t
+CC  consensus.regexp.rc: A[AT]AACC[AT]CAAA[ACT]
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 3
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA0511_2,JASPAR_2020_vertebrates:::MA0002_2,JASPAR_2020_vertebrates:::MA0684_2'
+CC  merged_ID: 'RUNX2,RUNX1,RUNX3'
+XX
+//
+AC  cluster_63
+XX
+ID  cluster_63
+XX
+DE  rCCTCrrCCTCCCrrG
+P0       A     C     G     T
+1      412   131  1023    46
+2       98  1859   307   296
+3       35  2318    89   118
+4       31   255    98  2176
+5       24  2291    57   188
+6      911   520  1043    86
+7      947    26  1545    42
+8       23  2484    33    20
+9        2  2535    11    12
+10      14    18    19  2509
+11       6  2520    21    13
+12      41  2383    22   114
+13      67  1932    75   486
+14     819   176  1453   112
+15    1436   210   842    72
+16     243   158  1147    64
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_63
+CC  AC: cluster_63
+CC  id: cluster_63
+CC  name: cluster_63
+CC  version: 
+CC  name: cluster_63
+CC  description: rCCTCrrCCTCCCrrG
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: gCCTCggCCTCCCgaG
+CC  consensus.strict.rc: CTCGGGAGGCCGAGGC
+CC  consensus.IUPAC: rCCTCrrCCTCCCrrG
+CC  consensus.IUPAC.rc: CYYGGGAGGYYGAGGY
+CC  consensus.regexp: [ag]CCTC[ag][ag]CCTCCC[ag][ag]G
+CC  consensus.regexp.rc: C[CT][CT]GGGAGG[CT][CT]GAGG[CT]
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 2
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA1587_1,JASPAR_2020_vertebrates:::MA1596_1'
+CC  merged_ID: 'ZNF135,ZNF460'
+XX
+//
+AC  cluster_61
+XX
+ID  cluster_61
+XX
+DE  TrsCAGGGGGCgs
+P0       A     C     G     T
+1        1     0     4    19
+2     5825  4180  4864  3192
+3     2659  7041  7097  1264
+4     1307 12882  2033  1839
+5    17286   413   329    33
+6       86   481 17309   185
+7      684   601 16534   242
+8      349  1141 15449  1122
+9      193   767 16843   258
+10     351   272 17017   421
+11     184 17609    68   200
+12    4176  3015  9311  1559
+13    1771  7727  6341  2198
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_61
+CC  AC: cluster_61
+CC  id: cluster_61
+CC  name: cluster_61
+CC  version: 
+CC  name: cluster_61
+CC  description: TrsCAGGGGGCgs
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: TagCAGGGGGCgc
+CC  consensus.strict.rc: GCGCCCCCTGCTA
+CC  consensus.IUPAC: TrsCAGGGGGCgs
+CC  consensus.IUPAC.rc: SCGCCCCCTGSYA
+CC  consensus.regexp: T[ag][cg]CAGGGGGCg[cg]
+CC  consensus.regexp.rc: [CG]CGCCCCCTG[CG][CT]A
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 2
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA0155_1,JASPAR_2020_vertebrates:::MA1102_2'
+CC  merged_ID: 'INSM1,CTCFL'
+XX
+//
+AC  cluster_66
+XX
+ID  cluster_66
+XX
+DE  MA1578_1 VEZF1 ; From JASPAR
+P0       A     C     G     T
+1       71   790   137     0
+2        1   997     0     0
+3        4   995     0     0
+4        2   997     0     0
+5        6   989     0     4
+6       10   977     3     8
+7      406   357   110   125
+8       44   550    70   334
+9      240   171   211   377
+10     333   173   152   339
+XX
+CC  residue_type: 
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_66
+CC  AC: JASPAR_2020_vertebrates_m689_MA1578_1
+CC  id: JASPAR_2020_vertebrates_m689_MA1578_1
+CC  name: cluster_66
+CC  version: 
+CC  name: cluster_66
+CC  description: MA1578_1 VEZF1 ; From JASPAR
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  merge_type: sum
+CC  merged_ID: VEZF1
+CC  merge_nb: 1
+CC  type: merge
+CC  merged_AC: JASPAR_2020_vertebrates:::VEZF1
+XX
+//
+AC  cluster_39
+XX
+ID  cluster_39
+XX
+DE  ssrrAAmsGAAACCGAAACyaaaam
+P0       A     C     G     T
+1     4596  6118  7839  4120
+2     3597  7115  9273  2952
+3     8451   700 14773  2099
+4    13601   168  9378   795
+5    19183   182  3677  2351
+6    23541   380   422   632
+7    29156 36753  9012 24295
+8     3008 63989 28800 11314
+9     1973   496 87798   597
+10   80542   231   550   305
+11   80898   108   175   674
+12   83626   278   802   509
+13    1793 79440  4519  2327
+14    4185 76994  3612 10401
+15     940    97 92194    91
+16   83445   269   336   113
+17   83244   117   229  2028
+18   83412   345   255  1014
+19    3408 78695 12223  1500
+20    8018 34711  5827 61944
+21   34283  6946 16913 12525
+22    1070   289   389   246
+23     582   252   285   255
+24     465   268   321   320
+25       3     6     1     2
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_39
+CC  AC: cluster_39
+CC  id: cluster_39
+CC  name: cluster_39
+CC  version: 
+CC  name: cluster_39
+CC  description: ssrrAAmsGAAACCGAAACyaaaam
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: gggaAAccGAAACCGAAACtaaaac
+CC  consensus.strict.rc: GTTTTAGTTTCGGTTTCGGTTTCCC
+CC  consensus.IUPAC: ssrrAAmsGAAACCGAAACyaaaam
+CC  consensus.IUPAC.rc: KTTTTRGTTTCGGTTTCSKTTYYSS
+CC  consensus.regexp: [cg][cg][ag][ag]AA[ac][cg]GAAACCGAAAC[ct]aaaa[ac]
+CC  consensus.regexp.rc: [GT]TTTT[AG]GTTTCGGTTTC[CG][GT]TT[CT][CT][CG][CG]
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 11
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA1509_1,JASPAR_2020_vertebrates:::MA0772_1,JASPAR_2020_vertebrates:::MA0653_1,JASPAR_2020_vertebrates:::MA1419_1,JASPAR_2020_vertebrates:::MA1420_1,JASPAR_2020_vertebrates:::MA0652_1,JASPAR_2020_vertebrates:::MA0517_1,JASPAR_2020_vertebrates:::MA1623_1,JASPAR_2020_vertebrates:::MA1418_1,JASPAR_2020_vertebrates:::MA0050_2,JASPAR_2020_vertebrates:::MA0051_1'
+CC  merged_ID: 'IRF6,IRF7,IRF9,IRF4,IRF5,IRF8,STAT1::STAT2,Stat2,IRF3,IRF1,IRF2'
+XX
+//
+AC  cluster_44
+XX
+ID  cluster_44
+XX
+DE  grTGCCAAswa
+P0       A     C     G     T
+1    33711 33917 35758 33004
+2    40343 24800 55877 34782
+3    11930 10759  6393 154541
+4     2126  1216 157877  3179
+5      373 153514  3513   262
+6      607 153438   160   438
+7    143212  7967   517   783
+8    141743  4438 16625  3624
+9    34347 44498 52007 26490
+10   33683 23113 21544 40070
+11    3867  2478  2647  2615
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_44
+CC  AC: cluster_44
+CC  id: cluster_44
+CC  name: cluster_44
+CC  version: 
+CC  name: cluster_44
+CC  description: grTGCCAAswa
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: ggTGCCAAgta
+CC  consensus.strict.rc: TACTTGGCACC
+CC  consensus.IUPAC: grTGCCAAswa
+CC  consensus.IUPAC.rc: TWSTTGGCAYC
+CC  consensus.regexp: g[ag]TGCCAA[cg][at]a
+CC  consensus.regexp.rc: T[AT][CG]TTGGCA[CT]C
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 6
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA0161_2,JASPAR_2020_vertebrates:::MA0670_1,JASPAR_2020_vertebrates:::MA0671_1,JASPAR_2020_vertebrates:::MA0597_1,JASPAR_2020_vertebrates:::MA0739_1,JASPAR_2020_vertebrates:::MA0738_1'
+CC  merged_ID: 'NFIC,NFIA,NFIX,THAP1,Hic1,HIC2'
+XX
+//
+AC  cluster_64
+XX
+ID  cluster_64
+XX
+DE  cTrTCGCGACATrts
+P0       A     C     G     T
+1     1235  2869   737   932
+2      447    88    88  5922
+3     3869   674  2076    15
+4       16    97     5  6111
+5        0  6078     6    18
+6      162     3  6646     5
+7        6  6025     0   145
+8        4     4  6718     0
+9     5787    89   130    46
+10      14  4387   450  1055
+11    5692   105   151   198
+12     203   505   771  5307
+13    3142   598  1919   923
+14      79   145   109   372
+15      90   233   266   116
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_64
+CC  AC: cluster_64
+CC  id: cluster_64
+CC  name: cluster_64
+CC  version: 
+CC  name: cluster_64
+CC  description: cTrTCGCGACATrts
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: cTaTCGCGACATatg
+CC  consensus.strict.rc: CATATGTCGCGATAG
+CC  consensus.IUPAC: cTrTCGCGACATrts
+CC  consensus.IUPAC.rc: SAYATGTCGCGAYAG
+CC  consensus.regexp: cT[ag]TCGCGACAT[ag]t[cg]
+CC  consensus.regexp.rc: [CG]A[CT]ATGTCGCGA[CT]AG
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 2
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA0749_1,JASPAR_2020_vertebrates:::MA0527_1'
+CC  merged_ID: 'ZBED1,ZBTB33'
+XX
+//
+AC  cluster_62
+XX
+ID  cluster_62
+XX
+DE  swtccAArATGGCgGcscysgg
+P0       A     C     G     T
+1      368   469   502   413
+2      454   420   412   466
+3      405   402   390   555
+4      391   660   327   374
+5     1455  5574   999   895
+6     8617    40   818    64
+7    10681  1806  1534  1222
+8     5107  2899  6190  1047
+9    14705    64   419    55
+10      65   305   134 14739
+11      72   128 15000    43
+12     277   184 14522   260
+13     954 13332    71   886
+14     980  2153  8325  3785
+15    1394  1675 10373  1801
+16    2420  9411  1391  2021
+17    1111  3212  2565  1184
+18     425  1030   362   551
+19     286   712   436   934
+20     414   627   851   476
+21     534   492   871   471
+22      86    66   380    84
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_62
+CC  AC: cluster_62
+CC  id: cluster_62
+CC  name: cluster_62
+CC  version: 
+CC  name: cluster_62
+CC  description: swtccAArATGGCgGcscysgg
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: gttccAAgATGGCgGccctggg
+CC  consensus.strict.rc: CCCAGGGCCGCCATCTTGGAAC
+CC  consensus.IUPAC: swtccAArATGGCgGcscysgg
+CC  consensus.IUPAC.rc: CCSRGSGCCGCCATYTTGGAWS
+CC  consensus.regexp: [cg][at]tccAA[ag]ATGGCgGc[cg]c[ct][cg]gg
+CC  consensus.regexp.rc: CC[CG][AG]G[CG]GCCGCCAT[CT]TTGGA[AT][CG]
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 4
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA1597_1,JASPAR_2020_vertebrates:::MA1651_1,JASPAR_2020_vertebrates:::MA0095_2,JASPAR_2020_vertebrates:::MA0748_2'
+CC  merged_ID: 'ZNF528,ZFP42,YY1,YY2'
+XX
+//
+AC  cluster_25
+XX
+ID  cluster_25
+XX
+DE  AACAvtwcCATTGTwhcgt
+P0       A     C     G     T
+1    17480   885  1160   475
+2    18427    88    53   118
+3        8 18427     4    10
+4    18427    91    15    91
+5     9897 12752 11818  2752
+6    31408 21216 19954 54524
+7    38049 23841 29532 43639
+8    34716 73447 12129 22317
+9     8892 119109  1704 15541
+10   115129  1469  1788 27613
+11    3144  2724  2826 134029
+12    3188   971  1530 136713
+13    5605  1730 133292  1603
+14    2175  2957   896 139170
+15   37656 23501 19812 65535
+16   34188 34752 18581 44609
+17    3884 14706  4660  6743
+18     260   272  1448   418
+19     138   109   267   854
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_25
+CC  AC: cluster_25
+CC  id: cluster_25
+CC  name: cluster_25
+CC  version: 
+CC  name: cluster_25
+CC  description: AACAvtwcCATTGTwhcgt
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: AACActtcCATTGTttcgt
+CC  consensus.strict.rc: ACGAAACAATGGAAGTGTT
+CC  consensus.IUPAC: AACAvtwcCATTGTwhcgt
+CC  consensus.IUPAC.rc: ACGDWACAATGGWABTGTT
+CC  consensus.regexp: AACA[acg]t[at]cCATTGT[at][act]cgt
+CC  consensus.regexp.rc: ACG[AGT][AT]ACAATGG[AT]A[CGT]TGTT
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 17
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA0870_1,JASPAR_2020_vertebrates:::MA0869_1,JASPAR_2020_vertebrates:::MA0866_1,JASPAR_2020_vertebrates:::MA1603_1,JASPAR_2020_vertebrates:::MA1561_1,JASPAR_2020_vertebrates:::MA1562_1,JASPAR_2020_vertebrates:::MA0078_1,JASPAR_2020_vertebrates:::MA1563_1,JASPAR_2020_vertebrates:::MA1120_1,JASPAR_2020_vertebrates:::MA0143_4,JASPAR_2020_vertebrates:::MA0442_2,JASPAR_2020_vertebrates:::MA0867_2,JASPAR_2020_vertebrates:::MA0077_1,JASPAR_2020_vertebrates:::MA1152_1,JASPAR_2020_vertebrates:::MA0868_2,JASPAR_2020_vertebrates:::MA0514_1,JASPAR_2020_vertebrates:::MA0515_1'
+CC  merged_ID: 'Sox1,Sox11,SOX21,Dmrt1,SOX12,SOX14,Sox17,SOX18,SOX13,SOX2,SOX10,SOX4,SOX9,SOX15,SOX8,Sox3,Sox6'
+XX
+//
+AC  cluster_50
+XX
+ID  cluster_50
+XX
+DE  wwaacCACTyAavaa
+P0       A     C     G     T
+1     3887  1474  1736  3123
+2    10374  8573  6631 10665
+3    17066  7186  7656  8763
+4    22019 11267 14207 13233
+5    13777 49764 21405  4974
+6     1125 72201   390  5250
+7    71154  1482   514  3915
+8     4046 72887   686  1241
+9      930   795   572 73250
+10    1062 37876  1010 40394
+11   56403  7807 10444  4648
+12   61896  8294 12537 12185
+13   18657 15790 18093 10416
+14    9807  7193  6638  7829
+15    7413  6271  6050  6289
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_50
+CC  AC: cluster_50
+CC  id: cluster_50
+CC  name: cluster_50
+CC  version: 
+CC  name: cluster_50
+CC  description: wwaacCACTyAavaa
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: ataacCACTtAaaaa
+CC  consensus.strict.rc: TTTTTAAGTGGTTAT
+CC  consensus.IUPAC: wwaacCACTyAavaa
+CC  consensus.IUPAC.rc: TTBTTRAGTGGTTWW
+CC  consensus.regexp: [at][at]aacCACT[ct]Aa[acg]aa
+CC  consensus.regexp.rc: TT[CGT]TT[AG]AGTGGTT[AT][AT]
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 9
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA1523_1,JASPAR_2020_vertebrates:::MA1645_1,JASPAR_2020_vertebrates:::MA0063_2,JASPAR_2020_vertebrates:::MA0503_1,JASPAR_2020_vertebrates:::MA0122_3,JASPAR_2020_vertebrates:::MA0672_1,JASPAR_2020_vertebrates:::MA0673_1,JASPAR_2020_vertebrates:::MA0914_1,JASPAR_2020_vertebrates:::MA0124_2'
+CC  merged_ID: 'MSANTD3,NKX2-2,NKX2-5,Nkx2-5_var_2_,Nkx3-2,NKX2-3,NKX2-8,ISL2,Nkx3-1'
+XX
+//
+AC  cluster_68
+XX
+ID  cluster_68
+XX
+DE  MA1647_1 PRDM4 ; From JASPAR
+P0       A     C     G     T
+1     1980  1163  2553  1559
+2     2041  1012  2079  2123
+3      281  6504   316   154
+4      860   286   566  5543
+5      293   110  6813    39
+6      147   137    82  6889
+7      169   405   393  6288
+8      195   138   111  6811
+9      481  6353   129   292
+10    2111  1456   726  2962
+11    2580  1532  1344  1799
+XX
+CC  residue_type: 
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_68
+CC  AC: JASPAR_2020_vertebrates_m513_MA1647_1
+CC  id: JASPAR_2020_vertebrates_m513_MA1647_1
+CC  name: cluster_68
+CC  version: 
+CC  name: cluster_68
+CC  description: MA1647_1 PRDM4 ; From JASPAR
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  merge_nb: 1
+CC  merged_ID: PRDM4
+CC  merged_AC: JASPAR_2020_vertebrates:::PRDM4
+CC  type: merge
+CC  merge_type: sum
+XX
+//
+AC  cluster_71
+XX
+ID  cluster_71
+XX
+DE  MA0163_1 PLAG1 ; From JASPAR
+P0       A     C     G     T
+1        0     0    18     0
+2        3     0    14     1
+3        0     0    18     0
+4        0     0    17     1
+5        0    14     4     0
+6        0    15     1     2
+7        4    10     1     3
+8       12     0     0     6
+9       11     5     2     0
+10       2     0    14     2
+11       0     0    18     0
+12       0     0    18     0
+13       0     0    16     2
+14       2     0    16     0
+XX
+CC  residue_type: 
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_71
+CC  AC: JASPAR_2020_vertebrates_m487_MA0163_1
+CC  id: JASPAR_2020_vertebrates_m487_MA0163_1
+CC  name: cluster_71
+CC  version: 
+CC  name: cluster_71
+CC  description: MA0163_1 PLAG1 ; From JASPAR
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  merged_ID: PLAG1
+CC  merge_type: sum
+CC  merge_nb: 1
+CC  type: merge
+CC  merged_AC: JASPAR_2020_vertebrates:::PLAG1
+XX
+//
+AC  cluster_12
+XX
+ID  cluster_12
+XX
+DE  rrAGGTGTGAaawh
+P0       A     C     G     T
+1      216    86   316   160
+2    12337  3728  9530  7149
+3    140270  4209 23736 12105
+4    21946 15964 140359 11967
+5      279  1212 140351   559
+6      280 10406  1089 140284
+7      114    51 140357    50
+8     7185 18012  2230 140375
+9     5830 19973 140375 34684
+10   140375  2086  7375  3208
+11   49283  8225  6449 13098
+12   30275 10599  8614 10443
+13    5649  1960  1966  4183
+14    2501  2577  1954  2800
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_12
+CC  AC: cluster_12
+CC  id: cluster_12
+CC  name: cluster_12
+CC  version: 
+CC  name: cluster_12
+CC  description: rrAGGTGTGAaawh
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: gaAGGTGTGAaaat
+CC  consensus.strict.rc: ATTTTCACACCTTC
+CC  consensus.IUPAC: rrAGGTGTGAaawh
+CC  consensus.IUPAC.rc: DWTTTCACACCTYY
+CC  consensus.regexp: [ag][ag]AGGTGTGAaa[at][act]
+CC  consensus.regexp.rc: [AGT][AT]TTTCACACCT[CT][CT]
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 15
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA0595_1,JASPAR_2020_vertebrates:::MA0596_1,JASPAR_2020_vertebrates:::MA0806_1,JASPAR_2020_vertebrates:::MA0807_1,JASPAR_2020_vertebrates:::MA0801_1,JASPAR_2020_vertebrates:::MA0805_1,JASPAR_2020_vertebrates:::MA0803_1,JASPAR_2020_vertebrates:::MA0800_1,JASPAR_2020_vertebrates:::MA0690_1,JASPAR_2020_vertebrates:::MA1566_1,JASPAR_2020_vertebrates:::MA1567_1,JASPAR_2020_vertebrates:::MA1565_1,JASPAR_2020_vertebrates:::MA0802_1,JASPAR_2020_vertebrates:::MA0688_1,JASPAR_2020_vertebrates:::MA0689_1'
+CC  merged_ID: 'SREBF1,SREBF2,TBX4,TBX5,MGA,TBX1,TBX15,EOMES,TBX21,TBX3,TBX6,TBX18,TBR1,TBX2,TBX20'
+XX
+//
+AC  cluster_72
+XX
+ID  cluster_72
+XX
+DE  MA1581_1 ZBTB6 ; From JASPAR
+P0       A     C     G     T
+1      593   317   713   604
+2      398   623   481   725
+3      312  1157   593   165
+4       94  2080    25    28
+5       29   104    52  2042
+6      207    45   409  1566
+7       13    59  2148     7
+8     2158    28    20    21
+9       58    20  2135    14
+10      56  2087    38    46
+11     102  1814    88   223
+12     589   707   467   464
+13     541   593   749   344
+XX
+CC  residue_type: 
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_72
+CC  AC: JASPAR_2020_vertebrates_m703_MA1581_1
+CC  id: JASPAR_2020_vertebrates_m703_MA1581_1
+CC  name: cluster_72
+CC  version: 
+CC  name: cluster_72
+CC  description: MA1581_1 ZBTB6 ; From JASPAR
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  merged_AC: JASPAR_2020_vertebrates:::ZBTB6
+CC  type: merge
+CC  merge_nb: 1
+CC  merged_ID: ZBTB6
+CC  merge_type: sum
+XX
+//
+AC  cluster_73
+XX
+ID  cluster_73
+XX
+DE  ctGTCTgkCACct
+P0       A     C     G     T
+1      166   432   168   133
+2      200    83    44   601
+3       24     8   892     4
+4       35    47   104   742
+5        0   927     0     1
+6        0     0     0   928
+7      106   231   568    23
+8      211   128   305   284
+9        9   910     4     5
+10     781    19    21   107
+11      35   740   137    16
+12     117   583    47   152
+13     110   214    35   540
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_73
+CC  AC: cluster_73
+CC  id: cluster_73
+CC  name: cluster_73
+CC  version: 
+CC  name: cluster_73
+CC  description: ctGTCTgkCACct
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: ctGTCTggCACct
+CC  consensus.strict.rc: AGGTGCCAGACAG
+CC  consensus.IUPAC: ctGTCTgkCACct
+CC  consensus.IUPAC.rc: AGGTGMCAGACAG
+CC  consensus.regexp: ctGTCTg[gt]CACct
+CC  consensus.regexp.rc: AGGTG[AC]CAGACAG
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 2
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA0092_1,JASPAR_2020_vertebrates:::MA0513_1'
+CC  merged_ID: 'Hand1::Tcf3,SMAD2::SMAD3::SMAD4'
+XX
+//
+AC  cluster_49
+XX
+ID  cluster_49
+XX
+DE  rwtTTssCGCCaaawy
+P0       A     C     G     T
+1    13209  3616 10394  6879
+2    25007 15250 13478 41229
+3    20881 14758  9670 45797
+4    14919  6172  4554 63494
+5     6670  3888 11041 76952
+6     1257 43603 49231   760
+7      391 35006 49479   392
+8      866 82182   610  1239
+9     2239   740 78442  3944
+10     248 83341  1007   335
+11     628 79578  9200  3095
+12   54112 18861  6346 14678
+13   51456 15746  8528 15036
+14   51839 14551  9734 16883
+15   37375  2982  1468 16282
+16    6727 10726  3437 13209
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_49
+CC  AC: cluster_49
+CC  id: cluster_49
+CC  name: cluster_49
+CC  version: 
+CC  name: cluster_49
+CC  description: rwtTTssCGCCaaawy
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: attTTggCGCCaaaat
+CC  consensus.strict.rc: ATTTTGGCGCCAAAAT
+CC  consensus.IUPAC: rwtTTssCGCCaaawy
+CC  consensus.IUPAC.rc: RWTTTGGCGSSAAAWY
+CC  consensus.regexp: [ag][at]tTT[cg][cg]CGCCaaa[at][ct]
+CC  consensus.regexp.rc: [AG][AT]TTTGGCG[CG][CG]AAA[AT][CT]
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 8
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA0024_3,JASPAR_2020_vertebrates:::MA0470_2,JASPAR_2020_vertebrates:::MA0864_2,JASPAR_2020_vertebrates:::MA0469_3,JASPAR_2020_vertebrates:::MA0758_1,JASPAR_2020_vertebrates:::MA0865_1,JASPAR_2020_vertebrates:::MA1122_1,JASPAR_2020_vertebrates:::MA0471_2'
+CC  merged_ID: 'E2F1,E2F4,E2F2,E2F3,E2F7,E2F8,TFDP1,E2F6'
+XX
+//
+AC  cluster_75
+XX
+ID  cluster_75
+XX
+DE  MA0794_1 PROX1 ; From JASPAR
+P0       A     C     G     T
+1      174  1503   543  1147
+2     3367    17    94    46
+3     3367   229    48   420
+4       63     0  3367     1
+5     3367    21    84     2
+6       31  3367     0    36
+7       15     2  3367   299
+8       11  1692     8  1675
+9        3  3367    12    18
+10       4     3   128  3367
+11      17   171    39  3367
+12    2133   553   607    74
+XX
+CC  residue_type: 
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_75
+CC  AC: JASPAR_2020_vertebrates_m515_MA0794_1
+CC  id: JASPAR_2020_vertebrates_m515_MA0794_1
+CC  name: cluster_75
+CC  version: 
+CC  name: cluster_75
+CC  description: MA0794_1 PROX1 ; From JASPAR
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  type: merge
+CC  merge_type: sum
+CC  merged_ID: PROX1
+CC  merge_nb: 1
+CC  merged_AC: JASPAR_2020_vertebrates:::PROX1
+XX
+//
+AC  cluster_70
+XX
+ID  cluster_70
+XX
+DE  garTATTmTkGGwTGdm
+P0       A     C     G     T
+1      520    93  2628   798
+2     2274   788   818   172
+3     2144   761  3105  1179
+4     1652   194   303  5066
+5     7062    29    75    29
+6       39    37    36  7078
+7       27    69    35  7065
+8     4044  2910    40   203
+9       41    84    51  7018
+10     433    94  4497  2164
+11     287    17  6785   110
+12     114    49  6944   117
+13    3984   796    66  2389
+14      87    61   104  6941
+15     535    40  6545    93
+16    1891   519  2920  1859
+17    2252  2923   782  1232
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_70
+CC  AC: cluster_70
+CC  id: cluster_70
+CC  name: cluster_70
+CC  version: 
+CC  name: cluster_70
+CC  description: garTATTmTkGGwTGdm
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: gagTATTaTgGGaTGgc
+CC  consensus.strict.rc: GCCATCCCATAATACTC
+CC  consensus.IUPAC: garTATTmTkGGwTGdm
+CC  consensus.IUPAC.rc: KHCAWCCMAKAATAYTC
+CC  consensus.regexp: ga[ag]TATT[ac]T[gt]GG[at]TG[agt][ac]
+CC  consensus.regexp.rc: [GT][ACT]CA[AT]CC[AC]A[GT]AATA[CT]TC
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 2
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA1588_1,JASPAR_2020_vertebrates:::MA0752_1'
+CC  merged_ID: 'ZNF136,ZNF410'
+XX
+//
+AC  cluster_76
+XX
+ID  cluster_76
+XX
+DE  MA0131_2 HINFP ; From JASPAR
+P0       A     C     G     T
+1       23   340   106   100
+2      285   131   113    53
+3      276    45   217    17
+4        1   388    97     7
+5        0    14   484    10
+6        0     0     0   470
+7        0   404    13     0
+8        0   413     0     3
+9        0    31   472    21
+10       1   395    15    12
+11      85    55   188    97
+12      77    84   154   107
+XX
+CC  residue_type: 
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_76
+CC  AC: JASPAR_2020_vertebrates_m232_MA0131_2
+CC  id: JASPAR_2020_vertebrates_m232_MA0131_2
+CC  name: cluster_76
+CC  version: 
+CC  name: cluster_76
+CC  description: MA0131_2 HINFP ; From JASPAR
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  merge_type: sum
+CC  merge_nb: 1
+CC  merged_ID: HINFP
+CC  type: merge
+CC  merged_AC: JASPAR_2020_vertebrates:::HINFP
+XX
+//
+AC  cluster_79
+XX
+ID  cluster_79
+XX
+DE  rAtrGGGTATCAyywwt
+P0       A     C     G     T
+1       33     9    36    21
+2       72     8     8    12
+3       23     5    17    55
+4       56    10    35    10
+5        7     9    91     5
+6        4     2   100     7
+7       16     1    94     1
+8        1     0     5   105
+9      105     0     3     4
+10       6     0     2   103
+11       2   106     2     1
+12     102     3     5     2
+13      19    46    18    29
+14      27    31    22    32
+15      40     8    11    40
+16      34    22    18    27
+17       8    11    24    58
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_79
+CC  AC: cluster_79
+CC  id: cluster_79
+CC  name: cluster_79
+CC  version: 
+CC  name: cluster_79
+CC  description: rAtrGGGTATCAyywwt
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: gAtaGGGTATCActaat
+CC  consensus.strict.rc: ATTAGTGATACCCTATC
+CC  consensus.IUPAC: rAtrGGGTATCAyywwt
+CC  consensus.IUPAC.rc: AWWRRTGATACCCYATY
+CC  consensus.regexp: [ag]At[ag]GGGTATCA[ct][ct][at][at]t
+CC  consensus.regexp.rc: A[AT][AT][AG][AG]TGATACCC[CT]AT[CT]
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 2
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA0631_1,JASPAR_2020_vertebrates:::MA0111_1'
+CC  merged_ID: 'Six3,Spz1'
+XX
+//
+AC  cluster_77
+XX
+ID  cluster_77
+XX
+DE  MA0506_1 NRF1 ; From JASPAR
+P0       A     C     G     T
+1      602   375  3647     0
+2      623  4001     0     0
+3      196   189  4239     0
+4        0  4016   468   140
+5     1514  1862   935   313
+6        0   403   528  3693
+7        0     0  4624     0
+8        0  4338     0   286
+9        0   349  4275     0
+10      74  4550     0     0
+11    2245   804  1575     0
+XX
+CC  residue_type: 
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_77
+CC  AC: JASPAR_2020_vertebrates_m453_MA0506_1
+CC  id: JASPAR_2020_vertebrates_m453_MA0506_1
+CC  name: cluster_77
+CC  version: 
+CC  name: cluster_77
+CC  description: MA0506_1 NRF1 ; From JASPAR
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  type: merge
+CC  merge_nb: 1
+CC  merged_ID: NRF1
+CC  merged_AC: JASPAR_2020_vertebrates:::NRF1
+CC  merge_type: sum
+XX
+//
+AC  cluster_69
+XX
+ID  cluster_69
+XX
+DE  ssctGGGGCCAss
+P0       A     C     G     T
+1     2780  4515  4260  2598
+2     2888  4401  4030  2834
+3     2507  7519  3236  1890
+4     2117  1496  2022  9515
+5      271   243 14520   118
+6     1213   356 13260   323
+7      187   266 14516   183
+8      180   536 14294   142
+9      782 13585   464   321
+10     181 14151   422   398
+11   12171  1499  1071   410
+12    2420  4842  5076  2814
+13    3414  3614  4567  2558
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_69
+CC  AC: cluster_69
+CC  id: cluster_69
+CC  name: cluster_69
+CC  version: 
+CC  name: cluster_69
+CC  description: ssctGGGGCCAss
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: ccctGGGGCCAgg
+CC  consensus.strict.rc: CCTGGCCCCAGGG
+CC  consensus.IUPAC: ssctGGGGCCAss
+CC  consensus.IUPAC.rc: SSTGGCCCCAGSS
+CC  consensus.regexp: [cg][cg]ctGGGGCCA[cg][cg]
+CC  consensus.regexp.rc: [CG][CG]TGGCCCCAG[CG][CG]
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 2
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA1615_1,JASPAR_2020_vertebrates:::MA1548_1'
+CC  merged_ID: 'Plagl1,PLAGL2'
+XX
+//
+AC  cluster_59
+XX
+ID  cluster_59
+XX
+DE  mwmaCAGcAGstrg
+P0       A     C     G     T
+1     3145  3507  2761  2506
+2     9846  6597  9052 12695
+3    13482 22412 10012  7066
+4    37369  7892  7395  7966
+5      910 52986  1251  4042
+6    53096  1115  3629  1264
+7     1161   849 56573   526
+8    12672 31914  1572 13506
+9    53592  1015  2266  2329
+10     933  1102 56045  1037
+11   11663 17514 28453  2169
+12   14395 14685 13338 16681
+13   15335 10308 17572 10994
+14    2333  2168  5314  2104
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_59
+CC  AC: cluster_59
+CC  id: cluster_59
+CC  name: cluster_59
+CC  version: 
+CC  name: cluster_59
+CC  description: mwmaCAGcAGstrg
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: ctcaCAGcAGgtgg
+CC  consensus.strict.rc: CCACCTGCTGTGAG
+CC  consensus.IUPAC: mwmaCAGcAGstrg
+CC  consensus.IUPAC.rc: CYASCTGCTGTKWK
+CC  consensus.regexp: [ac][at][ac]aCAGcAG[cg]t[ag]g
+CC  consensus.regexp.rc: C[CT]A[CG]CTGCTGT[GT][AT][GT]
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 6
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA1585_1,JASPAR_2020_vertebrates:::MA1542_1,JASPAR_2020_vertebrates:::MA1646_1,JASPAR_2020_vertebrates:::MA1593_1,JASPAR_2020_vertebrates:::MA1628_1,JASPAR_2020_vertebrates:::MA1629_1'
+CC  merged_ID: 'ZKSCAN1,OSR1,OSR2,ZNF317,Zic1::Zic2,Zic2'
+XX
+//
+AC  cluster_81
+XX
+ID  cluster_81
+XX
+DE  MA0006_1 Ahr::Arnt ; From JASPAR
+P0       A     C     G     T
+1        3     8     2    11
+2        0     0    23     1
+3        0    23     0     1
+4        0     0    23     1
+5        0     0     0    24
+6        0     0    24     0
+XX
+CC  residue_type: 
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_81
+CC  AC: JASPAR_2020_vertebrates_m1_MA0006_1
+CC  id: JASPAR_2020_vertebrates_m1_MA0006_1
+CC  name: cluster_81
+CC  version: 
+CC  name: cluster_81
+CC  description: MA0006_1 Ahr::Arnt ; From JASPAR
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  merge_nb: 1
+CC  merged_ID: Ahr::Arnt
+CC  merge_type: sum
+CC  merged_AC: JASPAR_2020_vertebrates:::Ahr::Arnt
+CC  type: merge
+XX
+//
+AC  cluster_82
+XX
+ID  cluster_82
+XX
+DE  MA0164_1 Nr2e3 ; From JASPAR
+P0       A     C     G     T
+1        4    12     2     5
+2       23     0     0     0
+3       23     0     0     0
+4        0     1    22     0
+5        0    23     0     0
+6        0     0     0    23
+7        0     0     0    23
+XX
+CC  residue_type: 
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_82
+CC  AC: JASPAR_2020_vertebrates_m437_MA0164_1
+CC  id: JASPAR_2020_vertebrates_m437_MA0164_1
+CC  name: cluster_82
+CC  version: 
+CC  name: cluster_82
+CC  description: MA0164_1 Nr2e3 ; From JASPAR
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  merge_type: sum
+CC  type: merge
+CC  merged_AC: JASPAR_2020_vertebrates:::Nr2e3
+CC  merged_ID: Nr2e3
+CC  merge_nb: 1
+XX
+//
+AC  cluster_83
+XX
+ID  cluster_83
+XX
+DE  MA0139_1 CTCF ; From JASPAR
+P0       A     C     G     T
+1       87   291    76   459
+2      167   145   414   187
+3      281    49   449   134
+4       56   800    21    36
+5        8   903     0     2
+6      744    13    65    91
+7       40   528   334    11
+8      107   433    48   324
+9      851    11    32    18
+10       5     0   903     3
+11     333     3   566     9
+12      54    12   504   341
+13      12     0   890     8
+14      56     8   775    71
+15     104   733     5    67
+16     372    13   507    17
+17      82   482   307    37
+18     117   322    73   396
+19     402   181   266    59
+XX
+CC  residue_type: 
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_83
+CC  AC: JASPAR_2020_vertebrates_m68_MA0139_1
+CC  id: JASPAR_2020_vertebrates_m68_MA0139_1
+CC  name: cluster_83
+CC  version: 
+CC  name: cluster_83
+CC  description: MA0139_1 CTCF ; From JASPAR
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  merged_AC: JASPAR_2020_vertebrates:::CTCF
+CC  merged_ID: CTCF
+CC  merge_type: sum
+CC  merge_nb: 1
+CC  type: merge
+XX
+//
+AC  cluster_84
+XX
+ID  cluster_84
+XX
+DE  MA0146_2 Zfx ; From JASPAR
+P0       A     C     G     T
+1       50   178   179    70
+2       59   170   173    75
+3       91   151   199    37
+4       72    49   297    61
+5       10   297   144    30
+6        6   361     2   112
+7       30   124   183   144
+8      191   153   122    15
+9        8     2   470     1
+10       0     3   477     1
+11       0   481     0     0
+12       0   480     0     1
+13       0     1     0   480
+14      84   122   218    56
+XX
+CC  residue_type: 
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_84
+CC  AC: JASPAR_2020_vertebrates_m710_MA0146_2
+CC  id: JASPAR_2020_vertebrates_m710_MA0146_2
+CC  name: cluster_84
+CC  version: 
+CC  name: cluster_84
+CC  description: MA0146_2 Zfx ; From JASPAR
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  merged_ID: Zfx
+CC  merge_nb: 1
+CC  merge_type: sum
+CC  type: merge
+CC  merged_AC: JASPAR_2020_vertebrates:::Zfx
+XX
+//
+AC  cluster_85
+XX
+ID  cluster_85
+XX
+DE  MA1599_1 ZNF682 ; From JASPAR
+P0       A     C     G     T
+1      205   423   214   216
+2      304   234   349   171
+3      110    85   774    89
+4      103    42   877    36
+5      100   795   105    58
+6       48   597    55   358
+7      953    72    20    13
+8      999    31    22     6
+9        6     7  1038     7
+10      13   999    13    33
+11       5  1033     9    11
+12       7  1034    10     7
+13      66   896    32    64
+14     367   117   118   456
+15     324   254   300   180
+16     192   260   194   412
+XX
+CC  residue_type: 
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_85
+CC  AC: JASPAR_2020_vertebrates_m741_MA1599_1
+CC  id: JASPAR_2020_vertebrates_m741_MA1599_1
+CC  name: cluster_85
+CC  version: 
+CC  name: cluster_85
+CC  description: MA1599_1 ZNF682 ; From JASPAR
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  merge_type: sum
+CC  merged_ID: ZNF682
+CC  type: merge
+CC  merged_AC: JASPAR_2020_vertebrates:::ZNF682
+CC  merge_nb: 1
+XX
+//
+AC  cluster_14
+XX
+ID  cluster_14
+XX
+DE  aaawaATCrATaawww
+P0       A     C     G     T
+1    30385 11480 13741 15071
+2    33822  8808 14024 14022
+3    38518  9006 10529 15410
+4    61267 17418 13484 95286
+5    143485  9464 47206 21175
+6    151354   750  1969  1222
+7     1087  2662   846 152541
+8     1521 148068   514  5208
+9    91604  1021 60557  1503
+10   152209   391   691  1243
+11     846   763   278 152815
+12   128289 24912 21562 35551
+13   75836 29095 17573 33729
+14   27617 12198  8878 21985
+15   18744 10389 10129 22957
+16   19932 11847 11206 19234
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_14
+CC  AC: cluster_14
+CC  id: cluster_14
+CC  name: cluster_14
+CC  version: 
+CC  name: cluster_14
+CC  description: aaawaATCrATaawww
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: aaataATCaATaaata
+CC  consensus.strict.rc: TATTTATTGATTATTT
+CC  consensus.IUPAC: aaawaATCrATaawww
+CC  consensus.IUPAC.rc: WWWTTATYGATTWTTT
+CC  consensus.regexp: aaa[at]aATC[ag]ATaa[at][at][at]
+CC  consensus.regexp.rc: [AT][AT][AT]TTAT[CT]GATT[AT]TTT
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 7
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA0780_1,JASPAR_2020_vertebrates:::MA0680_1,JASPAR_2020_vertebrates:::MA0754_1,JASPAR_2020_vertebrates:::MA0755_1,JASPAR_2020_vertebrates:::MA0679_2,JASPAR_2020_vertebrates:::MA0756_1,JASPAR_2020_vertebrates:::MA0757_1'
+CC  merged_ID: 'PAX3,PAX7,CUX1,CUX2,ONECUT1,ONECUT2,ONECUT3'
+XX
+//
+AC  cluster_87
+XX
+ID  cluster_87
+XX
+DE  MA1154_1 ZNF282 ; From JASPAR
+P0       A     C     G     T
+1       21   196    50    45
+2       39    21     7   378
+3       16     0     8   387
+4        3     2     3   380
+5        0   209     2     0
+6        0   208     0     1
+7        0   205     3     2
+8      140    99     0    21
+9       12   132     2   126
+10     256     3    37    61
+11     277     0     0     2
+12       2   210     4     3
+13     242    44     2     7
+14       1   210     2     2
+15      14     0   297   129
+16     157    40    60    43
+17      44    98    97    51
+XX
+CC  residue_type: 
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_87
+CC  AC: JASPAR_2020_vertebrates_m729_MA1154_1
+CC  id: JASPAR_2020_vertebrates_m729_MA1154_1
+CC  name: cluster_87
+CC  version: 
+CC  name: cluster_87
+CC  description: MA1154_1 ZNF282 ; From JASPAR
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  type: merge
+CC  merge_nb: 1
+CC  merged_AC: JASPAR_2020_vertebrates:::ZNF282
+CC  merge_type: sum
+CC  merged_ID: ZNF282
+XX
+//
+AC  cluster_89
+XX
+ID  cluster_89
+XX
+DE  MA0151_1 Arid3a ; From JASPAR
+P0       A     C     G     T
+1       27     0     0     0
+2        0     0     0    27
+3        1     9     0    17
+4       27     0     0     0
+5       27     0     0     0
+6       20     0     1     6
+XX
+CC  residue_type: 
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_89
+CC  AC: JASPAR_2020_vertebrates_m7_MA0151_1
+CC  id: JASPAR_2020_vertebrates_m7_MA0151_1
+CC  name: cluster_89
+CC  version: 
+CC  name: cluster_89
+CC  description: MA0151_1 Arid3a ; From JASPAR
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  merge_type: sum
+CC  type: merge
+CC  merged_ID: Arid3a
+CC  merge_nb: 1
+CC  merged_AC: JASPAR_2020_vertebrates:::Arid3a
+XX
+//
+AC  cluster_86
+XX
+ID  cluster_86
+XX
+DE  MA0088_2 ZNF143 ; From JASPAR
+P0       A     C     G     T
+1       87   509   153  1285
+2      949     0    13   652
+3       21  1590     1     1
+4        2  1609     0     0
+5        0  1609     0     0
+6     1609     0     4     3
+7        0   917    61   686
+8     1295   143   310     0
+9     1572     0    67     1
+10       6     0     1  1609
+11      59    36  1553     9
+12       0  1609     0     0
+13    1503   153     3    27
+14     345  1067    15  1080
+15     102  1138    13  1199
+16     382    21  1518   120
+XX
+CC  residue_type: 
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_86
+CC  AC: JASPAR_2020_vertebrates_m722_MA0088_2
+CC  id: JASPAR_2020_vertebrates_m722_MA0088_2
+CC  name: cluster_86
+CC  version: 
+CC  name: cluster_86
+CC  description: MA0088_2 ZNF143 ; From JASPAR
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 1
+CC  merged_AC: JASPAR_2020_vertebrates:::ZNF143
+CC  merged_ID: ZNF143
+XX
+//
+AC  cluster_90
+XX
+ID  cluster_90
+XX
+DE  MA0108_2 TBP ; From JASPAR
+P0       A     C     G     T
+1       61   145   152    31
+2       16    46    18   309
+3      352     0     2    35
+4        3    10     2   374
+5      354     0     5    30
+6      268     0     0   121
+7      360     3    20     6
+8      222     2    44   121
+9      155    44   157    33
+10      56   135   150    48
+11      83   147   128    31
+12      82   127   128    52
+13      82   118   128    61
+14      68   107   139    75
+15      77   101   140    71
+XX
+CC  residue_type: 
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_90
+CC  AC: JASPAR_2020_vertebrates_m621_MA0108_2
+CC  id: JASPAR_2020_vertebrates_m621_MA0108_2
+CC  name: cluster_90
+CC  version: 
+CC  name: cluster_90
+CC  description: MA0108_2 TBP ; From JASPAR
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  type: merge
+CC  merge_type: sum
+CC  merged_AC: JASPAR_2020_vertebrates:::TBP
+CC  merged_ID: TBP
+CC  merge_nb: 1
+XX
+//
+AC  cluster_60
+XX
+ID  cluster_60
+XX
+DE  csTCCTCCCccmccc
+P0       A     C     G     T
+1    11103 25115 11689  8436
+2     7442 26706 16207 10679
+3     1305  3078  2919 53732
+4     1871 61212  2950  1569
+5     2823 61733  1442  1604
+6      751   240  2024 64587
+7     1059 64494  1055   994
+8     1261 63574  1734  1033
+9     1336 62434  1910  1922
+10    9121 38904  6447 13130
+11   12578 28905 15043 11076
+12   19325 20365 14263 13649
+13     903  7500  1512  1344
+14    2629  4889  1806  1935
+15     520  2023  1038  1110
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_60
+CC  AC: cluster_60
+CC  id: cluster_60
+CC  name: cluster_60
+CC  version: 
+CC  name: cluster_60
+CC  description: csTCCTCCCccmccc
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: ccTCCTCCCcccccc
+CC  consensus.strict.rc: GGGGGGGGGAGGAGG
+CC  consensus.IUPAC: csTCCTCCCccmccc
+CC  consensus.IUPAC.rc: GGGKGGGGGAGGASG
+CC  consensus.regexp: c[cg]TCCTCCCcc[ac]ccc
+CC  consensus.regexp.rc: GGG[GT]GGGGGAGGA[CG]G
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 3
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA0528_2,JASPAR_2020_vertebrates:::MA1627_1,JASPAR_2020_vertebrates:::MA1630_1'
+CC  merged_ID: 'ZNF263,Wt1,Znf281'
+XX
+//
+AC  cluster_67
+XX
+ID  cluster_67
+XX
+DE  MA0508_3 PRDM1 ; From JASPAR
+P0       A     C     G     T
+1     8762 17788  6638 22293
+2    17153 12288  8768 17272
+3     1199 52752   701   829
+4     1283   467   826 52905
+5     2181  1346  1011 50943
+6     1813   488   561 52619
+7     1377 53465   207   432
+8     3549  1076  1390 49466
+9     1710 52821   290   660
+10   10522 13567  4098 27294
+11   10124 17518  7861 19978
+XX
+CC  residue_type: 
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_67
+CC  AC: JASPAR_2020_vertebrates_m511_MA0508_3
+CC  id: JASPAR_2020_vertebrates_m511_MA0508_3
+CC  name: cluster_67
+CC  version: 
+CC  name: cluster_67
+CC  description: MA0508_3 PRDM1 ; From JASPAR
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  merged_AC: JASPAR_2020_vertebrates:::PRDM1
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 1
+CC  merged_ID: PRDM1
+XX
+//
+AC  cluster_74
+XX
+ID  cluster_74
+XX
+DE  MA1125_1 ZNF384 ; From JASPAR
+P0       A     C     G     T
+1     9460  4945  5650 10378
+2     9116  7025  5133  9159
+3     9522  3456  4678 12777
+4    13125  7691  4721  4896
+5    30354     7    13    59
+6    30191    35    19   188
+7    30072    21    26   314
+8    30252    13    15   153
+9    30202    26    14   191
+10   30406     6     0    21
+11   20322  2908  2767  4436
+12   18916  3963  2898  4656
+XX
+CC  residue_type: 
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_74
+CC  AC: JASPAR_2020_vertebrates_m734_MA1125_1
+CC  id: JASPAR_2020_vertebrates_m734_MA1125_1
+CC  name: cluster_74
+CC  version: 
+CC  name: cluster_74
+CC  description: MA1125_1 ZNF384 ; From JASPAR
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  merge_type: sum
+CC  merged_ID: ZNF384
+CC  type: merge
+CC  merged_AC: JASPAR_2020_vertebrates:::ZNF384
+CC  merge_nb: 1
+XX
+//
+AC  cluster_88
+XX
+ID  cluster_88
+XX
+DE  MA1583_1 ZFP57 ; From JASPAR
+P0       A     C     G     T
+1     1156  1721  1829  1626
+2     1553  1611  1598  1570
+3     2236  1514  1643   939
+4      639  1061  1255  3377
+5       12    37   140  6143
+6       24    71  6213    24
+7       26  6254    16    36
+8       11  5595   719     7
+9       91    16  6166    59
+10      38  5828   279   187
+11    5116   331   729   156
+12    1450  1699  1896  1287
+13    1351  1665  1627  1689
+XX
+CC  residue_type: 
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_88
+CC  AC: JASPAR_2020_vertebrates_m709_MA1583_1
+CC  id: JASPAR_2020_vertebrates_m709_MA1583_1
+CC  name: cluster_88
+CC  version: 
+CC  name: cluster_88
+CC  description: MA1583_1 ZFP57 ; From JASPAR
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  type: merge
+CC  merged_ID: ZFP57
+CC  merge_type: sum
+CC  merge_nb: 1
+CC  merged_AC: JASPAR_2020_vertebrates:::ZFP57
+XX
+//
+AC  cluster_92
+XX
+ID  cluster_92
+XX
+DE  MA0615_1 Gmeb1 ; From JASPAR
+P0       A     C     G     T
+1       17    26    35    22
+2       34    31    15    20
+3       11    23    35    31
+4       13    22    29    36
+5       13     7    40    40
+6        5     4    33    59
+7       71     1    28     0
+8        0    99     0     1
+9        1     0    99     0
+10       0    28     1    71
+11      59    33     4     5
+12      40    40     7    13
+13      21    23    37    19
+14      44    15    18    24
+15      18    26    23    33
+16      27    21    31    20
+17      24    25    27    24
+XX
+CC  residue_type: 
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_92
+CC  AC: JASPAR_2020_vertebrates_m211_MA0615_1
+CC  id: JASPAR_2020_vertebrates_m211_MA0615_1
+CC  name: cluster_92
+CC  version: 
+CC  name: cluster_92
+CC  description: MA0615_1 Gmeb1 ; From JASPAR
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  type: merge
+CC  merged_ID: Gmeb1
+CC  merged_AC: JASPAR_2020_vertebrates:::Gmeb1
+CC  merge_nb: 1
+CC  merge_type: sum
+XX
+//
+AC  cluster_78
+XX
+ID  cluster_78
+XX
+DE  amstgGCTGTTCycsrw
+P0       A     C     G     T
+1       54    13    15    18
+2       33    28    23    17
+3     3553  5702  5783  3789
+4     4350  4700  4454  5324
+5     2424  2345 10952  3107
+6      231   271 18098   228
+7      238 18048   374   168
+8      235   468   400 17726
+9      585  1033 16907   303
+10     242   577   211 17799
+11     242   513   955 17117
+12    1520 13743  2046  1519
+13    2651  8842  2181  5153
+14    4439  5809  4289  4290
+15      24    36    28    12
+16      31    16    43    10
+17      41    13    10    35
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_78
+CC  AC: cluster_78
+CC  id: cluster_78
+CC  name: cluster_78
+CC  version: 
+CC  name: cluster_78
+CC  description: amstgGCTGTTCycsrw
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: aagtgGCTGTTCcccga
+CC  consensus.strict.rc: TCGGGGAACAGCCACTT
+CC  consensus.IUPAC: amstgGCTGTTCycsrw
+CC  consensus.IUPAC.rc: WYSGRGAACAGCCASKT
+CC  consensus.regexp: a[ac][cg]tgGCTGTTC[ct]c[cg][ag][at]
+CC  consensus.regexp.rc: [AT][CT][CG]G[AG]GAACAGCCA[CG][GT]T
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 2
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA0629_1,JASPAR_2020_vertebrates:::MA1655_1'
+CC  merged_ID: 'Rhox11,ZNF341'
+XX
+//
+AC  cluster_91
+XX
+ID  cluster_91
+XX
+DE  MA1546_1 PAX3_var_2_ ; From JASPAR
+P0       A     C     G     T
+1      203   515   216   411
+2      112   880   464   167
+3        1     2  1344   126
+4      181    79     6  1344
+5        9  1344    23   263
+6     1344     2    19     2
+7       13  1344     2   201
+8      161     1  1344     0
+9        3   836   508     6
+10     197   414   127   606
+11     512   228   138   467
+12    1344   152   353    86
+13      50    43    24  1344
+14      83   138    52  1344
+15    1344    66   108   215
+16     390   326   363   266
+XX
+CC  residue_type: 
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_91
+CC  AC: JASPAR_2020_vertebrates_m470_MA1546_1
+CC  id: JASPAR_2020_vertebrates_m470_MA1546_1
+CC  name: cluster_91
+CC  version: 
+CC  name: cluster_91
+CC  description: MA1546_1 PAX3_var_2_ ; From JASPAR
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  merge_type: sum
+CC  merge_nb: 1
+CC  type: merge
+CC  merged_ID: PAX3_var_2_
+CC  merged_AC: JASPAR_2020_vertebrates:::PAX3_var_2_
+XX
+//
+AC  cluster_93
+XX
+ID  cluster_93
+XX
+DE  MA1616_1 Prdm15 ; From JASPAR
+P0       A     C     G     T
+1      638   486   560   553
+2      624   329   920   364
+3      252   325  1333   327
+4     2011    60   135    31
+5     2121    34    58    24
+6     1942    47   200    48
+7     1801   138   152   146
+8       67  1941   101   128
+9      222  1886   107    22
+10     220   361    28  1628
+11      19     7  2199    12
+12      64    23  2126    24
+13    1531   314   220   172
+14     687   438   748   364
+15     540   635   460   602
+XX
+CC  residue_type: 
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_93
+CC  AC: JASPAR_2020_vertebrates_m512_MA1616_1
+CC  id: JASPAR_2020_vertebrates_m512_MA1616_1
+CC  name: cluster_93
+CC  version: 
+CC  name: cluster_93
+CC  description: MA1616_1 Prdm15 ; From JASPAR
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  merge_nb: 1
+CC  merged_AC: JASPAR_2020_vertebrates:::Prdm15
+CC  type: merge
+CC  merged_ID: Prdm15
+CC  merge_type: sum
+XX
+//
+AC  cluster_97
+XX
+ID  cluster_97
+XX
+DE  MA0602_1 Arid5a ; From JASPAR
+P0       A     C     G     T
+1       18    43    23    17
+2       16    32     3    48
+3       85     3     7     5
+4       96     0     1     2
+5        6     0     1    93
+6       93     1     1     6
+7        2     1     1    96
+8        4     9     4    83
+9       23     3    52    22
+10      34    35    18    12
+11      29    13    27    31
+12      57     8    19    16
+13      29    18    26    27
+14      34    23    15    27
+XX
+CC  residue_type: 
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_97
+CC  AC: JASPAR_2020_vertebrates_m9_MA0602_1
+CC  id: JASPAR_2020_vertebrates_m9_MA0602_1
+CC  name: cluster_97
+CC  version: 
+CC  name: cluster_97
+CC  description: MA0602_1 Arid5a ; From JASPAR
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  merge_nb: 1
+CC  merge_type: sum
+CC  type: merge
+CC  merged_ID: Arid5a
+CC  merged_AC: JASPAR_2020_vertebrates:::Arid5a
+XX
+//
+AC  cluster_98
+XX
+ID  cluster_98
+XX
+DE  MA0130_1 ZNF354C ; From JASPAR
+P0       A     C     G     T
+1        7     6     3     0
+2        3     2     0    11
+3        0    16     0     0
+4        0    16     0     0
+5       16     0     0     0
+6        0    15     1     0
+XX
+CC  residue_type: 
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_98
+CC  AC: JASPAR_2020_vertebrates_m732_MA0130_1
+CC  id: JASPAR_2020_vertebrates_m732_MA0130_1
+CC  name: cluster_98
+CC  version: 
+CC  name: cluster_98
+CC  description: MA0130_1 ZNF354C ; From JASPAR
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  merge_type: sum
+CC  merge_nb: 1
+CC  merged_ID: ZNF354C
+CC  merged_AC: JASPAR_2020_vertebrates:::ZNF354C
+CC  type: merge
+XX
+//
+AC  cluster_56
+XX
+ID  cluster_56
+XX
+DE  wtTmrCACcTAgGTGygAaa
+P0       A     C     G     T
+1    10247  5394  7955 15259
+2     7363  4213  7813 21130
+3      395  1199   243 51175
+4    16133 29587 10519  2656
+5    27116   511 13446  2106
+6       76 36751    96   230
+7    35261    50  2040    27
+8     2893 34734  1618  5703
+9    10250 20039  9099  5192
+10    6084  4930  3045 46671
+11   34123  1813  4786  4533
+12    6439  9009 25620 11904
+13    8792  1865 51257  4287
+14      82  3173   278 50276
+15     290    20 56385   128
+16    3269 14374   763 32175
+17    2908  7372 46924 14782
+18   35777   123   969   252
+19   19937  4953  4529  5442
+20   16038  5961  5924  8228
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_56
+CC  AC: cluster_56
+CC  id: cluster_56
+CC  name: cluster_56
+CC  version: 
+CC  name: cluster_56
+CC  description: wtTmrCACcTAgGTGygAaa
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: ttTcaCACcTAgGTGtgAaa
+CC  consensus.strict.rc: TTTCACACCTAGGTGTGAAA
+CC  consensus.IUPAC: wtTmrCACcTAgGTGygAaa
+CC  consensus.IUPAC.rc: TTTCRCACCTAGGTGYKAAW
+CC  consensus.regexp: [at]tT[ac][ag]CACcTAgGTG[ct]gAaa
+CC  consensus.regexp.rc: TTTC[AG]CACCTAGGTG[CT][GT]AA[AT]
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 2
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA0804_1,JASPAR_2020_vertebrates:::MA0009_2'
+CC  merged_ID: 'TBX19,TBXT'
+XX
+//
+AC  cluster_80
+XX
+ID  cluster_80
+XX
+DE  GGAAGGAATGAATGAATG
+P0       A     C     G     T
+1        0     0   105     0
+2        2     0   103     0
+3      104     0     1     0
+4      104     0     1     0
+5        1     0   104     0
+6     2687   856 17803  2063
+7    19249  1045  2130   985
+8    19523   811  2065  1010
+9      279   589   506 22035
+10     789    95 22171   354
+11   22709   186   332   182
+12   22297   128   887    97
+13     147   501   324 22437
+14     723   120 22240   326
+15   21967   464   544   434
+16   19607   739  2104   959
+17    1498  1967  1913 18031
+18    2851  1348 17153  2057
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_80
+CC  AC: cluster_80
+CC  id: cluster_80
+CC  name: cluster_80
+CC  version: 
+CC  name: cluster_80
+CC  description: GGAAGGAATGAATGAATG
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: GGAAGGAATGAATGAATG
+CC  consensus.strict.rc: CATTCATTCATTCCTTCC
+CC  consensus.IUPAC: GGAAGGAATGAATGAATG
+CC  consensus.IUPAC.rc: CATTCATTCATTCCTTCC
+CC  consensus.regexp: GGAAGGAATGAATGAATG
+CC  consensus.regexp.rc: CATTCATTCATTCCTTCC
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 2
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA0149_1,JASPAR_2020_vertebrates:::MA1124_1'
+CC  merged_ID: 'EWSR1-FLI1,ZNF24'
+XX
+//
+AC  cluster_99
+XX
+ID  cluster_99
+XX
+DE  MA1580_1 ZBTB32 ; From JASPAR
+P0       A     C     G     T
+1      882   764    65  1849
+2      356     3  3057   156
+3        5     1     3  3563
+4     3560     5     0     0
+5        0  3560     1     0
+6     3556     3     4     8
+7        0     3  3562     6
+8        0     4     0  3558
+9     2390   109   723   339
+10    1559   213   215  1574
+XX
+CC  residue_type: 
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_99
+CC  AC: JASPAR_2020_vertebrates_m701_MA1580_1
+CC  id: JASPAR_2020_vertebrates_m701_MA1580_1
+CC  name: cluster_99
+CC  version: 
+CC  name: cluster_99
+CC  description: MA1580_1 ZBTB32 ; From JASPAR
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  merge_type: sum
+CC  merged_ID: ZBTB32
+CC  type: merge
+CC  merge_nb: 1
+CC  merged_AC: JASPAR_2020_vertebrates:::ZBTB32
+XX
+//
+AC  cluster_95
+XX
+ID  cluster_95
+XX
+DE  MA1656_1 ZNF449 ; From JASPAR
+P0       A     C     G     T
+1     1809  2716  1566  1569
+2     2104  2320  1921  1315
+3     4135  1759  1463   303
+4     6239   582   224   615
+5      108    92  7368    92
+6      139  7088   322   111
+7       64  7540    28    28
+8       68  7479    54    59
+9     6851   300   182   327
+10    6620    96   829   115
+11     184  7244   167    65
+12    1143  5029   473  1015
+13    2595  1875  1585  1605
+14    1670  2195  2237  1558
+XX
+CC  residue_type: 
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_95
+CC  AC: JASPAR_2020_vertebrates_m737_MA1656_1
+CC  id: JASPAR_2020_vertebrates_m737_MA1656_1
+CC  name: cluster_95
+CC  version: 
+CC  name: cluster_95
+CC  description: MA1656_1 ZNF449 ; From JASPAR
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  merged_AC: JASPAR_2020_vertebrates:::ZNF449
+CC  merge_nb: 1
+CC  merge_type: sum
+CC  merged_ID: ZNF449
+CC  type: merge
+XX
+//
+AC  cluster_94
+XX
+ID  cluster_94
+XX
+DE  MA1657_1 ZNF652 ; From JASPAR
+P0       A     C     G     T
+1     2045  2744  4106  3478
+2     6158  2126  2230  1859
+3    11418   372   317   266
+4    11220    89   660   404
+5      267   573 10998   535
+6     7606   106  4279   382
+7      178   109 11940   146
+8      220   155   182 11816
+9      240   274   249 11610
+10   11708   215   205   245
+11    9189  1216  1032   936
+12    4035  2715  2185  3438
+XX
+CC  residue_type: 
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_94
+CC  AC: JASPAR_2020_vertebrates_m740_MA1657_1
+CC  id: JASPAR_2020_vertebrates_m740_MA1657_1
+CC  name: cluster_94
+CC  version: 
+CC  name: cluster_94
+CC  description: MA1657_1 ZNF652 ; From JASPAR
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  merged_AC: JASPAR_2020_vertebrates:::ZNF652
+CC  merged_ID: ZNF652
+CC  type: merge
+CC  merge_nb: 1
+CC  merge_type: sum
+XX
+//
+AC  cluster_4
+XX
+ID  cluster_4
+XX
+DE  awarrGGTCAAAGGTCAhc
+P0       A     C     G     T
+1      548   140   108   204
+2      431    73    60   437
+3     7519  4463  4481  4434
+4    44009 17814 82595 11833
+5    80656  2989 84668  4538
+6     3011  7862 132277  4769
+7    13326  1444 120127 20165
+8      783  1850  3847 160999
+9     1131 183496  5331 13619
+10   168362   201  1990   472
+11   162299   900  9223  6134
+12   161838   271  9297   360
+13     819   386 151378   529
+14    5803  4365 135043 15867
+15    6174  6626 10012 143629
+16    2750 158851  5507 14861
+17   144662   882 17291  1638
+18   15275 15901 11865 14396
+19       0    15     6     4
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_4
+CC  AC: cluster_4
+CC  id: cluster_4
+CC  name: cluster_4
+CC  version: 
+CC  name: cluster_4
+CC  description: awarrGGTCAAAGGTCAhc
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: ataggGGTCAAAGGTCAcc
+CC  consensus.strict.rc: GGTGACCTTTGACCCCTAT
+CC  consensus.IUPAC: awarrGGTCAAAGGTCAhc
+CC  consensus.IUPAC.rc: GDTGACCTTTGACCYYTWT
+CC  consensus.regexp: a[at]a[ag][ag]GGTCAAAGGTCA[act]c
+CC  consensus.regexp.rc: G[AGT]TGACCTTTGACC[CT][CT]T[AT]T
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 16
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA1494_1,JASPAR_2020_vertebrates:::MA1148_1,JASPAR_2020_vertebrates:::MA0115_1,JASPAR_2020_vertebrates:::MA0677_1,JASPAR_2020_vertebrates:::MA0855_1,JASPAR_2020_vertebrates:::MA0512_2,JASPAR_2020_vertebrates:::MA0856_1,JASPAR_2020_vertebrates:::MA1550_1,JASPAR_2020_vertebrates:::MA1537_1,JASPAR_2020_vertebrates:::MA1574_1,JASPAR_2020_vertebrates:::MA0504_1,JASPAR_2020_vertebrates:::MA0065_2,JASPAR_2020_vertebrates:::MA0769_2,JASPAR_2020_vertebrates:::MA1421_1,JASPAR_2020_vertebrates:::MA0768_1,JASPAR_2020_vertebrates:::MA0523_1'
+CC  merged_ID: 'HNF4A_var_2_,PPARA::RXRA,NR1H2::RXRA,Nr2f6,RXRB,Rxra,RXRG,PPARD,NR2F1_var_2_,THRB,NR2C2,Pparg::Rxra,TCF7,TCF7L1,LEF1,TCF7L2'
+XX
+//
+AC  cluster_10
+XX
+ID  cluster_10
+XX
+DE  wdgymATAAAAhww
+P0       A     C     G     T
+1    42726 17239 20500 30275
+2    52918 24097 55383 45141
+3    34751 61802 136350 14783
+4     5949 136101  1491 74912
+5    139555 81575  2352 11712
+6    182585  1861 41469  3796
+7     1350  1017  1144 213761
+8    204049  1540  2376 19530
+9    212271  1077   982  3189
+10   211831  3180  1598  3616
+11   188337 31699 17973 32118
+12   54757 61316 28304 72290
+13   26295 13262 11871 27990
+14   25171 13391 12165 27987
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_10
+CC  AC: cluster_10
+CC  id: cluster_10
+CC  name: cluster_10
+CC  version: 
+CC  name: cluster_10
+CC  description: wdgymATAAAAhww
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: aggcaATAAAAttt
+CC  consensus.strict.rc: AAATTTTATTGCCT
+CC  consensus.IUPAC: wdgymATAAAAhww
+CC  consensus.IUPAC.rc: WWDTTTTATKRCHW
+CC  consensus.regexp: [at][agt]g[ct][ac]ATAAAA[act][at][at]
+CC  consensus.regexp.rc: [AT][AT][AGT]TTTTAT[GT][AG]C[ACT][AT]
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 19
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA0594_2,JASPAR_2020_vertebrates:::MA0905_1,JASPAR_2020_vertebrates:::MA0908_1,JASPAR_2020_vertebrates:::MA1503_1,JASPAR_2020_vertebrates:::MA0485_2,JASPAR_2020_vertebrates:::MA0907_1,JASPAR_2020_vertebrates:::MA0911_1,JASPAR_2020_vertebrates:::MA0651_1,JASPAR_2020_vertebrates:::MA0873_1,JASPAR_2020_vertebrates:::MA0906_1,JASPAR_2020_vertebrates:::MA1506_1,JASPAR_2020_vertebrates:::MA0901_2,JASPAR_2020_vertebrates:::MA0465_2,JASPAR_2020_vertebrates:::MA0650_2,JASPAR_2020_vertebrates:::MA0909_2,JASPAR_2020_vertebrates:::MA0913_2,JASPAR_2020_vertebrates:::MA0899_1,JASPAR_2020_vertebrates:::MA0878_2,JASPAR_2020_vertebrates:::MA1473_1'
+CC  merged_ID: 'HOXA9,HOXC10,HOXD11,HOXB9,HOXC9,HOXC13,Hoxa11,HOXC11,HOXD12,HOXC12,HOXD10,HOXB13,CDX2,HOXA13,HOXD13,HOXD9,HOXA10,CDX1,CDX4'
+XX
+//
+AC  cluster_28
+XX
+ID  cluster_28
+XX
+DE  wdawrrGGATTArmwww
+P0       A     C     G     T
+1       34    13    12    41
+2       28     8    37    27
+3     1256   305   489   147
+4    45107 24496 22554 38930
+5    42231 18206 44535 34212
+6    53076 27547 85245 43974
+7    18242 12115 198961  6179
+8     6533  3299 200567  7466
+9    201564 12165   910  1847
+10    1332   842   798 207028
+11    5344  9058  3327 199348
+12   196467  4279  4758  9471
+13   61334 27763 86320 52782
+14   45568 39657 35563 33498
+15   36966 22160 31255 38959
+16      30    20    19    30
+17      37    12    15    36
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_28
+CC  AC: cluster_28
+CC  id: cluster_28
+CC  name: cluster_28
+CC  version: 
+CC  name: cluster_28
+CC  description: wdawrrGGATTArmwww
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: tgaaggGGATTAgataa
+CC  consensus.strict.rc: TTATCTAATCCCCTTCA
+CC  consensus.IUPAC: wdawrrGGATTArmwww
+CC  consensus.IUPAC.rc: WWWKYTAATCCYYWTHW
+CC  consensus.regexp: [at][agt]a[at][ag][ag]GGATTA[ag][ac][at][at][at]
+CC  consensus.regexp.rc: [AT][AT][AT][GT][CT]TAATCC[CT][CT][AT]T[ACT][AT]
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 12
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA0883_1,JASPAR_2020_vertebrates:::MA0479_1,JASPAR_2020_vertebrates:::MA1480_1,JASPAR_2020_vertebrates:::MA0719_1,JASPAR_2020_vertebrates:::MA0711_1,JASPAR_2020_vertebrates:::MA0682_2,JASPAR_2020_vertebrates:::MA1547_1,JASPAR_2020_vertebrates:::MA0714_1,JASPAR_2020_vertebrates:::MA0648_1,JASPAR_2020_vertebrates:::MA0891_1,JASPAR_2020_vertebrates:::MA0712_2,JASPAR_2020_vertebrates:::MA0467_1'
+CC  merged_ID: 'Dmbx1,FOXH1,DPRX,RHOXF1,OTX1,PITX1,PITX2,PITX3,GSC,GSC2,OTX2,Crx'
+XX
+//
+AC  cluster_96
+XX
+ID  cluster_96
+XX
+DE  MA1592_1 ZNF274 ; From JASPAR
+P0       A     C     G     T
+1     7978  7294  8315  7598
+2    10812  4819 17492  3308
+3     1041  9979  2362 26041
+4    16867    23 13540  2655
+5      139   300  4331 29357
+6       11     5 31185     0
+7    30115    19  1445  1242
+8     1770  2889 29909   164
+9       71    20   104 31153
+10     114 13338     0 27470
+11      15 31181     6     8
+12       0     0     0 31180
+13       5 29919     0  2991
+14    8629   907 20538  5406
+15    4050 15335  6974 12410
+16    7599  5479  8877  9231
+XX
+CC  residue_type: 
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_96
+CC  AC: JASPAR_2020_vertebrates_m727_MA1592_1
+CC  id: JASPAR_2020_vertebrates_m727_MA1592_1
+CC  name: cluster_96
+CC  version: 
+CC  name: cluster_96
+CC  description: MA1592_1 ZNF274 ; From JASPAR
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  merge_nb: 1
+CC  merged_AC: JASPAR_2020_vertebrates:::ZNF274
+CC  type: merge
+CC  merged_ID: ZNF274
+CC  merge_type: sum
+XX
+//
+AC  cluster_2
+XX
+ID  cluster_2
+XX
+DE  kycAmAKTCCAgvmCTTkr
+P0       A     C     G     T
+1    13889  9922 19465 21450
+2    50725 62023 43128 59136
+3    36029 107208 29531 42504
+4    193834  5475 31012  7398
+5    72132 150009 10873  3913
+6    226275  2596  4302  3459
+7     2486  3300 63555 167340
+8    13443  2765  7372 213949
+9     6623 215409  4903  9545
+10    3991 224715  1460  6364
+11   192418 10683 16244 40505
+12   44438 35352 98686 36629
+13   53770 54516 65688 41091
+14   19310 22808 16468 13689
+15       0  1263     0     3
+16     249   129    18  1107
+17      56    59    14  1224
+18     216   168   514   619
+19     606   201   326   127
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_2
+CC  AC: cluster_2
+CC  id: cluster_2
+CC  name: cluster_2
+CC  version: 
+CC  name: cluster_2
+CC  description: kycAmAKTCCAgvmCTTkr
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: tccAcATTCCAggcCTTta
+CC  consensus.strict.rc: TAAAGGCCTGGAATGTGGA
+CC  consensus.IUPAC: kycAmAKTCCAgvmCTTkr
+CC  consensus.IUPAC.rc: YMAAGKBCTGGAMTKTGRM
+CC  consensus.regexp: [gt][ct]cA[ac]A[GT]TCCAg[acg][ac]CTT[gt][ag]
+CC  consensus.regexp.rc: [CT][AC]AAG[GT][CGT]CTGGA[AC]T[GT]TG[AG][AC]
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 7
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA1600_1,JASPAR_2020_vertebrates:::MA0114_4,JASPAR_2020_vertebrates:::MA0484_2,JASPAR_2020_vertebrates:::MA0808_1,JASPAR_2020_vertebrates:::MA0809_2,JASPAR_2020_vertebrates:::MA0090_3,JASPAR_2020_vertebrates:::MA1121_1'
+CC  merged_ID: 'ZNF684,HNF4A,HNF4G,TEAD3,TEAD4,TEAD1,TEAD2'
+XX
+//
+AC  cluster_46
+XX
+ID  cluster_46
+XX
+DE  gtcragyymaAGkTCAyrrG
+P0       A     C     G     T
+1      171   197   313   216
+2      255   473   348   896
+3      124   896   342   132
+4     1550   236   686   221
+5     2204   442   675   527
+6     5864  5387 11037  7425
+7     9628 13483 12590 15030
+8    17718 30646 12806 46621
+9    66116 50909 21483 19228
+10   117607  8903 35647 21530
+11   140838  1738 21024   701
+12    2182   790 154176  5765
+13     714   395 111848 55355
+14    4015  4758  8758 153922
+15     630 156424  3714 15803
+16   157484   755 24817  1490
+17   38079 43060 24237 53815
+18   19581 13327 15389 11336
+19    3276  2470  3886  2427
+20    5681  2912 36863  3466
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_46
+CC  AC: cluster_46
+CC  id: cluster_46
+CC  name: cluster_46
+CC  version: 
+CC  name: cluster_46
+CC  description: gtcragyymaAGkTCAyrrG
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: gtcaagttaaAGgTCAtagG
+CC  consensus.strict.rc: CCTATGACCTTTAACTTGAC
+CC  consensus.IUPAC: gtcragyymaAGkTCAyrrG
+CC  consensus.IUPAC.rc: CYYRTGAMCTTKRRCTYGAC
+CC  consensus.regexp: gtc[ag]ag[ct][ct][ac]aAG[gt]TCA[ct][ag][ag]G
+CC  consensus.regexp.rc: C[CT][CT][AG]TGA[AC]CTT[GT][AG][AG]CT[CT]GAC
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 19
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA1541_1,JASPAR_2020_vertebrates:::MA0676_1,JASPAR_2020_vertebrates:::MA0160_1,JASPAR_2020_vertebrates:::MA1535_1,JASPAR_2020_vertebrates:::MA1536_1,JASPAR_2020_vertebrates:::MA1534_1,JASPAR_2020_vertebrates:::MA0693_2,JASPAR_2020_vertebrates:::MA0072_1,JASPAR_2020_vertebrates:::MA1151_1,JASPAR_2020_vertebrates:::MA0071_1,JASPAR_2020_vertebrates:::MA1150_1,JASPAR_2020_vertebrates:::MA0017_2,JASPAR_2020_vertebrates:::MA0592_3,JASPAR_2020_vertebrates:::MA0505_1,JASPAR_2020_vertebrates:::MA1111_1,JASPAR_2020_vertebrates:::MA1112_2,JASPAR_2020_vertebrates:::MA1540_1,JASPAR_2020_vertebrates:::MA0141_3,JASPAR_2020_vertebrates:::MA0643_1'
+CC  merged_ID: 'NR6A1,Nr2e1,NR4A2,NR2C1,NR2C2_var_2_,NR1I3,VDR,RORA_var_2_,RORC,RORA,RORB,NR2F1,ESRRA,Nr5a2,NR2F2,NR4A1,NR5A1,ESRRB,Esrrg'
+XX
+//
+AC  cluster_48
+XX
+ID  cluster_48
+XX
+DE  tvwwwyCTTATCTww
+P0       A     C     G     T
+1        3     3     6    15
+2        7     7     7     6
+3    22320 16233 13432 27486
+4    35508 25932 22990 54106
+5    77076 44393 43344 75134
+6    29965 77241 29622 108009
+7    13273 194360 19392 14726
+8     6180  3999  2146 229033
+9    57217  3514  2302 178251
+10   229162  3829  3117  4845
+11    4628  2749  1683 231893
+12    4255 228604  2892  5194
+13   38213  8604  6883 189624
+14   62136 53554 58009 66197
+15   63455 51684 32101 77259
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_48
+CC  AC: cluster_48
+CC  id: cluster_48
+CC  name: cluster_48
+CC  version: 
+CC  name: cluster_48
+CC  description: tvwwwyCTTATCTww
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: tattatCTTATCTtt
+CC  consensus.strict.rc: AAAGATAAGATAATA
+CC  consensus.IUPAC: tvwwwyCTTATCTww
+CC  consensus.IUPAC.rc: WWAGATAAGRWWWBA
+CC  consensus.regexp: t[acg][at][at][at][ct]CTTATCT[at][at]
+CC  consensus.regexp.rc: [AT][AT]AGATAAG[AG][AT][AT][AT][CGT]A
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 8
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA0109_1,JASPAR_2020_vertebrates:::MA0029_1,JASPAR_2020_vertebrates:::MA0035_4,JASPAR_2020_vertebrates:::MA1104_2,JASPAR_2020_vertebrates:::MA0036_3,JASPAR_2020_vertebrates:::MA0482_2,JASPAR_2020_vertebrates:::MA0037_3,JASPAR_2020_vertebrates:::MA0766_2'
+CC  merged_ID: 'HLTF,Mecom,GATA1,GATA6,GATA2,GATA4,GATA3,GATA5'
+XX
+//
+AC  cluster_6
+XX
+ID  cluster_6
+XX
+DE  wgtysCCwsrGGmmm
+P0       A     C     G     T
+1    14167  8872 10913 11506
+2    31736 31686 34482 29596
+3    27008 43566 43365 75793
+4    27366 94201 39216 53971
+5     6096 128769 73327  7328
+6     2532 196744  2960  5426
+7     4125 188644  4632 10701
+8    72093 26914 17433 91759
+9    49558 84613 62992 10438
+10   83686 10860 111095  2886
+11    5190  3249 199092  2040
+12   11411  8021 188350  3365
+13   76437 92627 37732 11486
+14   60237 55272 48036 43717
+15   46086 44456 38271 41755
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_6
+CC  AC: cluster_6
+CC  id: cluster_6
+CC  name: cluster_6
+CC  version: 
+CC  name: cluster_6
+CC  description: wgtysCCwsrGGmmm
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: agtccCCtcgGGcaa
+CC  consensus.strict.rc: TTGCCCGAGGGGACT
+CC  consensus.IUPAC: wgtysCCwsrGGmmm
+CC  consensus.IUPAC.rc: KKKCCYSWGGSRACW
+CC  consensus.regexp: [at]gt[ct][cg]CC[at][cg][ag]GG[ac][ac][ac]
+CC  consensus.regexp.rc: [GT][GT][GT]CC[CT][CG][AT]GG[CG][AG]AC[AT]
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 14
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA0116_1,JASPAR_2020_vertebrates:::MA0154_4,JASPAR_2020_vertebrates:::MA1604_1,JASPAR_2020_vertebrates:::MA1637_1,JASPAR_2020_vertebrates:::MA0003_4,JASPAR_2020_vertebrates:::MA0814_2,JASPAR_2020_vertebrates:::MA0812_1,JASPAR_2020_vertebrates:::MA1569_1,JASPAR_2020_vertebrates:::MA0813_1,JASPAR_2020_vertebrates:::MA0872_1,JASPAR_2020_vertebrates:::MA0815_1,JASPAR_2020_vertebrates:::MA0810_1,JASPAR_2020_vertebrates:::MA0811_1,JASPAR_2020_vertebrates:::MA0524_2'
+CC  merged_ID: 'Znf423,EBF1,Ebf2,EBF3,TFAP2A,TFAP2C_var_2_,TFAP2B_var_2_,TFAP2E,TFAP2B_var_3_,TFAP2A_var_3_,TFAP2C_var_3_,TFAP2A_var_2_,TFAP2B,TFAP2C'
+XX
+//
+AC  cluster_5
+XX
+ID  cluster_5
+XX
+DE  wdrTKryGcAAtmwt
+P0       A     C     G     T
+1    61414 38179 45625 50253
+2    63718 35782 57515 72152
+3    156502 30942 80286 12720
+4     3836  3394  2640 266910
+5     2992  1347 72392 201383
+6    134582  3116 132575 14579
+7    12329 73606  7661 193853
+8    13251  2084 265305  3357
+9    26927 183040  2345 68004
+10   269674  8372   832  2376
+11   270873  1746  2294  2529
+12   13926 65237 31835 167260
+13   80862 65332 35286 47726
+14   61969 39182 35902 60001
+15    8847  9004  5963 13541
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_5
+CC  AC: cluster_5
+CC  id: cluster_5
+CC  name: cluster_5
+CC  version: 
+CC  name: cluster_5
+CC  description: wdrTKryGcAAtmwt
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: ataTTatGcAAtaat
+CC  consensus.strict.rc: ATTATTGCATAATAT
+CC  consensus.IUPAC: wdrTKryGcAAtmwt
+CC  consensus.IUPAC.rc: AWKATTGCRYMAYHW
+CC  consensus.regexp: [at][agt][ag]T[GT][ag][ct]GcAAt[ac][at]t
+CC  consensus.regexp.rc: A[AT][GT]ATTGC[AG][CT][AC]A[CT][ACT][AT]
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 12
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA0019_1,JASPAR_2020_vertebrates:::MA0833_2,JASPAR_2020_vertebrates:::MA1636_1,JASPAR_2020_vertebrates:::MA0102_4,JASPAR_2020_vertebrates:::MA0836_2,JASPAR_2020_vertebrates:::MA0043_3,JASPAR_2020_vertebrates:::MA0025_2,JASPAR_2020_vertebrates:::MA0838_1,JASPAR_2020_vertebrates:::MA0466_2,JASPAR_2020_vertebrates:::MA0837_1,JASPAR_2020_vertebrates:::MA0843_1,JASPAR_2020_vertebrates:::MA0639_1'
+CC  merged_ID: 'Ddit3::Cebpa,ATF4,CEBPG_var_2_,CEBPA,CEBPD,HLF,NFIL3,CEBPG,CEBPB,CEBPE,TEF,DBP'
+XX
+//
+AC  cluster_18
+XX
+ID  cluster_18
+XX
+DE  rwrwrrTGAyGTCAycrcWt
+P0       A     C     G     T
+1      476   239   341   264
+2    12176  4575  8097 10112
+3    26285 10763 19240 17672
+4    68235 49189 49321 65470
+5    86282 48954 111024 60208
+6    187117 22538 94499 12882
+7     3289  3078  2320 302504
+8     3763  4383 295194 14180
+9    300761  2684  3439  4131
+10    4011 157800 43666 107043
+11   11298  6443 291090  3021
+12   11711 10735  2139 286446
+13   34585 275163  5017  3642
+14   301721  2114  3320  3008
+15   15194 84262 30700 192180
+16   68361 92303 52092 70738
+17    9709  9256 11658  7057
+18    3865  5157  4231  4101
+19      79     9     3   224
+20      76    33    46   166
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_18
+CC  AC: cluster_18
+CC  id: cluster_18
+CC  name: cluster_18
+CC  version: 
+CC  name: cluster_18
+CC  description: rwrwrrTGAyGTCAycrcWt
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: aaaagaTGAcGTCAtcgcTt
+CC  consensus.strict.rc: AAGCGATGACGTCATCTTTT
+CC  consensus.IUPAC: rwrwrrTGAyGTCAycrcWt
+CC  consensus.IUPAC.rc: AWGYGRTGACRTCAYYWYWY
+CC  consensus.regexp: [ag][at][ag][at][ag][ag]TGA[ct]GTCA[ct]c[ag]c[AT]t
+CC  consensus.regexp.rc: A[AT]G[CT]G[AG]TGAC[AG]TCA[CT][CT][AT][CT][AT][CT]
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 23
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA0604_1,JASPAR_2020_vertebrates:::MA0862_1,JASPAR_2020_vertebrates:::MA1470_1,JASPAR_2020_vertebrates:::MA1143_1,JASPAR_2020_vertebrates:::MA1136_1,JASPAR_2020_vertebrates:::MA1129_1,JASPAR_2020_vertebrates:::MA1127_1,JASPAR_2020_vertebrates:::MA1131_1,JASPAR_2020_vertebrates:::MA1475_1,JASPAR_2020_vertebrates:::MA1133_1,JASPAR_2020_vertebrates:::MA1139_1,JASPAR_2020_vertebrates:::MA0605_2,JASPAR_2020_vertebrates:::MA0840_1,JASPAR_2020_vertebrates:::MA0656_1,JASPAR_2020_vertebrates:::MA1140_2,JASPAR_2020_vertebrates:::MA0609_2,JASPAR_2020_vertebrates:::MA1145_1,JASPAR_2020_vertebrates:::MA0834_1,JASPAR_2020_vertebrates:::MA1126_1,JASPAR_2020_vertebrates:::MA0492_1,JASPAR_2020_vertebrates:::MA0488_1,JASPAR_2020_vertebrates:::MA1632_1,JASPAR_2020_vertebrates:::MA0018_4'
+CC  merged_ID: 'Atf1,GMEB2,BACH2_var_2_,FOSL1::JUND_var_2_,FOSB::JUNB_var_2_,FOSL1::JUN_var_2_,FOSB::JUN,FOSL2::JUN_var_2_,CREB3L4_var_2_,JUN::JUNB_var_2_,FOSL2::JUNB_var_2_,ATF3,Creb5,JDP2_var_2_,JUNB_var_2_,CREM,FOSL2::JUND_var_2_,ATF7,FOS::JUN_var_2_,JUND_var_2_,JUN,ATF2,CREB1'
+XX
+//
+AC  cluster_34
+XX
+ID  cluster_34
+XX
+DE  mywrrCCmCrCCCmCsyhctt
+P0       A     C     G     T
+1      256   308   123   106
+2     8540 14849 10571 21063
+3    38072 13266  7361 27249
+4    77804 56133 86610 39659
+5    97863 50989 157685 30373
+6    33563 294070 20747 21850
+7    12100 318712 13238 19147
+8    201865 136011 27604  8781
+9     5012 349158  2942  4687
+10   109218 12376 228628 41626
+11    6379 348690  3625  2519
+12   25596 309823 14544 11118
+13    4520 338091  6209 16580
+14   145262 149084 19087 51485
+15   17290 199439 25713 43317
+16   41816 51601 46411 41390
+17   11295 53258 11543 40848
+18   28817 32583 17954 32451
+19    6340 15861  8854  9250
+20    2164  1386  2111  4005
+21    1191  1118   935  2422
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_34
+CC  AC: cluster_34
+CC  id: cluster_34
+CC  name: cluster_34
+CC  version: 
+CC  name: cluster_34
+CC  description: mywrrCCmCrCCCmCsyhctt
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: ctaggCCaCgCCCcCcccctt
+CC  consensus.strict.rc: AAGGGGGGGGGCGTGGCCTAG
+CC  consensus.IUPAC: mywrrCCmCrCCCmCsyhctt
+CC  consensus.IUPAC.rc: AAGDRSGKGGGYGKGGYYWRK
+CC  consensus.regexp: [ac][ct][at][ag][ag]CC[ac]C[ag]CCC[ac]C[cg][ct][act]ctt
+CC  consensus.regexp.rc: AAG[AGT][AG][CG]G[GT]GGG[CT]G[GT]GG[CT][CT][AT][AG][GT]
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 29
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA1650_1,JASPAR_2020_vertebrates:::MA0472_2,JASPAR_2020_vertebrates:::MA0162_4,JASPAR_2020_vertebrates:::MA0732_1,JASPAR_2020_vertebrates:::MA0733_1,JASPAR_2020_vertebrates:::MA1514_1,JASPAR_2020_vertebrates:::MA0657_1,JASPAR_2020_vertebrates:::MA0516_2,JASPAR_2020_vertebrates:::MA0079_4,JASPAR_2020_vertebrates:::MA0685_1,JASPAR_2020_vertebrates:::MA1107_2,JASPAR_2020_vertebrates:::MA0742_1,JASPAR_2020_vertebrates:::MA0740_1,JASPAR_2020_vertebrates:::MA0493_1,JASPAR_2020_vertebrates:::MA1516_1,JASPAR_2020_vertebrates:::MA1515_1,JASPAR_2020_vertebrates:::MA1517_1,JASPAR_2020_vertebrates:::MA1511_1,JASPAR_2020_vertebrates:::MA1512_1,JASPAR_2020_vertebrates:::MA0741_1,JASPAR_2020_vertebrates:::MA0746_2,JASPAR_2020_vertebrates:::MA0747_1,JASPAR_2020_vertebrates:::MA1564_1,JASPAR_2020_vertebrates:::MA1513_1,JASPAR_2020_vertebrates:::MA0599_1,JASPAR_2020_vertebrates:::MA0753_2,JASPAR_2020_vertebrates:::MA0039_4,JASPAR_2020_vertebrates:::MA1522_1,JASPAR_2020_vertebrates:::MA1653_1'
+CC  merged_ID: 'ZBTB14,EGR2,EGR1,EGR3,EGR4,KLF17,KLF13,SP2,SP1,SP4,KLF9,Klf12,KLF14,Klf1,KLF3,KLF2,KLF6,KLF10,KLF11,KLF16,SP3,SP8,SP9,KLF15,KLF5,ZNF740,KLF4,MAZ,ZNF148'
+XX
+//
+AC  cluster_1
+XX
+ID  cluster_1
+XX
+DE  awatsaTGACTCAtcmtwty
+P0       A     C     G     T
+1    26746 12203 13720 15601
+2    38493  9161  9714 24582
+3    67233 10662 14715 22123
+4    96430 90956 96090 115170
+5    139952 147863 163097 133909
+6    345776 101097 112987 33958
+7     5730  5765  3373 568299
+8     7248  5133 542005 28990
+9    565951  7142  4506  6325
+10   22799 409288 124269 25392
+11   13465  3483  9950 557221
+12   30674 539231  5120  8180
+13   564688  4354  6670  7538
+14   30287 80192 124056 359641
+15   117148 222605 114797 120689
+16   135606 110035 78709 98588
+17   45854 35542 25875 81286
+18   41505 24893 18521 63739
+19   17589 18543 12609 31575
+20     211   283   106   490
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_1
+CC  AC: cluster_1
+CC  id: cluster_1
+CC  name: cluster_1
+CC  version: 
+CC  name: cluster_1
+CC  description: awatsaTGACTCAtcmtwty
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: aaatgaTGACTCAtcatttt
+CC  consensus.strict.rc: AAAATGATGAGTCATCATTT
+CC  consensus.IUPAC: awatsaTGACTCAtcmtwty
+CC  consensus.IUPAC.rc: RAWAKGATGAGTCATSATWT
+CC  consensus.regexp: a[at]at[cg]aTGACTCAtc[ac]t[at]t[ct]
+CC  consensus.regexp.rc: [AG]A[AT]A[GT]GATGAGTCAT[CG]AT[AT]T
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 32
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA1101_2,JASPAR_2020_vertebrates:::MA1134_1,JASPAR_2020_vertebrates:::MA1130_1,JASPAR_2020_vertebrates:::MA1622_1,JASPAR_2020_vertebrates:::MA0477_2,JASPAR_2020_vertebrates:::MA0490_2,JASPAR_2020_vertebrates:::MA0491_2,JASPAR_2020_vertebrates:::MA1137_1,JASPAR_2020_vertebrates:::MA1141_1,JASPAR_2020_vertebrates:::MA1128_1,JASPAR_2020_vertebrates:::MA0655_1,JASPAR_2020_vertebrates:::MA0841_1,JASPAR_2020_vertebrates:::MA0476_1,JASPAR_2020_vertebrates:::MA0835_2,JASPAR_2020_vertebrates:::MA1634_1,JASPAR_2020_vertebrates:::MA0462_2,JASPAR_2020_vertebrates:::MA0478_1,JASPAR_2020_vertebrates:::MA1132_1,JASPAR_2020_vertebrates:::MA1142_1,JASPAR_2020_vertebrates:::MA0099_3,JASPAR_2020_vertebrates:::MA1144_1,JASPAR_2020_vertebrates:::MA1135_1,JASPAR_2020_vertebrates:::MA1138_1,JASPAR_2020_vertebrates:::MA1520_1,JASPAR_2020_vertebrates:::MA1521_1,JASPAR_2020_vertebrates:::MA1633_1,JASPAR_2020_vertebrates:::MA0496_3,JASPAR_2020_vertebrates:::MA0150_2,JASPAR_2020_vertebrates:::MA0591_1,JASPAR_2020_vertebrates:::MA0089_2,JASPAR_2020_vertebrates:::MA0489_1,JASPAR_2020_vertebrates:::MA0501_1'
+CC  merged_ID: 'BACH2,FOS::JUNB,FOSL2::JUN,Smad2::Smad3,FOSL1,JUNB,JUND,FOSL1::JUNB,FOS::JUND,FOSL1::JUN,JDP2,NFE2,FOS,BATF3,BATF,BATF::JUN,FOSL2,JUN::JUNB,FOSL1::JUND,FOS::JUN,FOSL2::JUND,FOSB::JUNB,FOSL2::JUNB,MAF,MAFA,BACH1,MAFK,Nfe2l2,Bach1::Mafk,NFE2L1,JUN_var_2_,MAF::NFE2'
+XX
+//
+AC  cluster_7
+XX
+ID  cluster_7
+XX
+DE  wwdrgtCACGTGmcywww
+P0       A     C     G     T
+1    16904 14433 14383 17807
+2    22313 14655 15936 18845
+3    51348 32473 44044 46978
+4    57449 28894 63840 46988
+5    79773 49396 181165 30227
+6    48582 76092 88495 210072
+7     3173 386959  2873  2524
+8    386147  2878 39095 13679
+9     1252 301893 11408 82134
+10   26627  5887 369741  1260
+11    5388 72076  2563 320106
+12    5968 16485 374925  2970
+13   240707 143292 38781 31416
+14   93001 257782 51685 108745
+15   52756 119496 35240 71307
+16   43565 40926 31294 50933
+17   16379 15140 14092 17916
+18   17810 14387 14427 16903
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_7
+CC  AC: cluster_7
+CC  id: cluster_7
+CC  name: cluster_7
+CC  version: 
+CC  name: cluster_7
+CC  description: wwdrgtCACGTGmcywww
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: taaggtCACGTGacctta
+CC  consensus.strict.rc: TAAGGTCACGTGACCTTA
+CC  consensus.IUPAC: wwdrgtCACGTGmcywww
+CC  consensus.IUPAC.rc: WWWRGKCACGTGACYHWW
+CC  consensus.regexp: [at][at][agt][ag]gtCACGTG[ac]c[ct][at][at][at]
+CC  consensus.regexp.rc: [AT][AT][AT][AG]G[GT]CACGTGAC[CT][ACT][AT][AT]
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 40
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA0004_1,JASPAR_2020_vertebrates:::MA0831_2,JASPAR_2020_vertebrates:::MA1106_1,JASPAR_2020_vertebrates:::MA0632_2,JASPAR_2020_vertebrates:::MA0821_1,JASPAR_2020_vertebrates:::MA0822_1,JASPAR_2020_vertebrates:::MA0059_1,JASPAR_2020_vertebrates:::MA0147_3,JASPAR_2020_vertebrates:::MA0104_4,JASPAR_2020_vertebrates:::MA0608_1,JASPAR_2020_vertebrates:::MA0259_1,JASPAR_2020_vertebrates:::MA0622_1,JASPAR_2020_vertebrates:::MA0603_1,JASPAR_2020_vertebrates:::MA0871_2,JASPAR_2020_vertebrates:::MA0664_1,JASPAR_2020_vertebrates:::MA0663_1,JASPAR_2020_vertebrates:::MA0828_1,JASPAR_2020_vertebrates:::MA1464_1,JASPAR_2020_vertebrates:::MA0464_2,JASPAR_2020_vertebrates:::MA0636_1,JASPAR_2020_vertebrates:::MA0692_1,JASPAR_2020_vertebrates:::MA1493_1,JASPAR_2020_vertebrates:::MA1099_2,JASPAR_2020_vertebrates:::MA0649_1,JASPAR_2020_vertebrates:::MA0616_2,JASPAR_2020_vertebrates:::MA0823_1,JASPAR_2020_vertebrates:::MA1560_1,JASPAR_2020_vertebrates:::MA0819_1,JASPAR_2020_vertebrates:::MA0626_1,JASPAR_2020_vertebrates:::MA0058_3,JASPAR_2020_vertebrates:::MA0825_1,JASPAR_2020_vertebrates:::MA1474_1,JASPAR_2020_vertebrates:::MA0844_1,JASPAR_2020_vertebrates:::MA0638_1,JASPAR_2020_vertebrates:::MA1466_1,JASPAR_2020_vertebrates:::MA0839_1,JASPAR_2020_vertebrates:::MA0620_3,JASPAR_2020_vertebrates:::MA0829_2,JASPAR_2020_vertebrates:::MA0093_3,JASPAR_2020_vertebrates:::MA0526_3'
+CC  merged_ID: 'Arnt,TFE3,HIF1A,TCFL5,HES5,HES7,MAX::MYC,MYC,MYCN,Creb3l2,ARNT::HIF1A,Mlxip,Arntl,TFEC,MLXIPL,MLX,SREBF2_var_2_,ARNT2,BHLHE40,BHLHE41,TFEB,HES6,HES1,HEY2,HES2,HEY1,SOHLH2,CLOCK,Npas2,MAX,MNT,CREB3L4,XBP1,CREB3,ATF6,CREB3L1,MITF,SREBF1_var_2_,USF1,USF2'
+XX
+//
+AC  cluster_8
+XX
+ID  cluster_8
+XX
+DE  gtrrCAsCTGyyry
+P0       A     C     G     T
+1    22689 20212 51948 20022
+2    87001 94608 81083 138321
+3    182915 150376 193162 143730
+4    228432 162402 211112 57649
+5     5572 622679  4911  7870
+6    608297  5994 17985  6312
+7     8428 289476 246858 107995
+8    135787 461935 49403  8306
+9     6194 15816  8669 613174
+10    7941  7085 620308  5789
+11   34932 235042 116008 267717
+12   100782 235743 116526 200134
+13   135450 120348 133807 96944
+14   29645 84020 38131 50787
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_8
+CC  AC: cluster_8
+CC  id: cluster_8
+CC  name: cluster_8
+CC  version: 
+CC  name: cluster_8
+CC  description: gtrrCAsCTGyyry
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: gtgaCAcCTGtcac
+CC  consensus.strict.rc: GTGACAGGTGTCAC
+CC  consensus.IUPAC: gtrrCAsCTGyyry
+CC  consensus.IUPAC.rc: RYRRCAGSTGYYAC
+CC  consensus.regexp: gt[ag][ag]CA[cg]CTG[ct][ct][ag][ct]
+CC  consensus.regexp.rc: [AG][CT][AG][AG]CAG[CG]TG[CT][CT]AC
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 56
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA1642_1,JASPAR_2020_vertebrates:::MA1123_2,JASPAR_2020_vertebrates:::MA0698_1,JASPAR_2020_vertebrates:::MA0091_1,JASPAR_2020_vertebrates:::MA1109_1,JASPAR_2020_vertebrates:::MA1618_1,JASPAR_2020_vertebrates:::MA1638_1,JASPAR_2020_vertebrates:::MA1108_2,JASPAR_2020_vertebrates:::MA0607_1,JASPAR_2020_vertebrates:::MA0826_1,JASPAR_2020_vertebrates:::MA0818_1,JASPAR_2020_vertebrates:::MA0678_1,JASPAR_2020_vertebrates:::MA0827_1,JASPAR_2020_vertebrates:::MA0668_1,JASPAR_2020_vertebrates:::MA1468_1,JASPAR_2020_vertebrates:::MA0461_2,JASPAR_2020_vertebrates:::MA0623_2,JASPAR_2020_vertebrates:::MA0669_1,JASPAR_2020_vertebrates:::MA1570_1,JASPAR_2020_vertebrates:::MA0633_1,JASPAR_2020_vertebrates:::MA0817_1,JASPAR_2020_vertebrates:::MA1524_1,JASPAR_2020_vertebrates:::MA1568_1,JASPAR_2020_vertebrates:::MA0783_1,JASPAR_2020_vertebrates:::MA1571_1,JASPAR_2020_vertebrates:::MA1572_1,JASPAR_2020_vertebrates:::MA0796_1,JASPAR_2020_vertebrates:::MA0797_1,JASPAR_2020_vertebrates:::MA1631_1,JASPAR_2020_vertebrates:::MA0830_2,JASPAR_2020_vertebrates:::MA0499_2,JASPAR_2020_vertebrates:::MA0745_2,JASPAR_2020_vertebrates:::MA1620_1,JASPAR_2020_vertebrates:::MA1621_1,JASPAR_2020_vertebrates:::MA0103_3,JASPAR_2020_vertebrates:::MA1648_1,JASPAR_2020_vertebrates:::MA0522_3,JASPAR_2020_vertebrates:::MA0820_1,JASPAR_2020_vertebrates:::MA1558_1,JASPAR_2020_vertebrates:::MA1559_1,JASPAR_2020_vertebrates:::MA1485_1,JASPAR_2020_vertebrates:::MA0832_1,JASPAR_2020_vertebrates:::MA0100_3,JASPAR_2020_vertebrates:::MA0521_1,JASPAR_2020_vertebrates:::MA0500_2,JASPAR_2020_vertebrates:::MA1641_1,JASPAR_2020_vertebrates:::MA1619_1,JASPAR_2020_vertebrates:::MA0691_1,JASPAR_2020_vertebrates:::MA1467_1,JASPAR_2020_vertebrates:::MA0665_1,JASPAR_2020_vertebrates:::MA0667_1,JASPAR_2020_vertebrates:::MA0048_2,JASPAR_2020_vertebrates:::MA1100_2,JASPAR_2020_vertebrates:::MA1635_1,JASPAR_2020_vertebrates:::MA0816_1,JASPAR_2020_vertebrates:::MA1472_1'
+CC  merged_ID: 'NEUROG2_var_2_,TWIST1,ZBTB18,TAL1::TCF3,NEUROD1,Ptf1a,HAND2,MXI1,Bhlha15,OLIG1,BHLHE22,OLIG2,OLIG3,NEUROD2,ATOH7,Atoh1,NEUROG1,NEUROG2,TFAP4_var_2_,Twist2,BHLHE23,MSGN1,TCF21_var_2_,PKNOX2,TGIF2LX,TGIF2LY,TGIF1,TGIF2,ASCL1_var_2_,TCF4,MYOD1,SNAI2,Ptf1a_var_3_,Rbpjl,ZEB1,TCF12_var_2_,TCF3,FIGLA,SNAI1,SNAI3,FERD3L,Tcf21,MYB,Tcf12,MYOG,MYF5,Ptf1a_var_2_,TFAP4,ATOH1_var_2_,MSC,MYF6,NHLH1,ASCL1,BHLHE22_var_2_,Ascl2,BHLHA15_var_2_'
+XX
+//
+AC  cluster_16
+XX
+ID  cluster_16
+XX
+DE  wytyycACTTCCkstttyyy
+P0       A     C     G     T
+1    37146 28335 24884 42838
+2    33254 35881 26815 40580
+3    45149 48724 31712 86377
+4    76422 103187 83619 129331
+5    52211 121239 70293 178561
+6    62637 342275 69109 100483
+7    485372 33714 67945 40646
+8     7350 506891 27594 79269
+9    38102  9393  6268 562942
+10    4237  6749  7373 583606
+11    6569 584388  4502  8232
+12    5074 585024  3475  9127
+13   11884 26469 213410 361020
+14   21707 174209 369244 56690
+15   78956 113355 99310 384459
+16   70585 93912 63341 228682
+17   60387 80581 51542 166150
+18   30369 54702 29628 72023
+19   29496 34345 21345 48384
+20   30010 38405 22587 42201
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_16
+CC  AC: cluster_16
+CC  id: cluster_16
+CC  name: cluster_16
+CC  version: 
+CC  name: cluster_16
+CC  description: wytyycACTTCCkstttyyy
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: tttttcACTTCCtgtttttt
+CC  consensus.strict.rc: AAAAAACAGGAAGTGAAAAA
+CC  consensus.IUPAC: wytyycACTTCCkstttyyy
+CC  consensus.IUPAC.rc: RRRAAASMGGAAGTGRRARW
+CC  consensus.regexp: [at][ct]t[ct][ct]cACTTCC[gt][cg]ttt[ct][ct][ct]
+CC  consensus.regexp.rc: [AG][AG][AG]AAA[CG][AC]GGAAGTG[AG][AG]A[AG][AT]
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 29
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA0764_2,JASPAR_2020_vertebrates:::MA0076_2,JASPAR_2020_vertebrates:::MA0765_2,JASPAR_2020_vertebrates:::MA0645_1,JASPAR_2020_vertebrates:::MA0475_2,JASPAR_2020_vertebrates:::MA0474_2,JASPAR_2020_vertebrates:::MA0098_3,JASPAR_2020_vertebrates:::MA0760_1,JASPAR_2020_vertebrates:::MA0763_1,JASPAR_2020_vertebrates:::MA0028_2,JASPAR_2020_vertebrates:::MA0759_1,JASPAR_2020_vertebrates:::MA0156_2,JASPAR_2020_vertebrates:::MA1484_1,JASPAR_2020_vertebrates:::MA0762_1,JASPAR_2020_vertebrates:::MA0686_1,JASPAR_2020_vertebrates:::MA0136_2,JASPAR_2020_vertebrates:::MA1483_1,JASPAR_2020_vertebrates:::MA0641_1,JASPAR_2020_vertebrates:::MA1508_1,JASPAR_2020_vertebrates:::MA0687_1,JASPAR_2020_vertebrates:::MA1652_1,JASPAR_2020_vertebrates:::MA0080_5,JASPAR_2020_vertebrates:::MA0081_2,JASPAR_2020_vertebrates:::MA0750_2,JASPAR_2020_vertebrates:::MA0640_2,JASPAR_2020_vertebrates:::MA0598_3,JASPAR_2020_vertebrates:::MA0473_3,JASPAR_2020_vertebrates:::MA0761_2,JASPAR_2020_vertebrates:::MA0062_3'
+CC  merged_ID: 'ETV4,ELK4,ETV5,ETV6,FLI1,ERG,ETS1,ERF,ETV3,ELK1,ELK3,FEV,ETS2,ETV2,SPDEF,ELF5,ELF2,ELF4,IKZF1,SPIC,ZKSCAN5,SPI1,SPIB,ZBTB7A,ELF3,EHF,ELF1,ETV1,GABPA'
+XX
+//
+AC  cluster_3
+XX
+ID  cluster_3
+XX
+DE  ywrryTAATTrgyt
+P0       A     C     G     T
+1      985  2663  1489  2317
+2     3399  2429  2740  3969
+3    12310  5394 14820  6525
+4    98355 76560 130390 81489
+5    162618 305066 233795 237841
+6    40451 171274 14484 808749
+7    833134 132454 88520 33307
+8    903896  8004 10662 24442
+9     8734  9331 13915 914513
+10   33236 71933 100845 850995
+11   703077 19092 264760 52503
+12   239788 214553 392864 132791
+13   76386 108356 81232 103891
+14    3835  3090  2846  6292
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_3
+CC  AC: cluster_3
+CC  id: cluster_3
+CC  name: cluster_3
+CC  version: 
+CC  name: cluster_3
+CC  description: ywrryTAATTrgyt
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: ctggcTAATTagct
+CC  consensus.strict.rc: AGCTAATTAGCCAG
+CC  consensus.IUPAC: ywrryTAATTrgyt
+CC  consensus.IUPAC.rc: ARCYAATTARYYWR
+CC  consensus.regexp: [ct][at][ag][ag][ct]TAATT[ag]g[ct]t
+CC  consensus.regexp.rc: A[AG]C[CT]AATTA[AG][CT][CT][AT][AG]
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 94
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA0502_2,JASPAR_2020_vertebrates:::MA0611_1,JASPAR_2020_vertebrates:::MA0060_3,JASPAR_2020_vertebrates:::MA1644_1,JASPAR_2020_vertebrates:::MA0895_1,JASPAR_2020_vertebrates:::MA0877_2,JASPAR_2020_vertebrates:::MA0635_1,JASPAR_2020_vertebrates:::MA1608_1,JASPAR_2020_vertebrates:::MA0135_1,JASPAR_2020_vertebrates:::MA0703_2,JASPAR_2020_vertebrates:::MA0601_1,JASPAR_2020_vertebrates:::MA1549_1,JASPAR_2020_vertebrates:::MA0793_1,JASPAR_2020_vertebrates:::MA1530_1,JASPAR_2020_vertebrates:::MA0125_1,JASPAR_2020_vertebrates:::MA0724_1,JASPAR_2020_vertebrates:::MA0618_1,JASPAR_2020_vertebrates:::MA0674_1,JASPAR_2020_vertebrates:::MA0675_1,JASPAR_2020_vertebrates:::MA1496_1,JASPAR_2020_vertebrates:::MA1499_1,JASPAR_2020_vertebrates:::MA1504_1,JASPAR_2020_vertebrates:::MA1507_1,JASPAR_2020_vertebrates:::MA0893_2,JASPAR_2020_vertebrates:::MA0132_2,JASPAR_2020_vertebrates:::MA0875_1,JASPAR_2020_vertebrates:::MA0876_1,JASPAR_2020_vertebrates:::MA1518_1,JASPAR_2020_vertebrates:::MA0158_2,JASPAR_2020_vertebrates:::MA0902_2,JASPAR_2020_vertebrates:::MA1500_1,JASPAR_2020_vertebrates:::MA1498_1,JASPAR_2020_vertebrates:::MA1502_1,JASPAR_2020_vertebrates:::MA0910_2,JASPAR_2020_vertebrates:::MA0068_2,JASPAR_2020_vertebrates:::MA1519_1,JASPAR_2020_vertebrates:::MA0701_2,JASPAR_2020_vertebrates:::MA0075_3,JASPAR_2020_vertebrates:::MA1481_1,JASPAR_2020_vertebrates:::MA0027_2,JASPAR_2020_vertebrates:::MA1577_1,JASPAR_2020_vertebrates:::MA0654_1,JASPAR_2020_vertebrates:::MA0720_1,JASPAR_2020_vertebrates:::MA0630_1,JASPAR_2020_vertebrates:::MA0716_1,JASPAR_2020_vertebrates:::MA0717_1,JASPAR_2020_vertebrates:::MA0721_1,JASPAR_2020_vertebrates:::MA0708_1,JASPAR_2020_vertebrates:::MA0666_1,JASPAR_2020_vertebrates:::MA0709_1,JASPAR_2020_vertebrates:::MA1476_1,JASPAR_2020_vertebrates:::MA0885_1,JASPAR_2020_vertebrates:::MA0882_1,JASPAR_2020_vertebrates:::MA0880_1,JASPAR_2020_vertebrates:::MA0881_1,JASPAR_2020_vertebrates:::MA1505_1,JASPAR_2020_vertebrates:::MA0705_1,JASPAR_2020_vertebrates:::MA0704_1,JASPAR_2020_vertebrates:::MA0702_2,JASPAR_2020_vertebrates:::MA1495_1,JASPAR_2020_vertebrates:::MA0904_2,JASPAR_2020_vertebrates:::MA0612_2,JASPAR_2020_vertebrates:::MA0900_2,JASPAR_2020_vertebrates:::MA0912_2,JASPAR_2020_vertebrates:::MA0722_1,JASPAR_2020_vertebrates:::MA0723_1,JASPAR_2020_vertebrates:::MA0725_1,JASPAR_2020_vertebrates:::MA0726_1,JASPAR_2020_vertebrates:::MA0700_2,JASPAR_2020_vertebrates:::MA0621_1,JASPAR_2020_vertebrates:::MA1497_1,JASPAR_2020_vertebrates:::MA1501_1,JASPAR_2020_vertebrates:::MA0707_1,JASPAR_2020_vertebrates:::MA0879_1,JASPAR_2020_vertebrates:::MA0642_1,JASPAR_2020_vertebrates:::MA0662_1,JASPAR_2020_vertebrates:::MA0634_1,JASPAR_2020_vertebrates:::MA0889_1,JASPAR_2020_vertebrates:::MA0890_1,JASPAR_2020_vertebrates:::MA0894_1,JASPAR_2020_vertebrates:::MA0718_1,JASPAR_2020_vertebrates:::MA0644_1,JASPAR_2020_vertebrates:::MA0699_1,JASPAR_2020_vertebrates:::MA0661_1,JASPAR_2020_vertebrates:::MA0706_1,JASPAR_2020_vertebrates:::MA0887_1,JASPAR_2020_vertebrates:::MA0888_1,JASPAR_2020_vertebrates:::MA0892_1,JASPAR_2020_vertebrates:::MA0903_1,JASPAR_2020_vertebrates:::MA1463_1,JASPAR_2020_vertebrates:::MA0710_1,JASPAR_2020_vertebrates:::MA0886_1,JASPAR_2020_vertebrates:::MA0658_1,JASPAR_2020_vertebrates:::MA0628_1'
+CC  merged_ID: 'NFYB,Dux,NFYA,NFYC,HMBOX1,BARHL1,BARHL2,Isl1,Lhx3,LMX1B,Arid3b,POU6F1_var_2_,POU6F2,NKX6-3,Nobox,VENTX,LBX1,NKX6-1,NKX6-2,HOXA4,HOXB4,HOXC4,HOXD4,GSX2,PDX1,BARX1,BSX,LHX1,HOXA5,HOXB2,HOXB6,HOXA7,HOXB8,HOXD8,PAX4,LHX5,LHX9,PRRX2,DRGX,EN1,TLX2,ISX,Shox2,SHOX,PRRX1,RAX2,UNCX,MSX2,MSX1,Msx3,DLX5,Dlx2,DLX6,Dlx3,Dlx4,HOXC8,Lhx8,Lhx4,LMX1A,HOXA1,HOXB5,EMX1,HOXA2,HOXD3,VAX1,VAX2,VSX1,VSX2,LHX2,mix-a,HOXA6,HOXB7,MNX1,Dlx1,EN2,MIXL1,ALX3,GBX1,GBX2,HESX1,RAX,ESX1,LBX2,MEOX1,MEOX2,EVX1,EVX2,GSX1,HOXB3,ARGFX,NOTO,EMX2,LHX6,POU6F1'
+XX
+//
+AC  cluster_9
+XX
+ID  cluster_9
+XX
+DE  crwwawGTAAACAtwwvc
+P0       A     C     G     T
+1       54   289   165   155
+2     7955  5282  7246  4691
+3     6859  5636  3904  9737
+4    26985  4142  2826 41278
+5    380200 128501 188309 173580
+6    303300 56211 136533 375803
+7    104194 17617 746268 27146
+8    24884 26214 12738 835916
+9    821867 48782 10656 16396
+10   794829 50002 14650 28605
+11   850149  9624 11124 16879
+12   13745 716412 12708 148569
+13   840383 11738  9725 26395
+14   210422 127784 133296 398694
+15   251226 162585 202103 218420
+16   89649 64847 71608 100410
+17     310   315   294   237
+18      24    39    17    19
+XX
+CC  program: transfac
+CC  matrix.nb: 1
+CC  accession: cluster_9
+CC  AC: cluster_9
+CC  id: cluster_9
+CC  name: cluster_9
+CC  version: 
+CC  name: cluster_9
+CC  description: crwwawGTAAACAtwwvc
+CC  transfac_consensus: 
+CC  matrix.nb: 1
+CC  consensus.strict: cattatGTAAACAtatcc
+CC  consensus.strict.rc: GGATATGTTTACATAATG
+CC  consensus.IUPAC: crwwawGTAAACAtwwvc
+CC  consensus.IUPAC.rc: GBWWATGTTTACWTWWYG
+CC  consensus.regexp: c[ag][at][at]a[at]GTAAACAt[at][at][acg]c
+CC  consensus.regexp.rc: G[CGT][AT][AT]ATGTTTAC[AT]T[AT][AT][CT]G
+CC  type: merge
+CC  merge_type: sum
+CC  merge_nb: 31
+CC  merged_AC: 'JASPAR_2020_vertebrates:::MA0850_1,JASPAR_2020_vertebrates:::MA0033_2,JASPAR_2020_vertebrates:::MA0042_2,JASPAR_2020_vertebrates:::MA0848_1,JASPAR_2020_vertebrates:::MA0849_1,JASPAR_2020_vertebrates:::MA1489_1,JASPAR_2020_vertebrates:::MA0031_1,JASPAR_2020_vertebrates:::MA0157_2,JASPAR_2020_vertebrates:::MA0613_1,JASPAR_2020_vertebrates:::MA0614_1,JASPAR_2020_vertebrates:::MA0087_1,JASPAR_2020_vertebrates:::MA0084_1,JASPAR_2020_vertebrates:::MA0041_1,JASPAR_2020_vertebrates:::MA0040_1,JASPAR_2020_vertebrates:::MA0846_1,JASPAR_2020_vertebrates:::MA0845_1,JASPAR_2020_vertebrates:::MA0032_2,JASPAR_2020_vertebrates:::MA0852_2,JASPAR_2020_vertebrates:::MA0480_1,JASPAR_2020_vertebrates:::MA0148_4,JASPAR_2020_vertebrates:::MA0593_1,JASPAR_2020_vertebrates:::MA1606_1,JASPAR_2020_vertebrates:::MA1103_2,JASPAR_2020_vertebrates:::MA0047_3,JASPAR_2020_vertebrates:::MA1683_1,JASPAR_2020_vertebrates:::MA0481_3,JASPAR_2020_vertebrates:::MA0851_1,JASPAR_2020_vertebrates:::MA1487_1,JASPAR_2020_vertebrates:::MA0847_2,JASPAR_2020_vertebrates:::MA0030_1,JASPAR_2020_vertebrates:::MA1607_1'
+CC  merged_ID: 'FOXP3,FOXL1,FOXI1,FOXO4,FOXO6,FOXN3,FOXD1,FOXO3,FOXG1,Foxj2,Sox5,SRY,Foxd3,Foxq1,FOXC2,FOXB1,FOXC1,FOXK1,Foxo1,FOXA1,FOXP2,Foxf1,FOXK2,FOXA2,FOXA3,FOXP1,Foxj3,FOXE1,FOXD2,FOXF2,Foxl2'
+XX
+//
