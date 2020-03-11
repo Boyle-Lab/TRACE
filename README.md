@@ -13,6 +13,7 @@ To make sure that correct version of Python are used and all required packages a
 conda env create -f environment.yml
 source activate TRACE_env
 ```
+Our C program requires GNU Scientific Library (GSL). You can download here: [https://www.gnu.org/software/gsl/](https://www.gnu.org/software/gsl/).
 Build TRACE: 
   
 ```
@@ -46,12 +47,12 @@ The default setting will use DNase-seq based protocol. To use ATAC-seq data inst
 ./scripts/dataProcessing.py <peak_3.file> <atac-seq.bam.file> <genome.size> <fasta.file> --ATAC-seq pe --prefix ./out/example
 ```
  
-To build an intial TRACE model: 
+To build an initial TRACE model: 
  
 ```
 ./scripts/init_hmm.py <TF>
 ```
-It will generate a starting model `<init.model.file>` for TF of your choice.  The default setting will generate a 10-motif model, to change the number of extra motifs, set argument `--motif-number`.       
+It will generate a starting model `<init.model.file>` for TF of your choice.  The default setting will generate a 10-motif model, to change the number of extra motifs, set argument `--motif-number`. All PWM files including root motifs are in `./data/motif`. If your TF of interested is not in `./data/`, you will need to add your own file and set `--motif-number` to 1.         
   
 ```
 ./scripts/init_hmm.py <TF> --motif-number <N>
@@ -68,29 +69,32 @@ To perform footprinting:
 ./TRACE <seq.file> <count.file> <slope.file> <init.model.file> --final-model <final.model.file> --peak-file <peak_3.file> 
 ```
    
-`<seq.file> <count.file> <slope.file> <init.model.file>` are four required input files and they need to be in correct order. It will generate the final model `<final.model.file>`, and a output file that contains all binding sites predicton from provided regions. If `--peak-file` is not set, the program will only learn the model but will not generate binding sites predictions.       
+   `<seq.file> <count.file> <slope.file>` are three required input files and they need to be in correct order. Training step requires an initial model file `<init.model.file>` and will generate the final model `<final.model.file>`. If `--peak-file` is not set, the program will only learn the model but will not generate binding sites predictions. if `<peak_3.file>` is provided, it will generate an output file that contains all binding sites predicton from provided regions.       
+ 
 If you want to apply TRACE like a motif-centric approach, set argument `--motif-file` and provide `<peak_7.file>`.   
-- `<peak_7.file>`: A file containing regions of interest and motifs sites inside these regions. The first 3 columns and next 3 columns are chromosome number, start position and end position of regions of interest and motif sites, the last column is number of bases overlapping between motif sites and peaks, which can be easily obtained by bedtools intersect.   
+- `<peak_7.file>`: A file containing regions of interest and motifs sites inside these regions. The first 3 columns and next 3 columns are chromosome number, start position and end position of regions of interest and motif site inside that region, the last column is number of bases overlapping between motif sites and peaks, which can be easily obtained by bedtools intersect.   
  
 TRACE will then generate a file containing all motif sites included in `<peak_7.file>` and their marginal posterior probabilities of being active binding sites and inactive binding sites.  
   
 You can also set `--thread` and  `--max-inter` for max threads and iterations used (default is 40 and 200).   
    
 ```
-./TRACE <seq.file> <count.file> <slope.file> <init.model.file> --final-model <final.model.file> --peak-file <peak_3.file> --motif-file <peak_7.file> --thread <N> --max-inter <N>
+./TRACE <seq.file> <count.file> <slope.file> --initial-model <init.model.file> --final-model <final.model.file> --peak-file <peak_3.file> --motif-file <peak_7.file> --thread <N> --max-inter <N>
 ```
   
-If you already have a trained TRACE model and only want to call binding sites based on an exsiting model, you can run decoding step directly: 
+If you already have a trained TRACE model and only want to call binding sites based on an exsiting model, you can run decoding step directly by setting `--viterbi`: 
  
 ```
-./viterbi <seq.file> <count.file> <slope.file> <final.model.file> --peak-file <peak_3.file>
+./TRACE --viterbi <seq.file> <count.file> <slope.file> --final-model <final.model.file> --peak-file <peak_3.file> --motif-file <peak_7.file> --thread <N> --max-inter <N>
 ```
  
 ## Demo
 The data folder contains example data for DNase-seq on K562 cell and a initial model to start with for E2F1 binding sites prediction. For simplicity, we randomly selected 500 DNase-seq peaks in chr1.  
  
 ```
-./TRACE ./data/E2F1_seq.txt ./data/E2F1_slope_2.txt ./data/E2F1_count.txt ./data/E2F1_init_model.txt --final-model ./data/E2F1_hmm.txt --peak-file ./data/E2F1_peak_3.bed --motif-file ./data/E2F1_peak_7.bed
+./env/init_hmm.py E2F1
+./env/dataProcessing.py ./data/E2F1_peak_3.bed ./data/ENCFF826DJP.bam ./data/hg19.chrom.sizes --prefix ./data/E2F1_
+./TRACE ./data/E2F1_seq.txt ./data/E2F1_slope_2.txt ./data/E2F1_count.txt --initial-model ./data/E2F1_init_model.txt --final-model ./data/E2F1_hmm.txt --peak-file ./data/E2F1_peak_3.bed --motif-file ./data/E2F1_peak_7.bed
 ```
 
 ## Interprete TRACE’s Output

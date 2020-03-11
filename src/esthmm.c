@@ -53,12 +53,14 @@ int main (int argc, char **argv)
   extern int optind, opterr, optopt;
   extern char *optarg;
   /* Flags for all command line options */
-  int oflg=0, mflg=0, nflg=0, aflg =0, bflg =0, pflg =0, fflg=0, eflg=0, tflg=0;
+  int oflg=0, mflg=0, nflg=0, aflg =0, bflg =0, pflg =0, fflg=0, eflg=0, tflg=0, lflg=0, iflg=0;
   int errflg=0, vflg=0;
-  char *hmminitfile, *slopefile, *countfile, *seqfile, *thresholdfile;
-  char *listfile, motiffile[150], peakfile[150], outfile[150], predfile[150], scorefile[150];
+  char *slopefile, *countfile, *seqfile, *thresholdfile, *listfile;
+  char hmminitfile[150], motiffile[150], peakfile[150], outfile[150], predfile[150], scorefile[150];
   int ifMulti = 2; /* defalult model is multivaraint normal distribution
                       with problematic hidden state dropped */
+  int ifSkip = 0; /* if skip training step and start viterbi step
+                      default is no */
   peakfile[0] = '\0';
   outfile[0] = '\0';
   predfile[0] = '\0';
@@ -66,6 +68,7 @@ int main (int argc, char **argv)
   motiffile[0] = '\0';
   static struct option longopts[] = {
     {"final-model", required_argument, NULL, 'O'},
+    {"initial-model", required_argument, NULL, 'I'},
     {"peak-file", required_argument, NULL, 'P'},
     {"motif-file", required_argument, NULL, 'F'},
     {"thread", required_argument, NULL, 'T'},
@@ -74,6 +77,7 @@ int main (int argc, char **argv)
     {"model", required_argument, NULL, 'N'},
     {"predictions-file", required_argument, NULL, 'B'},
     {"scores-file", required_argument, NULL, 'A'},
+    {"viterbi", no_argument, NULL, 'V'},
           //{.name = "seq.file", .has_arg = no_argument, .val = 'Q'},
           //{.name = "count.file", .has_arg = no_argument, .val = 'C'},
           //{.name = "slope.file", .has_arg = no_argument, .val = 'S'},
@@ -81,7 +85,7 @@ int main (int argc, char **argv)
     {0,         0,                 0,  0 }
   };
   int option_index = 0;
-  while ((c = getopt_long(argc, argv, "vhO:A:B:M:N:P:T:E:F:", longopts, &option_index)) != EOF){
+  while ((c = getopt_long(argc, argv, "vhO:A:B:M:N:P:T:E:F:V:I:", longopts, &option_index)) != EOF){
     switch (c) {
       case 'v':
         vflg++;
@@ -126,6 +130,15 @@ int main (int argc, char **argv)
           strcat(outfile, optarg);
         }
         break;
+      case 'I':
+      /* get the initial HMM file name*/
+        if (iflg)
+          errflg++;
+        else {
+          iflg++;
+          strcat(hmminitfile, optarg);
+        }
+        break;
       case 'N':
       /* choose independ normal or multivariance, default is independent(0)*/
         if (nflg)
@@ -163,7 +176,7 @@ int main (int argc, char **argv)
         }
         break;
       case 'P':
-      /* get the peak file name*/
+      /* get the peak file name */
         if (pflg)
           errflg++;
         else {
@@ -171,12 +184,21 @@ int main (int argc, char **argv)
           strcat(peakfile, optarg);
         }
         break;
+      case 'V':
+      /* if skip training step */
+        if (lflg)
+          errflg++;
+        else {
+          lflg++;
+          ifSkip = 1;
+        }
+        break;
       case '?':
         errflg++;
     }
   }
-  /* Check the required 4 input files were provided */
-  if (argc - optind < 3){
+  /* Check the required 3 input files were provided */
+  if (argc - optind < 2){
     fprintf(stderr, "Error: required files not provided \n", seqfile);
     errflg++;
   }
@@ -189,7 +211,7 @@ int main (int argc, char **argv)
   seqfile = argv[index++]; /* Sequence input file */
   countfile = argv[index++]; /* Counts file */
   slopefile = argv[index++]; /* Slopes file */
-  hmminitfile = argv[index++]; /* Initial model file */
+  //hmminitfile = argv[index++]; /* Initial model file */
 
   /* Read the observed sequence */
   checkFile(seqfile, "r");
@@ -211,18 +233,49 @@ int main (int argc, char **argv)
   counts_vector = gsl_vector_alloc(T);
   ReadTagFile(fp, T, counts_vector, 1.0);
   fclose(fp);
-
-  /* Initialize the HMM model */
-  /* Read HMM input file */
-  checkFile(hmminitfile, "r");
-  fp = fopen(hmminitfile, "r");
-  hmm.model = ifMulti;
-  ReadM(fp, &hmm);
-  //hmm.K = 2 + (hmm.inactive+1) * hmm.M; /* Number of data provided for each state:
-    //                                     tag counts, slop, and PWM score for each TF*/
-  if (hmm.M == 0) ReadInitHMM(fp, &hmm);
-  else ReadHMM(fp, &hmm);
-  fclose(fp);
+  
+  /* Check if user only wants to run decoding step*/
+  if (ifSkip){
+    /* Read HMM input file */
+    if (!oflg){
+      fprintf(stderr, "Error: final model file required \n");
+      exit (1);
+    }
+    checkFile(outfile, "r");
+    fp = fopen(outfile, "r");
+    hmm.model = ifMulti;
+    ReadM(fp, &hmm);
+    ReadHMM(fp, &hmm);
+    fclose(fp);
+    /* Check region of interest file is provided for decoding */
+    if (!pflg && !fflg){
+      fprintf(stderr, "Error: peak file required \n");
+      exit (1);
+    }
+  }
+  else{
+    /* Initialize the HMM model */
+    /* Read HMM input file */
+    if (!iflg){
+      fprintf(stderr, "Error: initial model file required \n");
+      exit (1);
+    }
+    checkFile(hmminitfile, "r");
+    fp = fopen(hmminitfile, "r");
+    hmm.model = ifMulti;
+    ReadM(fp, &hmm);
+    if (hmm.M == 0) ReadInitHMM(fp, &hmm);
+    else ReadHMM(fp, &hmm);
+    fclose(fp);
+    /* Check given file names are valid */
+    /* If trained model file name is not provided, use initial model file name
+       with suffix "_final_model.txt" */
+    if (!oflg){
+      strcat(outfile,hmminitfile);
+      strcat(outfile,"_final_model.txt");
+    }
+    checkFile(outfile, "w");
+  }
   if (GC){
     hmm.bg[0] = hmm.bg[3] = GC[0];
     hmm.bg[2] = hmm.bg[1] = GC[1];
@@ -231,13 +284,6 @@ int main (int argc, char **argv)
     hmm.bg[0]=hmm.bg[1]=hmm.bg[2]=hmm.bg[3]=0.25;
   }
   /* Check given file names are valid */
-  /* If trained model file name is not provided, use initial model file name
-     with suffix "_final_model.txt" */
-  if (!oflg){
-    strcat(outfile,hmminitfile);
-    strcat(outfile,"_final_model.txt");
-  }
-  checkFile(outfile, "w");
   if (pflg){
     checkFile(peakfile, "r");
     /* If prediction file name is not provided, use initial model file name
@@ -258,16 +304,7 @@ int main (int argc, char **argv)
     }
     checkFile(scorefile, "w");
   }
-  fprintf(stdout, "extra state: %d M: %d N: %d T:%d K: %d\n", hmm.extraState,hmm.M,hmm.N,T,hmm.K);
-  //fprintf(stdout, "data: %lf %lf %lf %lf \n", gsl_vector_min(slop_vector), gsl_vector_max(slop_vector),
-    //      gsl_stats_mean( slop_vector->data, 1, slop_vector->size ),
-          //gsl_stats_median( slop_vector->data, 1, slop_vector->size ),
-      //    gsl_stats_variance(slop_vector->data, 1, slop_vector->size));
-  //fprintf(stdout, "data: %lf %lf %lf %lf \n", gsl_vector_min(counts_vector), gsl_vector_max(counts_vector),
-    //      gsl_stats_mean( counts_vector->data, 1, counts_vector->size ),
-          //gsl_stats_median(counts_vector->data, 1, counts_vector->size),
-      //    gsl_stats_variance(counts_vector->data, 1, counts_vector->size));
-    
+  
   /* Calculate PWM scores for each motif at each position */
   if (hmm.M > 0){
     pwm_matrix = gsl_matrix_alloc(hmm.M, T);
@@ -278,7 +315,6 @@ int main (int argc, char **argv)
   index = 0;
   for (i = 0; i < hmm.M; i++) {
     gsl_matrix_get_row(tmp_vector, pwm_matrix, i);
-    //fprintf(stdout, "PWM: %lf %lf %lf\n", gsl_vector_min(tmp_vector),          gsl_vector_max(tmp_vector),gsl_stats_variance(tmp_vector->data, 1, tmp_vector->size));
     for (j = 0; j < hmm.N; j++) {
       gsl_matrix_set(hmm.mean_matrix, i, j, gsl_vector_min(tmp_vector) / 6.0);
       gsl_matrix_set(hmm.var_matrix, i, j, 8.0);
@@ -386,27 +422,30 @@ int main (int argc, char **argv)
       hmm.thresholds[i] = -INFINITY;
     }
   }
-    
+  
+  /* matrix of alpha, beta and gamma in BW and viterbi algorithm */
+  double **alpha = dmatrix(hmm.N, T);
+  double **beta = dmatrix(hmm.N, T);
+  double **gamma = dmatrix(hmm.N, T);
+  double *logprobf = dvector(P); /* vector containing log likelihood for each peak */
+  gsl_matrix * emission_matrix = gsl_matrix_alloc(hmm.N, T); /* matrix of emission probabilities */
+  
+  if (!ifSkip){
   /*                     */
   /* Start training step */
   /*                     */
-  double **alpha = dmatrix(hmm.N, T);
-  double **beta = dmatrix(hmm.N, T);
-  double **gamma = dmatrix(hmm.N, T); /* matrix of alpha, beta and gamma in BW algorithm */
-  double *logprobf = dvector(P); /* vector containing log likelihood for each peak */
-  gsl_matrix * emission_matrix = gsl_matrix_alloc(hmm.N, T); /* matrix of emission probabilities */
-  /* BW algorithm */
-  BaumWelch(&hmm, T, obs_matrix, &niter, P, peakPos, logprobf, alpha, beta, gamma, emission_matrix);
-  gsl_matrix_free(obs_matrix);
-  fp = fopen(outfile, "w");
-  /* Print the final model */
-  PrintHMM(fp, &hmm);
-  fclose(fp);
-
+    /* BW algorithm */
+    BaumWelch(&hmm, T, obs_matrix, &niter, P, peakPos, logprobf, alpha, beta, gamma, emission_matrix);
+    gsl_matrix_free(obs_matrix);
+    fp = fopen(outfile, "w");
+    /* Print the final model */
+    PrintHMM(fp, &hmm);
+    fclose(fp);
+  }
   if (pflg || fflg){
-    /*                     */
-    /* Start decoding step */
-    /*                     */
+  /*                     */
+  /* Start decoding step */
+  /*                     */
     int *q = ivector(T); /* state sequence q[1..T] */
     int **psi = imatrix(T, hmm.N);
     double *g = dvector(T);
@@ -438,11 +477,11 @@ int main (int argc, char **argv)
 void Usage(char *name)
 {
   printf("Usage error. \n");
-  printf("Usage1: %s [-v] ./esthmm <seq.file> <counts.file> <slope.file> "
-         "<init.model.file> --final-model <final.model.file> -peak-file <peak_3.file> "
-         "--thread <thread.num>\n", name);
-  printf("Usage1: %s [-v] ./esthmm <sequence.file> <slope.file> <counts.file> "
-         "<init.model.file> --final-model <final.model.file> -peak-file <peak_3.file> "
+  printf("Usage1: %s [-v] ./TRACE <seq.file> <counts.file> <slope.file> "
+         "--initial-model <init.model.file> --final-model <final.model.file> "
+         "-peak-file <peak_3.file> --motif-file <peak_7.file>  --thread <thread.num>\n", name);
+  printf("Usage2: %s [-v] ./TRACE --viterbi <seq.file> <counts.file> <slope.file> "
+         "--final-model <final.model.file> -peak-file <peak_3.file> "
          "--motif-file <peak_7.file>  -T <thread.num>\n", name);
   printf("  seq.file - file containing the obs. sequence\n");
   printf("  count.file - file containing the obs. tag counts\n");
