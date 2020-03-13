@@ -13,7 +13,7 @@ To make sure that correct version of Python are used and all required packages a
 conda env create -f environment.yml
 source activate TRACE_env
 ```
-Our C program requires GNU Scientific Library (GSL). You can download here: [https://www.gnu.org/software/gsl/](https://www.gnu.org/software/gsl/).
+Our C program requires GNU Scientific Library (GSL). You can download here: [https://www.gnu.org/software/gsl/](https://www.gnu.org/software/gsl/). 
 Build TRACE: 
   
 ```
@@ -46,20 +46,20 @@ The default setting will use DNase-seq based protocol. To use ATAC-seq data inst
 ```
 ./scripts/dataProcessing.py <peak_3.file> <atac-seq.bam.file> <genome.size> <fasta.file> --ATAC-seq pe --prefix ./out/example
 ```
- 
+  
 To build an initial TRACE model: 
- 
+  
 ```
 ./scripts/init_hmm.py <TF>
 ```
-It will generate a starting model `<init.model.file>` for TF of your choice.  The default setting will generate a 10-motif model, to change the number of extra motifs, set argument `--motif-number`. All PWM files including root motifs are in `./data/motif`. If your TF of interested is not in `./data/`, you will need to add your own file and set `--motif-number` to 1.         
+It will generate a starting model `<init.model.file>` for TF of your choice.  The default setting will generate a 10-motif model, to change the number of extra motifs, set argument `--motif-number`. All PWMs including root motifs are built-in. If your TF of interested is not in `./data/motif_cluster_info_2020.txt`, that means your TF of interested was not included the JASPAR cluster. You will need to use your own motif file in tranfac format as in `./data/JASPAR2020_CORE_vertebrates_non-redundant_pfms_transfac.txt` and set `--motif-number` to 1.         
   
 ```
-./scripts/init_hmm.py <TF> --motif-number <N>
+./scripts/init_hmm.py <TF> --motif-number <N> --motif-info ../data/motif_cluster_info_2020.txt --motif-transfec ./data/JASPAR2020_CORE_vertebrates_non-redundant_pfms_transfac.txt
 ``` 
  
 For original Boyle method which doesn't include motif information, there is an initial model available and universal for all TFs in `./data/Boyle_model.txt`.
- 
+  
 ### Perform footprinting by TRACE
 Besides  `<seq.file> <count.file> <slope.file> <init.model.file>`,  the main TRACE program also requires a file `<peak_3.file>` containing regions of interest. Please make sure they are the same regions that were used in data processing.
  
