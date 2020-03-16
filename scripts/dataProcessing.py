@@ -6,6 +6,7 @@
 ##                                                                             ##
 ##-----------------------------------------------------------------------------##
 
+import os
 from pysam import AlignmentFile
 import argparse
 import pybedtools
@@ -237,21 +238,23 @@ def main():
                       help="The prefix for results files. DEFAULT: TRACE")
   parser.add_argument("--shift", type=int, dest = "shift", default=0,
                       help="Number of bases for reads to be shifted")
+  parser.add_argument("--genome", type=str, dest = "genome", default="hg38",
+                      help="Specify genome. Currently hg19 and hg38 are available. default:hg38")
   # Required input
-  parser.add_argument(dest = "input_files", metavar="peak_3.file bam.file genome.size fasta.file",
-                      type=str, nargs='*', help='BED files of interesting regions, '
-                                                'BAM file of reads, genome size file, '
-                                                'sequence file ')
+  parser.add_argument(dest = "input_files", metavar="peak_3.file bam.file",
+                      type=str, nargs='*', help='BED files of interesting regions, fasta.file'
+                                                'BAM file of reads, sequence file')
   args = parser.parse_args()
-  if (len(args.input_files) < 4):
+  if (len(args.input_files) < 3):
     print("Error: missing requird files")
     parser.print_help()
     exit(1)
 
-  signal = Signal(args.input_files[1], args.input_files[0], args.input_files[2])
+  genome_size = os.path.dirname(__file__) + '/../data/' + args.genome + '.chrom.sizes'
+  signal = Signal(args.input_files[1], args.input_files[0], genome_size)
   # Generate sequence file
-  signal.load_sequence(args.input_files[3], args.prefix + "_seq.txt")
-  signal.fastaFile = args.input_files[3]
+  signal.load_sequence(args.input_files[2], args.prefix + "_seq.txt")
+  signal.fastaFile = args.input_files[2]
   # Process DNase-seq or ATAC-seq data
   loessSignal, deriv2nd, deriv1st, bc_loess = signal.get_signal(args.span, args.is_atac, args.shift)
 

@@ -28,23 +28,23 @@ To generate required files in correct format, you can use our python script data
   
 To generat data files using our python script:    
 ```
-./scripts/dataProcessing.py <peak_3.file> <bam.file> <genome.size> <fasta.file> 
+./scripts/dataProcessing.py <peak_3.file> <bam.file> <fasta.file> 
 ```
 Required input:       
 - `<peak_3.file>`: A file containing regions of interest. The 3 columns are chromosome number, start position and end position of regions of interest. To avoid potential errors in our main program, please make sure there are no repetitive regions.  
-- `<bam.file>`: A bam file of aligned reads from DNase-seq or ATAC-seq.   
-- `<genome.size>`: A genome file defining the length of each chromosome.   
+- `<bam.file>`: A bam file of aligned reads from DNase-seq or ATAC-seq.      
 - `<fasta.file>`: A sequence file in FASTA format.     
 
 Output:   
 - `<seq.file>`: A file containing sequence information of regions from <peak_3.file>, with required format. (see ./data/E2F1_seq.txt).   
 - `<count.file>`: A file contains processed read counts at each position in regions from <peak_3.file>.   
 - `<slope.file>`: A file contains processed deritives at each position in regions from <peak_3.file>.     
-   
+
+You can set argument `--genome` as `hg19` or `hg38`, default is `hg38`.      
 The default setting will use DNase-seq based protocol. To use ATAC-seq data instead, include ```--ATAC-seq``` argument and choose from 'pe' (pair-end) and 'se' (single-end). If you have preferred output directory and name, set argument `--prefix`.  Otherwise all files will be saved in ./data.   
     
 ```
-./scripts/dataProcessing.py <peak_3.file> <atac-seq.bam.file> <genome.size> <fasta.file> --ATAC-seq pe --prefix ./out/example
+./scripts/dataProcessing.py <peak_3.file> <atac-seq.bam.file> <fasta.file> --ATAC-seq pe --prefix ./out/example
 ```
   
 To build an initial TRACE model: 
@@ -93,7 +93,7 @@ The data folder contains example data for DNase-seq on K562 cell and a initial m
  
 ```
 ./env/init_hmm.py E2F1
-./env/dataProcessing.py ./data/E2F1_peak_3.bed ./data/ENCFF826DJP.bam ./data/hg19.chrom.sizes --prefix ./data/E2F1_
+./env/dataProcessing.py ./data/E2F1_peak_3.bed ./data/ENCFF826DJP.bam ./data/./data/hg38.fa --prefix ./data/E2F1_
 ./TRACE ./data/E2F1_seq.txt ./data/E2F1_slope_2.txt ./data/E2F1_count.txt --initial-model ./data/E2F1_init_model.txt --final-model ./data/E2F1_hmm.txt --peak-file ./data/E2F1_peak_3.bed --motif-file ./data/E2F1_peak_7.bed
 ```
 
