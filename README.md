@@ -92,8 +92,8 @@ If you already have a trained TRACE model and only want to call binding sites ba
 The data folder contains example data for DNase-seq on K562 cell and a initial model to start with for E2F1 binding sites prediction. For simplicity, we randomly selected 500 DNase-seq peaks in chr1.  
  
 ```
-./env/init_hmm.py E2F1
-./env/dataProcessing.py ./data/E2F1_peak_3.bed ./data/ENCFF826DJP.bam ./data/./data/hg38.fa --prefix ./data/E2F1_
+./scripts/init_hmm.py E2F1
+./scripts/dataProcessing.py ./data/E2F1_peak_3.bed ./data/ENCFF826DJP.bam ./data/./data/hg38.fa --prefix ./data/E2F1_
 ./TRACE ./data/E2F1_seq.txt ./data/E2F1_slope_2.txt ./data/E2F1_count.txt --initial-model ./data/E2F1_init_model.txt --final-model ./data/E2F1_hmm.txt --peak-file ./data/E2F1_peak_3.bed --motif-file ./data/E2F1_peak_7.bed
 ```
 
