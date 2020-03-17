@@ -1,7 +1,70 @@
 # TRACE
 Transcription Factor Footprinting Using DNase I Hypersensitivity Data and DNA Sequence
 
-# Installation
+## Tutorial
+* [Pipeline](#pipeline) 
+* [Step by step](#step-by-step) 
+
+## Pipeline 
+System requirements: 
+* [Java 8](https://www.java.com/en/download/) or higher. 
+* [Docker CE](https://docs.docker.com/install/) 
+* Python 3.4.1 or higher. 
+
+install Python packages: 
+* [Caper](https://github.com/ENCODE-DCC/caper#installation).  
+* [Croo](https://github.com/ENCODE-DCC/croo#installation) 
+```bash
+$ pip install caper
+$ pip install croo
+```
+Download `footprint.wdl` and `input.json`. Then add paprameter in 
+```js
+{
+    "footprinting.skipTrain": false,
+    "footprinting.THREAD": 5,
+    "footprinting.ITER": 200,
+    "footprinting.model_size": 10,
+    "footprinting.genome": "hg38",
+    "footprinting.seq_file": "/home/vagrant/rmp/data_tmp/hg38.fa",
+    "footprinting.bam_file": "/home/vagrant/rmp/data_tmp/ENCFF577DUO.bam",
+    "footprinting.bam_index_file" : "/home/vagrant/rmp/data_tmp/ENCFF577DUO.bam.bai",
+    "footprinting.peak_file": "/home/vagrant/rmp/data_tmp/ENCFF588OCA.bed.gz",
+    "footprinting.motif_sites": "/home/vagrant/rmp/data_tmp/MA0024.3_JASPAR_5000.txt",
+    "footprinting.prefix": "GM12878_test",
+    "footprinting.model_file_list": [
+        "E2F1"
+    ],
+    "footprinting.motif_list": [
+        "E2F1"
+    ]
+}
+```
+Parameter|Default|Description
+---------|-------|-----------
+`footprinting.THREAD`| 40 | Number of threads.
+`footprinting.ITER`| 200 | Number of interations in learning algorithm
+`footprinting.model_size` | 10 | Number of motif in TRACE model
+`footprinting.genome` | hg38 | Genome, hg19 or hg38
+`footprinting.seq_file` | N/A | Genome sequence file in FASTA format
+`footprinting.bam_file` | N/A | DNase-seq or ATAC-seq bam file
+`footprinting.bam_index_file` | N/A | index file for bam file
+`footprinting.peak_file` | N/A | file of open chromatin regions, format as [<peak_3.file>](data/E2F1_peak_3.bed)
+`footprinting.peak_motif_file` | N/A | file of open chromatin regions and motif sites within each peak, format as [<peak_7.file>](data/E2F1_peak_7.bed)
+`footprinting.prefix` | N/A | index file for bam file
+`footprinting.motif_list` | N/A | list of TFs that you want to predict binding sites for
+`footprinting.skipTrain` | false | set to ture if you wanna skip training step
+`footprinting.model_file_list` | N/A | list of final models for each TF in motif_list, must set skipTrain to true
+
+Run WDL workflow using `input.json`, Cromwell, and Docker backend using Caper.
+```bash
+$ caper run TRACE.wdl -i input.json --docker
+```
+
+
+## Step by step 
+## Installation
+
 Clone a copy of the TRACE repository:  
   
 ```
@@ -20,7 +83,8 @@ Build TRACE:
 make
 ```
  
-# Usage information
+ ## Usage information 
+
 To call TFBSs, TRACE requies a file of regions of interest, files of sequence infomation, read counts, and slopes at each position and a file containing intial model.    
     
 ### Generate required files for TRACE 
@@ -32,15 +96,15 @@ To generat data files using our python script:
 ```
 Required input:       
 - `<peak_3.file>`: A file containing regions of interest. The 3 columns are chromosome number, start position and end position of regions of interest. To avoid potential errors in our main program, please make sure there are no repetitive regions.  
-- `<bam.file>`: A bam file of aligned reads from DNase-seq or ATAC-seq.      
-- `<fasta.file>`: A sequence file in FASTA format.     
-
+- `<bam.file>`: A bam file of aligned reads from DNase-seq or ATAC-seq.   
+- `<fasta.file>`: A genome sequence file in FASTA format. 
+ 
 Output:   
 - `<seq.file>`: A file containing sequence information of regions from <peak_3.file>, with required format. (see ./data/E2F1_seq.txt).   
 - `<count.file>`: A file contains processed read counts at each position in regions from <peak_3.file>.   
 - `<slope.file>`: A file contains processed deritives at each position in regions from <peak_3.file>.     
-
-You can set argument `--genome` as `hg19` or `hg38`, default is `hg38`.      
+  
+You can set argument `--genome` as `hg19` or `hg38`, default is `hg38`.   
 The default setting will use DNase-seq based protocol. To use ATAC-seq data instead, include ```--ATAC-seq``` argument and choose from 'pe' (pair-end) and 'se' (single-end). If you have preferred output directory and name, set argument `--prefix`.  Otherwise all files will be saved in ./data.   
     
 ```
@@ -66,7 +130,7 @@ Besides  `<seq.file> <count.file> <slope.file> <init.model.file>`,  the main TRA
 To perform footprinting:   
    
 ```
-./TRACE <seq.file> <count.file> <slope.file> <init.model.file> --final-model <final.model.file> --peak-file <peak_3.file> 
+./TRACE <seq.file> <count.file> <slope.file> --initial-model <init.model.file> --final-model <final.model.file> --peak-file <peak_3.file> 
 ```
    
    `<seq.file> <count.file> <slope.file>` are three required input files and they need to be in correct order. Training step requires an initial model file `<init.model.file>` and will generate the final model `<final.model.file>`. If `--peak-file` is not set, the program will only learn the model but will not generate binding sites predictions. if `<peak_3.file>` is provided, it will generate an output file that contains all binding sites predicton from provided regions.       
@@ -93,11 +157,11 @@ The data folder contains example data for DNase-seq on K562 cell and a initial m
  
 ```
 ./scripts/init_hmm.py E2F1
-./scripts/dataProcessing.py ./data/E2F1_peak_3.bed ./data/ENCFF826DJP.bam ./data/./data/hg38.fa --prefix ./data/E2F1_
+./scripts/dataProcessing.py ./data/E2F1_peak_3.bed ./data/ENCFF826DJP.bam ./data/hg38.fa --prefix ./data/E2F1_
 ./TRACE ./data/E2F1_seq.txt ./data/E2F1_slope_2.txt ./data/E2F1_count.txt --initial-model ./data/E2F1_init_model.txt --final-model ./data/E2F1_hmm.txt --peak-file ./data/E2F1_peak_3.bed --motif-file ./data/E2F1_peak_7.bed
 ```
 
-## Interprete TRACE’s Output
+# Interprete TRACE’s Output
 Our demo shown above will generate two files: `E2F1_peak_7.bed_with_probs.txt` and `E2F1_hmm.txt_viterbi_results.txt`.   
   
 `E2F1_peak_7.bed_with_probs.txt` contains all provided motif sites followed with states probability for all motifs included in the model as well as generic footprints. You can only use the first two scores (fourth and fifth colunm) which are probabilities of being actve binding sites or inactive binding sites for the first motif (your TF of interest). For assessment, we recommend using the value of fourth colunm minus fifth colunm.  
