@@ -18,49 +18,49 @@ install Python packages:
 $ pip install caper
 $ pip install croo
 ```
-Download `footprint.wdl` and `input.json`. Then add paprameter in 
+Download [`TRACE.wdl`](TRACEwdl) and [`input.json`](input.json). Then add paprameter in 
 ```js
 {
-    "footprinting.skipTrain": false,
-    "footprinting.THREAD": 40,
-    "footprinting.ITER": 200,
-    "footprinting.model_size": 10,
-    "footprinting.genome": "hg19",
-    "footprinting.seq_file": "./data/hg19.fa",
-    "footprinting.bam_file": "./data/ENCFF826DJP.bam",
-    "footprinting.bam_index_file" : "./data/ENCFF826DJP.bam.bai",
-    "footprinting.peak_file": "./data/E2F1_peak_3.bed",
-    "footprinting.peak_motif_file": "./data/E2F1_peak_7.bed",    
-    "footprinting.model_file_list": [
+    "TRACE.skipTrain": false,
+    "TRACE.THREAD": 40,
+    "TRACE.ITER": 200,
+    "TRACE.model_size": 10,
+    "TRACE.genome": "hg19",
+    "TRACE.seq_file": "./data/hg19.fa",
+    "TRACE.bam_file": "./data/ENCFF826DJP.bam",
+    "TRACE.bam_index_file" : "./data/ENCFF826DJP.bam.bai",
+    "TRACE.peak_file": "./data/E2F1_peak_3.bed",
+    "TRACE.peak_motif_file": "./data/E2F1_peak_7.bed",    
+    "TRACE.model_file_list": [
         
     ],
-    "footprinting.motif_list": [
+    "TRACE.motif_list": [
         "E2F1"
     ]
 }
 ```
 Parameter|Default|Description
 ---------|-------|-----------
-`footprinting.THREAD`| 40 | Number of threads.
-`footprinting.ITER`| 200 | Number of interations in learning algorithm
-`footprinting.model_size` | 10 | Number of motif in TRACE model
-`footprinting.genome` | hg38 | Genome, hg19 or hg38
-`footprinting.seq_file` | N/A | Genome sequence file in FASTA format
-`footprinting.bam_file` | N/A | DNase-seq or ATAC-seq bam file
-`footprinting.bam_index_file` | N/A | index file for bam file
-`footprinting.peak_file` | N/A | file of open chromatin regions, format as [<peak_3.file>](data/E2F1_peak_3.bed)
-`footprinting.peak_motif_file` | N/A | file of open chromatin regions and motif sites within each peak, format as [<peak_7.file>](data/E2F1_peak_7.bed)
-`footprinting.prefix` | N/A | index file for bam file
-`footprinting.motif_list` | N/A | list of TFs that you want to predict binding sites for
-`footprinting.skipTrain` | false | set to ture if you wanna skip training step
-`footprinting.model_file_list` | N/A | list of final models for each TF in motif_list, must set skipTrain to true
+`TRACE.THREAD`| 40 | Number of threads.
+`TRACE.ITER`| 200 | Number of interations in learning algorithm
+`TRACE.model_size` | 10 | Number of motif in TRACE model
+`TRACE.genome` | hg38 | Genome, hg19 or hg38
+`TRACE.seq_file` | N/A | Genome sequence file in FASTA format
+`TRACE.bam_file` | N/A | DNase-seq or ATAC-seq bam file
+`TRACE.bam_index_file` | N/A | index file for bam file
+`TRACE.peak_file` | N/A | file of open chromatin regions, format as [<peak_3.file>](data/E2F1_peak_3.bed)
+`TRACE.peak_motif_file` | N/A | file of open chromatin regions and motif sites within each peak, format as [<peak_7.file>](data/E2F1_peak_7.bed)
+`TRACE.prefix` | N/A | index file for bam file
+`TRACE.motif_list` | N/A | list of TFs that you want to predict binding sites for
+`TRACE.skipTrain` | false | set to ture if you wanna skip training step
+`TRACE.model_file_list` | N/A | list of final models for each TF in motif_list, must set skipTrain to true
 
 Run WDL workflow using `input.json`, Cromwell, and Docker backend using Caper.
 ```bash
 $ caper run TRACE.wdl -i input.json --docker
-```
-
-
+```  
+   
+  
 ## Step by step 
 ## Installation
 
@@ -75,13 +75,13 @@ To make sure that correct version of Python are used and all required packages a
 $ conda env create -f environment.yml
 $ source activate TRACE_env
 ```
-Our C program requires GNU Scientific Library (GSL). You can download here: [https://www.gnu.org/software/gsl/](https://www.gnu.org/software/gsl/). 
-Build TRACE: 
+Our C program requires GNU Scientific Library (GSL). You can download here: [https://www.gnu.org/software/gsl/](https://www.gnu.org/software/gsl/).  
+Build TRACE:  
   
 ```bash
 $ make
 ```
- 
+   
  ## Usage information 
 
 To call TFBSs, TRACE requies a file of regions of interest, files of sequence infomation, read counts, and slopes at each position and a file containing intial model.    
@@ -89,7 +89,7 @@ To call TFBSs, TRACE requies a file of regions of interest, files of sequence in
 ### Generate required files for TRACE 
 To generate required files in correct format, you can use our python script dataProcessing.py and init_hmm.py.      
   
-To generat data files using our python script:    
+  1. Generat data files using our python script:    
 ```bash
 $ ./scripts/dataProcessing.py <peak_3.file> <bam.file> <fasta.file> 
 ```
@@ -110,7 +110,7 @@ The default setting will use DNase-seq based protocol. To use ATAC-seq data inst
 $ ./scripts/dataProcessing.py <peak_3.file> <atac-seq.bam.file> <fasta.file> --ATAC-seq pe --prefix ./out/example
 ```
   
-To build an initial TRACE model: 
+  2. Build an initial TRACE model: 
   
 ```bash
 $ ./scripts/init_hmm.py <TF>
@@ -126,7 +126,7 @@ For original Boyle method which doesn't include motif information, there is an i
 ### Perform footprinting by TRACE
 Besides  `<seq.file> <count.file> <slope.file> <init.model.file>`,  the main TRACE program also requires a file `<peak_3.file>` containing regions of interest. Please make sure they are the same regions that were used in data processing.
  
-To perform footprinting:   
+ 3. Perform footprinting:   
    
 ```bash
 $ ./TRACE <seq.file> <count.file> <slope.file> --initial-model <init.model.file> --final-model <final.model.file> --peak-file <peak_3.file> 
