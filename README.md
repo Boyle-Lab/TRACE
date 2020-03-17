@@ -22,18 +22,17 @@ Download `footprint.wdl` and `input.json`. Then add paprameter in
 ```js
 {
     "footprinting.skipTrain": false,
-    "footprinting.THREAD": 5,
+    "footprinting.THREAD": 40,
     "footprinting.ITER": 200,
     "footprinting.model_size": 10,
-    "footprinting.genome": "hg38",
-    "footprinting.seq_file": "/home/vagrant/rmp/data_tmp/hg38.fa",
-    "footprinting.bam_file": "/home/vagrant/rmp/data_tmp/ENCFF577DUO.bam",
-    "footprinting.bam_index_file" : "/home/vagrant/rmp/data_tmp/ENCFF577DUO.bam.bai",
-    "footprinting.peak_file": "/home/vagrant/rmp/data_tmp/ENCFF588OCA.bed.gz",
-    "footprinting.motif_sites": "/home/vagrant/rmp/data_tmp/MA0024.3_JASPAR_5000.txt",
-    "footprinting.prefix": "GM12878_test",
+    "footprinting.genome": "hg19",
+    "footprinting.seq_file": "./data/hg19.fa",
+    "footprinting.bam_file": "./data/ENCFF826DJP.bam",
+    "footprinting.bam_index_file" : "./data/ENCFF826DJP.bam.bai",
+    "footprinting.peak_file": "./data/E2F1_peak_3.bed",
+    "footprinting.peak_motif_file": "./data/E2F1_peak_7.bed",    
     "footprinting.model_file_list": [
-        "E2F1"
+        
     ],
     "footprinting.motif_list": [
         "E2F1"
@@ -67,20 +66,20 @@ $ caper run TRACE.wdl -i input.json --docker
 
 Clone a copy of the TRACE repository:  
   
-```
-git clone https://github.com/Boyle-Lab/TRACE.git
+```bash
+$ git clone https://github.com/Boyle-Lab/TRACE.git
 ```
 To make sure that correct version of Python are used and all required packages are installed, we recommend using Conda and creating the environment from the environment.yml file: 
  
-```
-conda env create -f environment.yml
-source activate TRACE_env
+```bash
+$ conda env create -f environment.yml
+$ source activate TRACE_env
 ```
 Our C program requires GNU Scientific Library (GSL). You can download here: [https://www.gnu.org/software/gsl/](https://www.gnu.org/software/gsl/). 
 Build TRACE: 
   
-```
-make
+```bash
+$ make
 ```
  
  ## Usage information 
@@ -91,8 +90,8 @@ To call TFBSs, TRACE requies a file of regions of interest, files of sequence in
 To generate required files in correct format, you can use our python script dataProcessing.py and init_hmm.py.      
   
 To generat data files using our python script:    
-```
-./scripts/dataProcessing.py <peak_3.file> <bam.file> <fasta.file> 
+```bash
+$ ./scripts/dataProcessing.py <peak_3.file> <bam.file> <fasta.file> 
 ```
 Required input:       
 - `<peak_3.file>`: A file containing regions of interest. The 3 columns are chromosome number, start position and end position of regions of interest. To avoid potential errors in our main program, please make sure there are no repetitive regions.  
@@ -107,19 +106,19 @@ Output:
 You can set argument `--genome` as `hg19` or `hg38`, default is `hg38`.   
 The default setting will use DNase-seq based protocol. To use ATAC-seq data instead, include ```--ATAC-seq``` argument and choose from 'pe' (pair-end) and 'se' (single-end). If you have preferred output directory and name, set argument `--prefix`.  Otherwise all files will be saved in ./data.   
     
-```
-./scripts/dataProcessing.py <peak_3.file> <atac-seq.bam.file> <fasta.file> --ATAC-seq pe --prefix ./out/example
+```bash
+$ ./scripts/dataProcessing.py <peak_3.file> <atac-seq.bam.file> <fasta.file> --ATAC-seq pe --prefix ./out/example
 ```
   
 To build an initial TRACE model: 
   
-```
-./scripts/init_hmm.py <TF>
+```bash
+$ ./scripts/init_hmm.py <TF>
 ```
 It will generate a starting model `<init.model.file>` for TF of your choice.  The default setting will generate a 10-motif model, to change the number of extra motifs, set argument `--motif-number`. All PWMs including root motifs are built-in. If your TF of interested is not in `./data/motif_cluster_info_2020.txt`, that means your TF of interested was not included the JASPAR cluster. You will need to use your own motif file in tranfac format as in `./data/JASPAR2020_CORE_vertebrates_non-redundant_pfms_transfac.txt` and set `--motif-number` to 1.         
   
-```
-./scripts/init_hmm.py <TF> --motif-number <N> --motif-info ../data/motif_cluster_info_2020.txt --motif-transfec ./data/JASPAR2020_CORE_vertebrates_non-redundant_pfms_transfac.txt
+```bash
+$ ./scripts/init_hmm.py <TF> --motif-number <N> --motif-info ../data/motif_cluster_info_2020.txt --motif-transfec ./data/JASPAR2020_CORE_vertebrates_non-redundant_pfms_transfac.txt
 ``` 
  
 For original Boyle method which doesn't include motif information, there is an initial model available and universal for all TFs in `./data/Boyle_model.txt`.
@@ -129,8 +128,8 @@ Besides  `<seq.file> <count.file> <slope.file> <init.model.file>`,  the main TRA
  
 To perform footprinting:   
    
-```
-./TRACE <seq.file> <count.file> <slope.file> --initial-model <init.model.file> --final-model <final.model.file> --peak-file <peak_3.file> 
+```bash
+$ ./TRACE <seq.file> <count.file> <slope.file> --initial-model <init.model.file> --final-model <final.model.file> --peak-file <peak_3.file> 
 ```
    
    `<seq.file> <count.file> <slope.file>` are three required input files and they need to be in correct order. Training step requires an initial model file `<init.model.file>` and will generate the final model `<final.model.file>`. If `--peak-file` is not set, the program will only learn the model but will not generate binding sites predictions. if `<peak_3.file>` is provided, it will generate an output file that contains all binding sites predicton from provided regions.       
@@ -142,23 +141,23 @@ TRACE will then generate a file containing all motif sites included in `<peak_7.
   
 You can also set `--thread` and  `--max-inter` for max threads and iterations used (default is 40 and 200).   
    
-```
-./TRACE <seq.file> <count.file> <slope.file> --initial-model <init.model.file> --final-model <final.model.file> --peak-file <peak_3.file> --motif-file <peak_7.file> --thread <N> --max-inter <N>
+```bash
+$ ./TRACE <seq.file> <count.file> <slope.file> --initial-model <init.model.file> --final-model <final.model.file> --peak-file <peak_3.file> --motif-file <peak_7.file> --thread <N> --max-inter <N>
 ```
   
 If you already have a trained TRACE model and only want to call binding sites based on an exsiting model, you can run decoding step directly by setting `--viterbi`: 
  
-```
-./TRACE --viterbi <seq.file> <count.file> <slope.file> --final-model <final.model.file> --peak-file <peak_3.file> --motif-file <peak_7.file> --thread <N> --max-inter <N>
+```bash
+$ ./TRACE --viterbi <seq.file> <count.file> <slope.file> --final-model <final.model.file> --peak-file <peak_3.file> --motif-file <peak_7.file> --thread <N> --max-inter <N>
 ```
  
 ## Demo
 The data folder contains example data for DNase-seq on K562 cell and a initial model to start with for E2F1 binding sites prediction. For simplicity, we randomly selected 500 DNase-seq peaks in chr1.  
  
-```
-./scripts/init_hmm.py E2F1
-./scripts/dataProcessing.py ./data/E2F1_peak_3.bed ./data/ENCFF826DJP.bam ./data/hg38.fa --prefix ./data/E2F1_
-./TRACE ./data/E2F1_seq.txt ./data/E2F1_slope_2.txt ./data/E2F1_count.txt --initial-model ./data/E2F1_init_model.txt --final-model ./data/E2F1_hmm.txt --peak-file ./data/E2F1_peak_3.bed --motif-file ./data/E2F1_peak_7.bed
+```bash
+$ ./scripts/init_hmm.py E2F1
+$ ./scripts/dataProcessing.py ./data/E2F1_peak_3.bed ./data/ENCFF826DJP.bam ./data/hg38.fa --prefix ./data/E2F1_
+$ ./TRACE ./data/E2F1_seq.txt ./data/E2F1_slope_2.txt ./data/E2F1_count.txt --initial-model ./data/E2F1_init_model.txt --final-model ./data/E2F1_hmm.txt --peak-file ./data/E2F1_peak_3.bed --motif-file ./data/E2F1_peak_7.bed
 ```
 
 # Interprete TRACE’s Output
