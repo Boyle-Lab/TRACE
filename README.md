@@ -48,8 +48,8 @@ Parameter|Default|Description
 `TRACE.seq_file` | N/A | Genome sequence file in FASTA format
 `TRACE.bam_file` | N/A | DNase-seq or ATAC-seq bam file
 `TRACE.bam_index_file` | N/A | Index file for bam file
-`TRACE.peak_file` | N/A | File of open chromatin regions, format as [`<peak_3.file>`](data/E2F1_peak_3.bed) shown below
-`TRACE.peak_motif_file` | N/A | File of open chromatin regions and motif sites within each peak, format as [`<peak_7.file>`](data/E2F1_peak_7.bed) shown below
+`TRACE.peak_file` | N/A | File of open chromatin regions, format as [`<peak_3.file>`](data/E2F1_peak_3.bed) shown [below](#perform-footprinting-by-trace)
+`TRACE.peak_motif_file` | N/A | File of open chromatin regions and motif sites within each peak, format as [`<peak_7.file>`](data/E2F1_peak_7.bed) shown [below](#perform-footprinting-by-trace)
 `TRACE.prefix` | N/A | Index file for bam file
 `TRACE.motif_list` | N/A | List of TFs that you want to predict binding sites for
 `TRACE.skipTrain` | false | Set to `ture` if you want to skip training step and only run viterbi step with trained models
@@ -115,7 +115,7 @@ $ ./scripts/dataProcessing.py <peak_3.file> <atac-seq.bam.file> <fasta.file> --A
 ```bash
 $ ./scripts/init_hmm.py <TF>
 ```
-It will generate a starting model `<init.model.file>` for TF of your choice.  The default setting will generate a 10-motif model, to change the number of extra motifs, set argument `--motif-number`. All PWMs including root motifs are built-in. If your TF of interested is not in `./data/motif_cluster_info_2020.txt`, that means your TF of interested was not included the JASPAR cluster. You will need to use your own motif file in tranfac format as in `./data/JASPAR2020_CORE_vertebrates_non-redundant_pfms_transfac.txt` and set `--motif-number` to 1.         
+It will generate a starting model `<init.model.file>` for TF of your choice.  The default setting will generate a 10-motif model, to change the number of extra motifs, set argument `--motif-number`. All PWMs including root motifs are built-in. If your TF of interested is not in [`./data/motif_cluster_info_2020.txt`](data/motif_cluster_info_2020.txt), that means your TF of interested was not included the JASPAR cluster. You will need to use your own motif file in tranfac format as in [`./data/JASPAR2020_CORE_vertebrates_non-redundant_pfms_transfac.txt`](data/JASPAR2020_CORE_vertebrates_non-redundant_pfms_transfac.txt) and set `--motif-number` to 1.         
   
 ```bash
 $ ./scripts/init_hmm.py <TF> --motif-number <N> --motif-info ../data/motif_cluster_info_2020.txt --motif-transfec ./data/JASPAR2020_CORE_vertebrates_non-redundant_pfms_transfac.txt
