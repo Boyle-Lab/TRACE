@@ -1,0 +1,18 @@
+{
+    "TRACE.skipTrain": false,
+    "TRACE.THREAD": 5,
+    "TRACE.ITER": 200,
+    "TRACE.model_size": 10,
+    "TRACE.genome": "hg19",
+    "TRACE.seq_file": "/home/vagrant/rmp/data_tmp/hg19.fa",
+    "TRACE.bam_file": "/home/vagrant/rmp/data_tmp/ENCFF826DJP.bam",
+    "TRACE.bam_index_file" : "/home/vagrant/rmp/data_tmp/ENCFF826DJP.bam.bai",
+    "TRACE.peak_file": "/home/vagrant/rmp/data_tmp/TRACE/TRACE/data/E2F1_peak_3.bed",
+    "TRACE.peak_motif_file": "/home/vagrant/rmp/data_tmp/TRACE/TRACE/data/E2F1_peak_7.bed",
+    "TRACE.model_file_list": [
+        "/home/vagrant/rmp/data_tmp/footprinting/8d32c952-35e3-4d3b-8731-a4e4e4c903bb/call-Trace/shard-0/execution/glob-ef5df339533c1334f081dc8cc75ee4f3/E2F1_hmm.txt"
+    ],
+    "TRACE.motif_list": [
+        "E2F1"
+    ]
+}
