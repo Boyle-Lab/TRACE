@@ -311,22 +311,23 @@ int main (int argc, char **argv)
     CalMotifScore_P(&hmm, pwm_matrix, O1, P, peakPos);
   }
   gsl_vector * tmp_vector = gsl_vector_alloc(T);
+  if (!ifSkip){
   /* Set the initial mean parameters of PWM score feature based on max and min of actual calculation */
-  index = 0;
-  for (i = 0; i < hmm.M; i++) {
-    gsl_matrix_get_row(tmp_vector, pwm_matrix, i);
-    for (j = 0; j < hmm.N; j++) {
-      gsl_matrix_set(hmm.mean_matrix, i, j, gsl_vector_min(tmp_vector) / 6.0);
-      gsl_matrix_set(hmm.var_matrix, i, j, 8.0);
+    index = 0;
+    for (i = 0; i < hmm.M; i++) {
+      gsl_matrix_get_row(tmp_vector, pwm_matrix, i);
+      for (j = 0; j < hmm.N; j++) {
+        gsl_matrix_set(hmm.mean_matrix, i, j, gsl_vector_min(tmp_vector) / 6.0);
+        gsl_matrix_set(hmm.var_matrix, i, j, 8.0);
+      }
+      /* For each binding site state, the initial mean parameter for
+       correspondong PWM score will be 1/2 of its greatest score */
+      for (j = index; j < index + hmm.D[i] * (hmm.inactive + 1); j++) {
+        gsl_matrix_set(hmm.mean_matrix, i, j, gsl_vector_max(tmp_vector) / 2.0);
+      }
+      index += hmm.D[i] * (hmm.inactive+1);
     }
-    /* For each binding site state, the initial mean parameter for
-     correspondong PWM score will be 1/2 of its greatest score */
-    for (j = index; j < index + hmm.D[i] * (hmm.inactive + 1); j++) {
-      gsl_matrix_set(hmm.mean_matrix, i, j, gsl_vector_max(tmp_vector) / 2.0);
-    }
-    index += hmm.D[i] * (hmm.inactive+1);
   }
-
   /* Set initial parameter values.
   int i, j, index;
 

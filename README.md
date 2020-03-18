@@ -51,7 +51,7 @@ Parameter|Default|Description
 `TRACE.peak_file` | N/A | File of open chromatin regions, format as [`<peak_3.file>`](data/E2F1_peak_3.bed) shown [below](#perform-footprinting-by-trace)
 `TRACE.peak_motif_file` | N/A | File of open chromatin regions and motif sites within each peak, format as [`<peak_7.file>`](data/E2F1_peak_7.bed) shown [below](#perform-footprinting-by-trace)
 `TRACE.prefix` | N/A | Index file for bam file
-`TRACE.motif_list` | N/A | List of TFs that you want to predict binding sites for
+`TRACE.motif_list` | N/A | List of TFs that you want to predict binding sites for. Must be in [this list](data/motif_cluster_info_2020.txt), otherwise follow [Step by step](#step-by-step) 
 `TRACE.skipTrain` | false | Set to `ture` if you want to skip training step and only run viterbi step with trained models
 `TRACE.model_file_list` | N/A | List of final models for each TF in motif_list, must set skipTrain to true
 
@@ -163,6 +163,6 @@ $ ./TRACE ./data/E2F1_seq.txt ./data/E2F1_slope_2.txt ./data/E2F1_count.txt --in
 # Interprete TRACE’s Output
 Our demo shown above will generate two files: `E2F1_peak_7.bed_with_probs.txt` and `E2F1_hmm.txt_viterbi_results.txt`.   
   
--`E2F1_peak_7.bed_with_probs.txt` contains all provided motif sites followed with states probability for all motifs included in the model as well as generic footprints. You can only use the first two scores (fourth and fifth colunm) which are probabilities of being actve binding sites or inactive binding sites for the first motif (your TF of interest). For assessment, we recommend using the value of fourth colunm minus fifth colunm.  
+- `E2F1_peak_7.bed_with_probs.txt` contains all provided motif sites followed with states probability for all motifs included in the model as well as generic footprints. You can only use the first two scores (fourth and fifth colunm) which are probabilities of being actve binding sites or inactive binding sites for the first motif (your TF of interest). For assessment, we recommend using the value of fourth colunm minus fifth colunm.  
   
--`E2F1_hmm.txt_viterbi_results.txt` contains all positions in the provided peak regions, with their assigned states and probabilities. The fourth colunm is the labeled states, 1-10 represent corresponding motifs in the model, so state 1 will be the sites that you want. State numbers that are are greater than the number of motifs are the peak states that you can ignore. The fifth and sixth colunms are the probabilities of being active or inactive binding sites.
+- `E2F1_hmm.txt_viterbi_results.txt` contains all positions in the provided peak regions, with their assigned states and probabilities. The fourth colunm is the labeled states, 1-10 represent corresponding motifs in the model, so state 1 will be the sites that you want. State numbers that are are greater than the number of motifs are the peak states that you can ignore. The fifth and sixth colunms are the probabilities of being active or inactive binding sites.

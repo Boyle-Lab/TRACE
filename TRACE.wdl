@@ -113,8 +113,10 @@ task Trace_train {
   command {
     source activate TRACE_env
     sort -k1,1 -k2,2n ${peak_file} | uniq > test_peak_3.bed
-    /footprinting/TRACE/TRACE ${seq_file} ${count_file} ${slope_file} --initial-model ${model_file} --final-model ${motif}_hmm.txt --motif-file ${peak_motif_file} --peak-file test_peak_3.bed --thread THREAD --max-inter ITER
+    sort -k1,1 -k2,2n ${peak_motif_file} > test_peak_7.bed
+    /footprinting/TRACE/TRACE ${seq_file} ${count_file} ${slope_file} --initial-model ${model_file} --final-model ${motif}_hmm.txt --motif-file test_peak_7.bed --peak-file test_peak_3.bed --thread THREAD --max-inter ITER
     rm test_peak_3.bed
+    rm test_peak_7.bed
   }
   output {
     Array[File] out = glob("*.txt")
@@ -136,8 +138,10 @@ task Trace_viterbi {
   command {
     source activate TRACE_env
     sort -k1,1 -k2,2n ${peak_file} | uniq > test_peak_3.bed
-    /footprinting/TRACE/TRACE --viterbi ${seq_file} ${count_file} ${slope_file} --final-model ${model_file} --motif-file ${peak_motif_file} --peak-file test_peak_3.bed --thread THREAD
+    sort -k1,1 -k2,2n ${peak_motif_file} > test_peak_7.bed
+    /footprinting/TRACE/TRACE --viterbi ${seq_file} ${count_file} ${slope_file} --final-model ${model_file} --motif-file test_peak_7.bed --peak-file test_peak_3.bed --thread THREAD
     rm test_peak_3.bed
+    rm test_peak_7.bed
   }
   output {
     Array[File] out = glob("*.txt")
