@@ -95,7 +95,7 @@ $ ./TRACE <seq.file> <count.file> <slope.file> --initial-model <init.model.file>
   
 If you already have a trained TRACE model and only want to call binding sites based on an exsiting model, you can run decoding step directly by setting `--viterbi`. 
  
-### Decoding: 
+### Decoding
 To perform the decoding step with the trained trace model, we use the viterbi option of TRACE. Once you have a trained model, this is the only step that needs to be performed on new open chromatin data.
  
 ```bash
