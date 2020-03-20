@@ -61,7 +61,7 @@ $ ./scripts/dataProcessing.py <peak_3.file> <atac-seq.bam.file> <fasta.file> --A
 ```bash
 $ ./scripts/init_hmm.py <TF>
 ```
-It will generate a starting model `<init.model.file>` for TF of your choice.  The default setting will generate a 10-motif model, to change the number of extra motifs, set argument `--motif-number`. All PWMs including root motifs are built-in. If your TF of interested is not in [`./data/motif_cluster_info_2020.txt`](data/motif_cluster_info_2020.txt), that means it was not included the JASPAR cluster. You will need to use your own motif file in tranfac format as in [`./data/JASPAR2020_CORE_vertebrates_non-redundant_pfms_transfac.txt`](data/JASPAR2020_CORE_vertebrates_non-redundant_pfms_transfac.txt) and set `--motif-number` to 1.         
+It will generate a starting model `<init.model.file>` for TF of your choice.  The default setting will generate a 10-motif model, to change the number of extra motifs, set argument `--motif-number`. All PWMs including root motifs are built-in. If your TF of interested is not in [`./data/motif_cluster_info_2020.txt`](data/motif_cluster_info_2020.txt), that means it was not included in the JASPAR cluster. You will need to use your own motif file in tranfac format as in [`./data/JASPAR2020_CORE_vertebrates_non-redundant_pfms_transfac.txt`](data/JASPAR2020_CORE_vertebrates_non-redundant_pfms_transfac.txt) and set `--motif-number` to 1.         
   
 ```bash
 $ ./scripts/init_hmm.py <TF> --motif-number <N> --motif-info ../data/motif_cluster_info_2020.txt --motif-transfec ./data/JASPAR2020_CORE_vertebrates_non-redundant_pfms_transfac.txt
@@ -91,8 +91,10 @@ You can also set `--thread` and  `--max-inter` for max threads and iterations us
 $ ./TRACE <seq.file> <count.file> <slope.file> --initial-model <init.model.file> --final-model <final.model.file> --peak-file <peak_3.file> --motif-file <peak_7.file> --thread <N> --max-inter <N>
 ```
   
-If you already have a trained TRACE model and only want to call binding sites based on an exsiting model, you can run decoding step directly by setting `--viterbi`: 
+If you already have a trained TRACE model and only want to call binding sites based on an exsiting model, you can run decoding step directly by setting `--viterbi`. 
  
+4. Decoding: 
+  
 ```bash
 $ ./TRACE --viterbi <seq.file> <count.file> <slope.file> --final-model <final.model.file> --peak-file <peak_3.file> --motif-file <peak_7.file> --thread <N> --max-inter <N>
 ```
