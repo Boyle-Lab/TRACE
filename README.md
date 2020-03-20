@@ -4,7 +4,7 @@ Transcription Factor Footprinting Using DNase I Hypersensitivity Data and DNA Se
 Read the TRACE manuscript on [bioRxiv](https://www.biorxiv.org/content/10.1101/801001v1.full).
 
   
-# Installation
+## Installation
 
 Clone a copy of the TRACE repository:  
   
@@ -24,7 +24,7 @@ Build TRACE:
 $ make
 ```
 
-# Demo
+## Demo
 We have provided a demo containing example data for DNase-seq in K562 cells and a initial model to start with for E2F1 binding sites prediction. For simplicity, we randomly selected 500 DNase-seq peaks in chr1.  
  
 ```bash
@@ -33,7 +33,7 @@ $ ./scripts/dataProcessing.py ./data/E2F1_peak_3.bed ./data/ENCFF826DJP.bam ./da
 $ ./TRACE ./data/E2F1_seq.txt ./data/E2F1_slope_2.txt ./data/E2F1_count.txt --initial-model ./data/E2F1_init_model.txt --final-model ./data/E2F1_hmm.txt --peak-file ./data/E2F1_peak_3.bed --motif-file ./data/E2F1_peak_7.bed
 ```
 
-# Usage information
+## Usage information
 
 To call TFBSs, TRACE requies a file of regions of interest, files of sequence infomation, read counts, and slopes at each position and a file containing intial model.    
     
@@ -105,14 +105,14 @@ $ ./TRACE --viterbi <seq.file> <count.file> <slope.file> --final-model <final.mo
 ```
 
 
-## Interprete TRACE’s Output
+### Interprete TRACE’s Output
 Our demo shown above will generate three files: `E2F1_peak_7.bed_with_probs.txt`,  `E2F1_hmm.txt_viterbi_results.txt` and a TRACE model file `./data/E2F1_hmm.txt`.   
   
 - `E2F1_peak_7.bed_with_probs.txt` contains all provided motif sites followed with states probability for all motifs included in the model as well as generic footprints. You can only use the first two scores (fourth and fifth colunm) which are probabilities of being actve binding sites or inactive binding sites for the first motif (your TF of interest). For assessment, we recommend using the value of fourth colunm minus fifth colunm.  
   
 - `E2F1_hmm.txt_viterbi_results.txt` contains all positions in the provided peak regions, with their assigned states and probabilities. The fourth colunm is the labeled states, 1-10 represent corresponding motifs in the model, so state 1 will be the sites that you want. State numbers that are are greater than the number of motifs are the peak states that you can ignore. The fifth and sixth colunms are the probabilities of being active or inactive binding sites.
 
-# WDL TRACE Workflow
+## WDL TRACE Workflow
 This pipeline is designed to chain together all required steps for TRACE in a workflow, wirtten in Workflow Description Language ([WDL](https://github.com/openwdl/wdl)). With required input parameters, this automated pipeline will generate binding sites predictions and TRACE model. If you have multiple TFs of interest, you can simply run the pipeline once, WDL will parallelize their execution. Pipeline installation is also easy as most dependencies are automatically installed.  
  
 System requirements: 
@@ -169,7 +169,7 @@ Run WDL workflow using `input.json`, Cromwell, and Docker backend using Caper.
 $ caper run TRACE.wdl -i input.json --docker
 ```  
    
-## Computational cost
+## Computational run times
 Running time and memory cost varies, depending on size of training data and size of the model. longer total length of training set and more motifs in model will cost more computational time and memory. Here are a few examples:  
 - training step: 
  
