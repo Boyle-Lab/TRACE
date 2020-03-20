@@ -25,14 +25,15 @@ $ make
 ```
 
 ## Demo
-We have provided a demo containing example data for DNase-seq in K562 cells and a initial model to start with for E2F1 binding sites prediction. For simplicity, we randomly selected 500 DNase-seq peaks in chr1.  
+We have provided a demo containing example data for DNase-seq in K562 cells and an initial model to start with for E2F1 binding sites prediction. For simplicity, we randomly selected 500 DNase-seq peaks in chr1.  
  
 ```bash
 $ ./scripts/init_hmm.py E2F1
-$ ./scripts/dataProcessing.py ./data/E2F1_peak_3.bed ./data/ENCFF826DJP.bam ./data/hg38.fa --prefix ./data/E2F1_
+$ ./scripts/dataProcessing.py ./data/E2F1_peak_3.bed ./data/ENCFF826DJP.bam ./data/hg19.fa --prefix ./data/E2F1 --genome hg19
 $ ./TRACE ./data/E2F1_seq.txt ./data/E2F1_slope_2.txt ./data/E2F1_count.txt --initial-model ./data/E2F1_init_model.txt --final-model ./data/E2F1_hmm.txt --peak-file ./data/E2F1_peak_3.bed --motif-file ./data/E2F1_peak_7.bed
 ```
-
+(Note: `./data/ENCFF826DJP.bam` and `./data/ENCFF826DJP.bam` files were not provided.) 
+  
 ## Usage information
 
 To call TFBSs, TRACE requies a file of regions of interest, files of sequence infomation, read counts, and slopes at each position and a file containing intial model.    
@@ -44,7 +45,7 @@ To generate required files in correct format, you can use our python script data
 $ ./scripts/dataProcessing.py <peak_3.file> <bam.file> <fasta.file> 
 ```
 Required input:       
-- `<peak_3.file>`: A file containing regions of interest. The 3 columns are chromosome number, start position and end position of regions of interest. To avoid potential errors in our main program, please make sure there are no repetitive regions.  
+- `<peak_3.file>`: A file containing regions of interest in [BED3](https://genome.ucsc.edu/FAQ/FAQformat.html#format1) format. The 3 columns are chromosome number, start position and end position of regions of interest. To avoid potential errors in our main program, please make sure there are no repetitive regions.  
 - `<bam.file>`: A bam file of aligned reads from DNase-seq or ATAC-seq.   
 - `<fasta.file>`: A genome sequence file in FASTA format. 
  
@@ -54,7 +55,7 @@ Output:
 - `<slope.file>`: A file contains processed deritives at each position in regions from <peak_3.file>.     
   
 You can set argument `--genome` as `hg19` or `hg38`, default is `hg38`.   
-The default setting will use DNase-seq based protocol. To use ATAC-seq data instead, include ```--ATAC-seq``` argument and choose from 'pe' (pair-end) and 'se' (single-end). If you have preferred output directory and name, set argument `--prefix`.  Otherwise all files will be saved in ./data.   
+The default setting will use DNase-seq based protocol. To use ATAC-seq data instead, include ```--ATAC-seq``` argument and choose from `pe` (pair-end) (recommended) and `se` (single-end). If you have preferred output directory or prefix, set argument `--prefix`.  Otherwise all files will be saved in `./data`.   
     
 ```bash
 $ ./scripts/dataProcessing.py <peak_3.file> <atac-seq.bam.file> <fasta.file> --ATAC-seq pe --prefix ./out/example
