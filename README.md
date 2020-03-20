@@ -32,7 +32,7 @@ $ ./scripts/init_hmm.py E2F1
 $ ./scripts/dataProcessing.py ./data/E2F1_peak_3.bed ./data/ENCFF826DJP.bam ./data/hg19.fa --prefix ./data/E2F1 --genome hg19
 $ ./TRACE ./data/E2F1_seq.txt ./data/E2F1_slope_2.txt ./data/E2F1_count.txt --initial-model ./data/E2F1_init_model.txt --final-model ./data/E2F1_hmm.txt --peak-file ./data/E2F1_peak_3.bed --motif-file ./data/E2F1_peak_7.bed
 ```
-(Note: `./data/ENCFF826DJP.bam` and `./data/ENCFF826DJP.bam` files were not provided.) 
+(Note: `ENCFF826DJP.bam` and `hg19.fa` files were not provided.) 
   
 ## Usage information
 
