@@ -2,66 +2,12 @@
 Transcription Factor Footprinting Using DNase I Hypersensitivity Data and DNA Sequence
 
 ## Tutorial
-* [Pipeline](#pipeline) 
-* [Step by step](#step-by-step) 
 
-## Pipeline 
-System requirements: 
-* [Java 8](https://www.java.com/en/download/) or higher. 
-* [Docker CE](https://docs.docker.com/install/) 
-* Python 3.4.1 or higher. 
-
-install Python packages: 
-* [Caper](https://github.com/ENCODE-DCC/caper#installation).  
-* [Croo](https://github.com/ENCODE-DCC/croo#installation) 
-```bash
-$ pip install caper
-$ pip install croo
-```
-Download [`TRACE.wdl`](TRACE.wdl) and [`input.json`](input.json). Then add paprameters in json file.
-```js
-{
-    "TRACE.skipTrain": false,
-    "TRACE.THREAD": 40,
-    "TRACE.ITER": 200,
-    "TRACE.model_size": 10,
-    "TRACE.genome": "hg19",
-    "TRACE.seq_file": "./data/hg19.fa",
-    "TRACE.bam_file": "./data/ENCFF826DJP.bam",
-    "TRACE.bam_index_file" : "./data/ENCFF826DJP.bam.bai",
-    "TRACE.peak_file": "./data/E2F1_peak_3.bed",
-    "TRACE.peak_motif_file": "./data/E2F1_peak_7.bed",    
-    "TRACE.model_file_list": [
-        
-    ],
-    "TRACE.motif_list": [
-        "E2F1"
-    ]
-}
-```
-Parameter|Default|Description
----------|-------|-----------
-`TRACE.THREAD`| 40 | Number of threads.
-`TRACE.ITER`| 200 | Number of interations in learning algorithm
-`TRACE.model_size` | 10 | Number of motif in TRACE model
-`TRACE.genome` | hg38 | Genome, `hg19` or `hg38`
-`TRACE.seq_file` | N/A | Genome sequence file in FASTA format
-`TRACE.bam_file` | N/A | DNase-seq or ATAC-seq bam file
-`TRACE.bam_index_file` | N/A | Index file for bam file
-`TRACE.peak_file` | N/A | File of open chromatin regions, format as [`<peak_3.file>`](data/E2F1_peak_3.bed) shown [below](#perform-footprinting-by-trace)
-`TRACE.peak_motif_file` | N/A | File of open chromatin regions and motif sites within each peak, format as [`<peak_7.file>`](data/E2F1_peak_7.bed) shown [below](#perform-footprinting-by-trace)
-`TRACE.prefix` | N/A | Index file for bam file
-`TRACE.motif_list` | N/A | List of TFs that you want to predict binding sites for. Must be in [this list](data/motif_cluster_info_2020.txt), otherwise follow [Step by step](#step-by-step) 
-`TRACE.skipTrain` | false | Set to `ture` if you want to skip training step and only run viterbi step with trained models
-`TRACE.model_file_list` | N/A | List of final models for each TF in motif_list, must set skipTrain to true
-
-Run WDL workflow using `input.json`, Cromwell, and Docker backend using Caper.
-```bash
-$ caper run TRACE.wdl -i input.json --docker
-```  
-   
+* [Single run](#single-run) 
+* [Pipeline](#pipeline)   
   
-## Step by step 
+# Single run 
+  
 ## Installation
 
 Clone a copy of the TRACE repository:  
@@ -160,9 +106,85 @@ $ ./scripts/dataProcessing.py ./data/E2F1_peak_3.bed ./data/ENCFF826DJP.bam ./da
 $ ./TRACE ./data/E2F1_seq.txt ./data/E2F1_slope_2.txt ./data/E2F1_count.txt --initial-model ./data/E2F1_init_model.txt --final-model ./data/E2F1_hmm.txt --peak-file ./data/E2F1_peak_3.bed --motif-file ./data/E2F1_peak_7.bed
 ```
 
-# Interprete TRACE’s Output
-Our demo shown above will generate two files: `E2F1_peak_7.bed_with_probs.txt` and `E2F1_hmm.txt_viterbi_results.txt`.   
+## Interprete TRACE’s Output
+Our demo shown above will generate three files: `E2F1_peak_7.bed_with_probs.txt`,  `E2F1_hmm.txt_viterbi_results.txt` and a TRACE model file `./data/E2F1_hmm.txt`.   
   
 - `E2F1_peak_7.bed_with_probs.txt` contains all provided motif sites followed with states probability for all motifs included in the model as well as generic footprints. You can only use the first two scores (fourth and fifth colunm) which are probabilities of being actve binding sites or inactive binding sites for the first motif (your TF of interest). For assessment, we recommend using the value of fourth colunm minus fifth colunm.  
   
 - `E2F1_hmm.txt_viterbi_results.txt` contains all positions in the provided peak regions, with their assigned states and probabilities. The fourth colunm is the labeled states, 1-10 represent corresponding motifs in the model, so state 1 will be the sites that you want. State numbers that are are greater than the number of motifs are the peak states that you can ignore. The fifth and sixth colunms are the probabilities of being active or inactive binding sites.
+
+# Pipeline 
+This pipeline is designed to chain together all required steps for TRACE in a workflow, wirtten in Workflow Description Language ([WDL](https://github.com/openwdl/wdl)). With required input parameters, this automated pipeline will generate binding sites predictions and TRACE model. If you have multiple TFs of interest, you can simply run the pipeline once, WDL will parallelize their execution. Pipeline installation is also easy as most dependencies are automatically installed.  
+ 
+System requirements: 
+* [Java 8](https://www.java.com/en/download/) or higher. 
+* [Docker CE](https://docs.docker.com/install/) 
+* Python 3.4.1 or higher. 
+
+install Python packages: 
+* [Caper](https://github.com/ENCODE-DCC/caper#installation).  
+* [Croo](https://github.com/ENCODE-DCC/croo#installation) 
+```bash
+$ pip install caper
+$ pip install croo
+```
+Download [`TRACE.wdl`](TRACE.wdl) and [`input.json`](input.json). Then add paprameters in json file.
+```js
+{
+    "TRACE.skipTrain": false,
+    "TRACE.THREAD": 40,
+    "TRACE.ITER": 200,
+    "TRACE.model_size": 10,
+    "TRACE.genome": "hg19",
+    "TRACE.seq_file": "./data/hg19.fa",
+    "TRACE.bam_file": "./data/ENCFF826DJP.bam",
+    "TRACE.bam_index_file" : "./data/ENCFF826DJP.bam.bai",
+    "TRACE.peak_file": "./data/E2F1_peak_3.bed",
+    "TRACE.peak_motif_file": "./data/E2F1_peak_7.bed",    
+    "TRACE.model_file_list": [
+        
+    ],
+    "TRACE.motif_list": [
+        "E2F1"
+    ]
+}
+```
+Parameter|Default|Description
+---------|-------|-----------
+`TRACE.THREAD`| 40 | Number of threads.
+`TRACE.ITER`| 200 | Number of interations in learning algorithm
+`TRACE.model_size` | 10 | Number of motif in TRACE model
+`TRACE.genome` | hg38 | Genome, `hg19` or `hg38`
+`TRACE.seq_file` | N/A | Genome sequence file in FASTA format
+`TRACE.bam_file` | N/A | DNase-seq or ATAC-seq bam file
+`TRACE.bam_index_file` | N/A | Index file for bam file
+`TRACE.peak_file` | N/A | File of open chromatin regions, format as [`<peak_3.file>`](data/E2F1_peak_3.bed) shown [below](#perform-footprinting-by-trace)
+`TRACE.peak_motif_file` | N/A | File of open chromatin regions and motif sites within each peak, format as [`<peak_7.file>`](data/E2F1_peak_7.bed) shown [below](#perform-footprinting-by-trace)
+`TRACE.prefix` | N/A | Index file for bam file
+`TRACE.motif_list` | N/A | List of TFs that you want to predict binding sites for. Must be in [this list](data/motif_cluster_info_2020.txt), otherwise follow [Step by step](#step-by-step) 
+`TRACE.skipTrain` | false | Set to `ture` if you want to skip training step and only run viterbi step with trained models
+`TRACE.model_file_list` | N/A | List of final models for each TF in motif_list, must set skipTrain to true
+
+Run WDL workflow using `input.json`, Cromwell, and Docker backend using Caper.
+```bash
+$ caper run TRACE.wdl -i input.json --docker
+```  
+   
+### Computational cost
+Running time and memory cost varies, depending on size of training data and size of the model. longer total length of training set and more motifs in model will cost more computational time and memory. Here are a few examples: 
+- training step:
+Size of training set (kilobases)|Number of states|Computational time|Memory
+-------|-------|-----------|-----------
+180.6 | 34 | 1min | 0.59G
+180.6 | 316 | 9min | 3.5G
+883.1 | 296 | 63min | 15.6 G
+1308.6 | 316 | 90min | 20.2G
+- viterbi step:
+Size of training set (kilobases)|Number of states|Computational time|Memory
+-------|-------|-----------|-----------
+180.6 | 34 | <1s | 0.5G
+180.6 | 316 | 7s | 2.9G
+883.1 | 296 | 29s | 12.8G
+1308.6 | 316 | 39s | 16.8G
+
+- CPU: Intel Xeon E5-2696 v4 @ 3.7GHz
