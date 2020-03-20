@@ -1,14 +1,14 @@
 # TRACE
 Transcription Factor Footprinting Using DNase I Hypersensitivity Data and DNA Sequence
 
-## Tutorial
+Read the TRACE manuscript on [bioRxiv](https://www.biorxiv.org/content/10.1101/801001v1.full).
 
-* [Single run](#single-run) 
+## Contents
+
+* [Installation](#installation) 
 * [Pipeline](#pipeline)   
   
-# Single run 
-  
-## Installation
+# Installation
 
 Clone a copy of the TRACE repository:  
   
@@ -27,8 +27,17 @@ Build TRACE:
 ```bash
 $ make
 ```
-   
- ## Usage information 
+
+# Demo
+We have provided a demo containing example data for DNase-seq in K562 cells and a initial model to start with for E2F1 binding sites prediction. For simplicity, we randomly selected 500 DNase-seq peaks in chr1.  
+ 
+```bash
+$ ./scripts/init_hmm.py E2F1
+$ ./scripts/dataProcessing.py ./data/E2F1_peak_3.bed ./data/ENCFF826DJP.bam ./data/hg38.fa --prefix ./data/E2F1_
+$ ./TRACE ./data/E2F1_seq.txt ./data/E2F1_slope_2.txt ./data/E2F1_count.txt --initial-model ./data/E2F1_init_model.txt --final-model ./data/E2F1_hmm.txt --peak-file ./data/E2F1_peak_3.bed --motif-file ./data/E2F1_peak_7.bed
+```
+
+# Usage information
 
 To call TFBSs, TRACE requies a file of regions of interest, files of sequence infomation, read counts, and slopes at each position and a file containing intial model.    
     
@@ -98,15 +107,7 @@ If you already have a trained TRACE model and only want to call binding sites ba
 ```bash
 $ ./TRACE --viterbi <seq.file> <count.file> <slope.file> --final-model <final.model.file> --peak-file <peak_3.file> --motif-file <peak_7.file> --thread <N> --max-inter <N>
 ```
- 
-## Demo
-The data folder contains example data for DNase-seq on K562 cell and a initial model to start with for E2F1 binding sites prediction. For simplicity, we randomly selected 500 DNase-seq peaks in chr1.  
- 
-```bash
-$ ./scripts/init_hmm.py E2F1
-$ ./scripts/dataProcessing.py ./data/E2F1_peak_3.bed ./data/ENCFF826DJP.bam ./data/hg38.fa --prefix ./data/E2F1_
-$ ./TRACE ./data/E2F1_seq.txt ./data/E2F1_slope_2.txt ./data/E2F1_count.txt --initial-model ./data/E2F1_init_model.txt --final-model ./data/E2F1_hmm.txt --peak-file ./data/E2F1_peak_3.bed --motif-file ./data/E2F1_peak_7.bed
-```
+
 
 ## Interprete TRACE’s Output
 Our demo shown above will generate three files: `E2F1_peak_7.bed_with_probs.txt`,  `E2F1_hmm.txt_viterbi_results.txt` and a TRACE model file `./data/E2F1_hmm.txt`.   
@@ -115,7 +116,7 @@ Our demo shown above will generate three files: `E2F1_peak_7.bed_with_probs.txt`
   
 - `E2F1_hmm.txt_viterbi_results.txt` contains all positions in the provided peak regions, with their assigned states and probabilities. The fourth colunm is the labeled states, 1-10 represent corresponding motifs in the model, so state 1 will be the sites that you want. State numbers that are are greater than the number of motifs are the peak states that you can ignore. The fifth and sixth colunms are the probabilities of being active or inactive binding sites.
 
-# Pipeline 
+# WDL TRACE Workflow
 This pipeline is designed to chain together all required steps for TRACE in a workflow, wirtten in Workflow Description Language ([WDL](https://github.com/openwdl/wdl)). With required input parameters, this automated pipeline will generate binding sites predictions and TRACE model. If you have multiple TFs of interest, you can simply run the pipeline once, WDL will parallelize their execution. Pipeline installation is also easy as most dependencies are automatically installed.  
  
 System requirements: 
