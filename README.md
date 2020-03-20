@@ -172,14 +172,14 @@ $ caper run TRACE.wdl -i input.json --docker
    
 ### Computational cost
 Running time and memory cost varies, depending on size of training data and size of the model. longer total length of training set and more motifs in model will cost more computational time and memory. Here are a few examples: 
-- training step:
+- training step: 
 Size of training set (kilobases)|Number of states|Computational time|Memory
 -------|-------|-----------|-----------
 180.6 | 34 | 1min | 0.59G
 180.6 | 316 | 9min | 3.5G
 883.1 | 296 | 63min | 15.6 G
 1308.6 | 316 | 90min | 20.2G
-- viterbi step:
+- viterbi step: 
 Size of training set (kilobases)|Number of states|Computational time|Memory
 -------|-------|-----------|-----------
 180.6 | 34 | <1s | 0.5G
