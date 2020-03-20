@@ -61,7 +61,7 @@ $ ./scripts/dataProcessing.py <peak_3.file> <atac-seq.bam.file> <fasta.file> --A
 ```bash
 $ ./scripts/init_hmm.py <TF>
 ```
-It will generate a starting model `<init.model.file>` for TF of your choice.  The default setting will generate a 10-motif model, to change the number of extra motifs, set argument `--motif-number`. All PWMs including root motifs are built-in. If your TF of interested is not in [`./data/motif_cluster_info_2020.txt`](data/motif_cluster_info_2020.txt), that means your TF of interested was not included the JASPAR cluster. You will need to use your own motif file in tranfac format as in [`./data/JASPAR2020_CORE_vertebrates_non-redundant_pfms_transfac.txt`](data/JASPAR2020_CORE_vertebrates_non-redundant_pfms_transfac.txt) and set `--motif-number` to 1.         
+It will generate a starting model `<init.model.file>` for TF of your choice.  The default setting will generate a 10-motif model, to change the number of extra motifs, set argument `--motif-number`. All PWMs including root motifs are built-in. If your TF of interested is not in [`./data/motif_cluster_info_2020.txt`](data/motif_cluster_info_2020.txt), that means it was not included the JASPAR cluster. You will need to use your own motif file in tranfac format as in [`./data/JASPAR2020_CORE_vertebrates_non-redundant_pfms_transfac.txt`](data/JASPAR2020_CORE_vertebrates_non-redundant_pfms_transfac.txt) and set `--motif-number` to 1.         
   
 ```bash
 $ ./scripts/init_hmm.py <TF> --motif-number <N> --motif-info ../data/motif_cluster_info_2020.txt --motif-transfec ./data/JASPAR2020_CORE_vertebrates_non-redundant_pfms_transfac.txt
@@ -70,7 +70,7 @@ $ ./scripts/init_hmm.py <TF> --motif-number <N> --motif-info ../data/motif_clust
 For original Boyle method which doesn't include motif information, there is an initial model available and universal for all TFs in `./data/Boyle_model.txt`.
   
 ### Perform footprinting by TRACE
-Besides  `<seq.file> <count.file> <slope.file> <init.model.file>`,  the main TRACE program also requires a file `<peak_3.file>` containing regions of interest. Please make sure they are the same regions that were used in data processing.
+Besides  `<seq.file> <count.file> <slope.file> <init.model.file>`,  the main TRACE program also requires a file `<peak_3.file>` containing regions of interest in [BED3](https://genome.ucsc.edu/FAQ/FAQformat.html#format1) format. Please make sure they are the same regions that were used in data processing.
  
  3. Perform footprinting:   
    
@@ -81,7 +81,7 @@ $ ./TRACE <seq.file> <count.file> <slope.file> --initial-model <init.model.file>
    `<seq.file> <count.file> <slope.file>` are three required input files and they need to be in correct order. Training step requires an initial model file `<init.model.file>` and will generate the final model `<final.model.file>`. If `--peak-file` is not set, the program will only learn the model but will not generate binding sites predictions. if `<peak_3.file>` is provided, it will generate an output file that contains all binding sites predicton from provided regions.       
  
 If you want to apply TRACE like a motif-centric approach, set argument `--motif-file` and provide `<peak_7.file>`.   
-- `<peak_7.file>`: A file containing regions of interest and motifs sites inside these regions. The first 3 columns and next 3 columns are chromosome number, start position and end position of regions of interest and motif site inside that region, the last column is number of bases overlapping between motif sites and peaks, which can be easily obtained by bedtools intersect.   
+- [`<peak_7.file>`](data/E2F1_peak_7.bed): A file containing regions of interest and motifs sites inside these regions. The first 3 columns and next 3 columns are chromosome number, start position and end position of regions of interest and motif site inside that region, the last column is number of bases overlapping between motif sites and peaks, which can be easily obtained by bedtools intersect.   
  
 TRACE will then generate a file containing all motif sites included in `<peak_7.file>` and their marginal posterior probabilities of being active binding sites and inactive binding sites.  
   
@@ -158,10 +158,10 @@ Parameter|Default|Description
 `TRACE.seq_file` | N/A | Genome sequence file in FASTA format
 `TRACE.bam_file` | N/A | DNase-seq or ATAC-seq bam file
 `TRACE.bam_index_file` | N/A | Index file for bam file
-`TRACE.peak_file` | N/A | File of open chromatin regions, format as [`<peak_3.file>`](data/E2F1_peak_3.bed) shown [below](#perform-footprinting-by-trace)
-`TRACE.peak_motif_file` | N/A | File of open chromatin regions and motif sites within each peak, format as [`<peak_7.file>`](data/E2F1_peak_7.bed) shown [below](#perform-footprinting-by-trace)
+`TRACE.peak_file` | N/A | File of open chromatin regions, format as [`<peak_3.file>`](data/E2F1_peak_3.bed) shown [above](#perform-footprinting-by-trace)
+`TRACE.peak_motif_file` | N/A | File of open chromatin regions and motif sites within each peak, format as [`<peak_7.file>`](data/E2F1_peak_7.bed) shown [above](#perform-footprinting-by-trace)
 `TRACE.prefix` | N/A | Index file for bam file
-`TRACE.motif_list` | N/A | List of TFs that you want to predict binding sites for. Must be in [this list](data/motif_cluster_info_2020.txt), otherwise follow [Step by step](#step-by-step) 
+`TRACE.motif_list` | N/A | List of TFs that you want to predict binding sites for. Must be in [this list](data/motif_cluster_info_2020.txt), otherwise follow [Single run](#single-run) 
 `TRACE.skipTrain` | false | Set to `ture` if you want to skip training step and only run viterbi step with trained models
 `TRACE.model_file_list` | N/A | List of final models for each TF in motif_list, must set skipTrain to true
 
@@ -170,7 +170,7 @@ Run WDL workflow using `input.json`, Cromwell, and Docker backend using Caper.
 $ caper run TRACE.wdl -i input.json --docker
 ```  
    
-### Computational cost
+## Computational cost
 Running time and memory cost varies, depending on size of training data and size of the model. longer total length of training set and more motifs in model will cost more computational time and memory. Here are a few examples:  
 - training step: 
  
