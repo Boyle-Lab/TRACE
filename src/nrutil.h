@@ -1,10 +1,13 @@
 /*
-**      File:   nrutil.h
-**      Purpose: Memory allocation routines borrowed from the
-**              book "Numerical Recipes" by Press, Flannery, Teukolsky,
-**              and Vetterling.
-**              state sequence and probablity of observing a sequence
-**              given the model.
+**  File:   nrutil.c
+**  codes were borrowed and modified from Kanungo's
+**  original HMM program.
+**  Tapas Kanungo, "UMDHMM: Hidden Markov Model Toolkit," in "Extended Finite State Models of Language," A. Kornai (editor), Cambridge University Press, 1999. http://www.kanungo.com/software/software.html.
+**  Purpose: Memory allocation routines borrowed from the
+**    book "Numerical Recipes" by Press, Flannery, Teukolsky,
+**    and Vetterling.
+**   state sequence and probablity of observing a sequence
+**   given the model.
 **
 */
 

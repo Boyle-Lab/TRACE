@@ -5,6 +5,7 @@
  *
  * The HMM structure and some codes are borrowed and modified from Kanungo's
  * original HMM program.
+ * Tapas Kanungo, "UMDHMM: Hidden Markov Model Toolkit," in "Extended Finite State Models of Language," A. Kornai (editor), Cambridge University Press, 1999. http://www.kanungo.com/software/software.html.
  *
  */
 

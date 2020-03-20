@@ -6,7 +6,8 @@
  *
  *  The HMM structure and some codes are borrowed and modified from Kanungo's
  *  original HMM program.
- *  the matrix functions were borrowed and slightly modified from GSL library
+ *  Tapas Kanungo, "UMDHMM: Hidden Markov Model Toolkit," in "Extended Finite State Models of Language," A. Kornai (editor), Cambridge University Press, 1999. http://www.kanungo.com/software/software.html.
+ *  The matrix functions were borrowed and slightly modified from GSL library (https://www.gnu.org/software/gsl/doc/html/index.html)
  *
  */
 

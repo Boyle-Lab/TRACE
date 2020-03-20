@@ -3,9 +3,6 @@
  *
  *  math functions and matrix processing fnuctions
  *
- *  The HMM structure and some codes are borrowed and modified from Kanungo's
- *  original HMM program.
- *
  */
 
 #include <math.h>
