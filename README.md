@@ -39,8 +39,7 @@ To call TFBSs, TRACE requies a file of regions of interest, files of sequence in
     
 ### Generate required files for TRACE 
 To generate required files in correct format, you can use our python script dataProcessing.py and init_hmm.py.      
-  
-  1. Generat data files using our python script:    
+
 ```bash
 $ ./scripts/dataProcessing.py <peak_3.file> <bam.file> <fasta.file> 
 ```
@@ -61,7 +60,7 @@ The default setting will use DNase-seq based protocol. To use ATAC-seq data inst
 $ ./scripts/dataProcessing.py <peak_3.file> <atac-seq.bam.file> <fasta.file> --ATAC-seq pe --prefix ./out/example
 ```
   
-  2. Build an initial TRACE model: 
+### Build an initial TRACE model
   
 ```bash
 $ ./scripts/init_hmm.py <TF>
@@ -74,10 +73,8 @@ $ ./scripts/init_hmm.py <TF> --motif-number <N> --motif-info ../data/motif_clust
  
 For original Boyle method which doesn't include motif information, there is an initial model available and universal for all TFs in `./data/Boyle_model.txt`.
   
-### Perform footprinting by TRACE
-Besides  `<seq.file> <count.file> <slope.file> <init.model.file>`,  the main TRACE program also requires a file `<peak_3.file>` containing regions of interest in [BED3](https://genome.ucsc.edu/FAQ/FAQformat.html#format1) format. Please make sure they are the same regions that were used in data processing.
- 
- 3. Perform footprinting:   
+### Perform footprinting with TRACE
+In addition to  `<seq.file> <count.file> <slope.file> <init.model.file>`,  the main TRACE program also requires a file `<peak_3.file>` containing regions of interest in [BED3](https://genome.ucsc.edu/FAQ/FAQformat.html#format1) format. Please make sure they are the same regions that were used in data processing.
    
 ```bash
 $ ./TRACE <seq.file> <count.file> <slope.file> --initial-model <init.model.file> --final-model <final.model.file> --peak-file <peak_3.file> 
@@ -98,14 +95,15 @@ $ ./TRACE <seq.file> <count.file> <slope.file> --initial-model <init.model.file>
   
 If you already have a trained TRACE model and only want to call binding sites based on an exsiting model, you can run decoding step directly by setting `--viterbi`. 
  
-4. Decoding: 
-  
+### Decoding: 
+To perform the decoding step with the trained trace model, we use the viterbi option of TRACE. Once you have a trained model, this is the only step that needs to be performed on new open chromatin data.
+ 
 ```bash
 $ ./TRACE --viterbi <seq.file> <count.file> <slope.file> --final-model <final.model.file> --peak-file <peak_3.file> --motif-file <peak_7.file> --thread <N> --max-inter <N>
 ```
 
 
-### Interprete TRACE’s Output
+### Interprete TRACE Output
 Our demo shown above will generate three files: `E2F1_peak_7.bed_with_probs.txt`,  `E2F1_hmm.txt_viterbi_results.txt` and a TRACE model file `./data/E2F1_hmm.txt`.   
   
 - `E2F1_peak_7.bed_with_probs.txt` contains all provided motif sites followed with states probability for all motifs included in the model as well as generic footprints. You can only use the first two scores (fourth and fifth colunm) which are probabilities of being actve binding sites or inactive binding sites for the first motif (your TF of interest). For assessment, we recommend using the value of fourth colunm minus fifth colunm.  
@@ -170,7 +168,7 @@ $ caper run TRACE.wdl -i input.json --docker
 ```  
    
 ## Computational run times
-Running time and memory cost varies, depending on size of training data and size of the model. longer total length of training set and more motifs in model will cost more computational time and memory. Here are a few examples:  
+Running time and memory cost varies, depending on size of training data and size of the model. Longer total length of training set and more motifs in model will cost more computational time and memory. Here are a few examples:  
 - training step: 
  
 Size of training set (kilobases)|Number of states|Computational time|Memory
