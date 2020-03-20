@@ -1,7 +1,7 @@
 /*
  *  File: logmath.c
  *
- *  math functions and matrix processing fnuctions
+ *  math functions and matrix processing functions
  *
  */
 
