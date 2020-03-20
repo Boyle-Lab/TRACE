@@ -3,10 +3,6 @@ Transcription Factor Footprinting Using DNase I Hypersensitivity Data and DNA Se
 
 Read the TRACE manuscript on [bioRxiv](https://www.biorxiv.org/content/10.1101/801001v1.full).
 
-## Contents
-
-* [Installation](#installation) 
-* [Pipeline](#pipeline)   
   
 # Installation
 
