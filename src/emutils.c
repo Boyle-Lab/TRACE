@@ -431,12 +431,13 @@ void EmissionMatrix_mv_reduce(HMM* phmm, gsl_matrix * obs_matrix, int P, int *pe
         for (i = 0; i < phmm->N; i++){
           /* If thresholds were provided and the PWM score for that motif is
            * smaller than that, the log emission probability will be -INFINITY */
-          if(phmm->thresholds[stateList[i]] != -INFINITY && i < (phmm->N - phmm->extraState) &&
-             gsl_vector_get(data_vector, stateList[i]) < phmm->thresholds[stateList[i]]){
-            tmp = -INFINITY;
-          }
+          //if(phmm->thresholds[stateList[i]] != -INFINITY && i < (phmm->N - phmm->extraState) &&
+           //  gsl_vector_get(data_vector, stateList[i]) < phmm->thresholds[stateList[i]]){
+           // tmp = -INFINITY;
+          //}
           /* If no data needs to be deleted, calculate log pdf directly */
-          else if (gsl_vector_get(deleted_vector[i], 0) == FULL) {
+          //else
+            if (gsl_vector_get(deleted_vector[i], 0) == FULL) {
             gsl_ran_multivariate_gaussian_log_pdf(data_vector, mu_vector[i],
                     cov_matrix_tmp[i], &tmp, workspace);
           }

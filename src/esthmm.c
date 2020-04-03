@@ -395,9 +395,7 @@ int main (int argc, char **argv)
   gsl_vector_free(slop_vector);
   gsl_matrix_set_row(obs_matrix, hmm.M+1, counts_vector);
   gsl_vector_free(counts_vector);
-  if (hmm.M > 0){
-    gsl_matrix_free(pwm_matrix);
-  }
+  
   gsl_vector_free(tmp_vector);
 
   hmm.thresholds = (double *) dvector(hmm.M);
@@ -444,6 +442,14 @@ int main (int argc, char **argv)
     PrintHMM(fp, &hmm);
     fclose(fp);
   }
+  else {
+    if (hmm.model == 0) EmissionMatrix(&hmm, obs_matrix, P, peakPos, emission_matrix, T);
+    if (hmm.model == 1) EmissionMatrix_mv(&hmm, obs_matrix, P, peakPos, emission_matrix, T);
+    if (hmm.model == 2) EmissionMatrix_mv_reduce(&hmm, obs_matrix, P, peakPos, emission_matrix, T);
+    Forward_P(&hmm, T, alpha, logprobf, P, peakPos, emission_matrix);
+    Backward_P(&hmm, T, beta, P, peakPos, emission_matrix);
+    ComputeGamma_P(&hmm, T, alpha, beta, gamma);
+  }
   if (pflg || fflg){
   /*                     */
   /* Start decoding step */
@@ -456,7 +462,10 @@ int main (int argc, char **argv)
     double *logproba = dvector(P);
     double  **posterior = dmatrix(T, hmm.N);
     Viterbi(&hmm, T, g, alpha, beta, gamma, logprobf, delta, psi, q,
-            vprob, logproba, posterior, P, peakPos, emission_matrix);
+            vprob, logproba, posterior, P, peakPos, emission_matrix, pwm_matrix);
+    if (hmm.M > 0){
+      gsl_matrix_free(pwm_matrix);
+    }
     int TF_end;
     if (fflg){
       fp = fopen(motiffile, "r");
@@ -473,6 +482,7 @@ int main (int argc, char **argv)
       fclose(fp1);
     }
   }
+  
 }
 
 

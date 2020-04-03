@@ -12,6 +12,7 @@
 #include <math.h>
 #include "hmm.h"
 #include "nrutil.h"
+#include "logmath.h"
 #include <omp.h>
 #include <gsl/gsl_math.h>
 #include <gsl/gsl_errno.h>
@@ -21,13 +22,14 @@
 #include <gsl/gsl_linalg.h>
 
 #define VITHUGE  100000000000.0
-
+#define VITTINY  -1000000000000.0
+                 
 /* Get the hidden states sequence using Viterbi algorithm */
-void Viterbi(HMM *phmm, int T, double *g, double  **alpha, double	**beta, 
+void Viterbi(HMM *phmm, int T, double *g, double **alpha, double **beta,
              double	**gamma, double  *logprobf, double **delta, 
              int **psi, int *q, double *vprob, double *pprob, 
              double **posterior, int P, int *peakPos,
-             gsl_matrix * emission_matrix)
+             gsl_matrix *emission_matrix, gsl_matrix *pwm_matrix)
 {
   int thread_id, nloops;
   int  i, j, k, m, x, y, TF;   /* state indices */
@@ -35,20 +37,24 @@ void Viterbi(HMM *phmm, int T, double *g, double  **alpha, double	**beta,
   int  maxvalind;
   int  l = 0;
   int *TFlist, *lengthList;
+  int *motifList, *indexList;
   int nonInf;
   double  maxval, val;
   double plogprobinit, plogprobfinal;
   double temp;
   TF = 0;
   TFlist = ivector(phmm->M * (phmm->inactive+1));
-    for (j = 0; j < phmm->M; j++){
+  indexList = ivector(phmm->M * (phmm->inactive+1));
+  for (j = 0; j < phmm->M; j++){
+    TF += phmm->D[j];
+    TFlist[j * (phmm->inactive+1)] = TF - 1;
+    indexList[j * (phmm->inactive+1)] = j;
+    if (phmm->inactive == 1){
       TF += phmm->D[j];
-      TFlist[j * (phmm->inactive+1)] = TF - 1;
-      if (phmm->inactive == 1){
-        TF += phmm->D[j];
-        TFlist[j * (phmm->inactive+1) + 1] = TF - 1;
-      } 
+      TFlist[j * (phmm->inactive+1) + 1] = TF - 1;
+      indexList[j * (phmm->inactive+1) + 1] = j;
     }
+  }
   lengthList = ivector(phmm->M * (phmm->inactive+1));
   if (phmm->inactive == 1){
     for (j = 0; j < phmm->M; j++){
@@ -57,7 +63,24 @@ void Viterbi(HMM *phmm, int T, double *g, double  **alpha, double	**beta,
     }
   }
   else lengthList = phmm->D;
-
+  
+  motifList = ivector(phmm->N);
+  TF = 0;
+  for (j = 0; j < phmm->M; j++) {
+    for (i = TF; i < TF + phmm->D[j]; i++) {
+      motifList[i] = (phmm->inactive+1)*j;
+    }
+    TF += phmm->D[j];
+    if (phmm->inactive == 1) {
+      for (i = TF; i < TF + phmm->D[j]; i++) {
+        motifList[i] = (phmm->inactive+1)*j+1;
+      }
+      TF += phmm->D[j];
+    }
+  }
+  for (i = TF; i < TF + phmm->extraState; i++) {
+    motifList[i] = i;
+  }
 #pragma omp parallel num_threads(THREAD_NUM) \
   private(thread_id, nloops, val, maxval, maxvalind, t, j, i, temp, x, y, nonInf)
   {
@@ -69,18 +92,18 @@ void Viterbi(HMM *phmm, int T, double *g, double  **alpha, double	**beta,
     for (i = 0; i < phmm->N; i++) {
       delta[peakPos[k]-1][i] = log(phmm->pi[i]) + 
                                gsl_matrix_get(emission_matrix, i, peakPos[k]-1);
-      psi[peakPos[k]-1][i] = 0;
+      psi[peakPos[k]-1][i] = phmm->N;
       posterior[peakPos[k]-1][i] = alpha[i][peakPos[k]-1] + 
                                    beta[i][peakPos[k]-1] - logprobf[k];
     }
     for (x = 0; x < phmm->M * (phmm->inactive+1); x++){
-        posterior[peakPos[k]-1][TFlist[x]] = -100000000000.0;
+        posterior[peakPos[k]-1][TFlist[x]] = VITTINY;
     }  
     /* 2. Recursion */
     for (t = peakPos[k]; t < peakPos[k+1] - 1; t++) {
       for (j = 0; j < phmm->N; j++) {
-        maxval = -VITHUGE;
-        maxvalind = 1;
+        maxval = VITTINY;
+        maxvalind = phmm->N-1;
         for (i = 0; i < phmm->N; i++) {
           val = delta[t-1][i] + gsl_matrix_get(phmm->log_A_matrix, i, j);
           if (val > maxval) {
@@ -88,16 +111,27 @@ void Viterbi(HMM *phmm, int T, double *g, double  **alpha, double	**beta,
             maxvalind = i;
           }
         }
-        delta[t][j] = maxval + gsl_matrix_get(emission_matrix, j, t); 
+        temp = gsl_matrix_get(emission_matrix, j, t);
+        if (j < TF){
+          if (gsl_matrix_get(pwm_matrix,indexList[motifList[j]],t) < (phmm->thresholds[indexList[motifList[j]]]-0.1)){
+            temp = VITTINY;
+              //(phmm->thresholds[(int)floor((double)motifList[j]/(phmm->inactive+1))]
+          }
+        }
+        delta[t][j] = maxval + temp;
         psi[t][j] = maxvalind;
         
         posterior[t][j] = alpha[j][t] + beta[j][t] - logprobf[k];
-        
+        /* treat t as the last position of a motif */
         for (x = 0; x < phmm->M * (phmm->inactive+1); x++){
           if (j == TFlist[x]){
             if (t <= (peakPos[k] + lengthList[x])){
-              posterior[t][j] = -50000000000.0;
+              posterior[t][j] = log(0.0);
             }
+            /* check pwm threshold*/
+            //else if (gsl_matrix_get(pwm_matrix,indexList[motifList[j]],t) < (phmm->thresholds[indexList[motifList[j]]]-0.1)){
+              //for (y = t - lengthList[x] + 1; y <= t; y++) posterior[y][j] = log(0.0);
+            //}
             else {
               temp=0.0;
               nonInf = 0;
@@ -107,11 +141,10 @@ void Viterbi(HMM *phmm, int T, double *g, double  **alpha, double	**beta,
                   nonInf += 1;  
                 }
               }
+              if (nonInf == 0) temp = VITTINY;
               for (y = t - lengthList[x] + 1; y <= t; y++) posterior[y][j] = temp;
-                if (nonInf== 0){
-                  for (y = t - lengthList[x] + 1; y <= t; y++) posterior[y][j] = -5000000000000.0;
-                }
-              }
+            }
+              
             break;
           }
         }
@@ -136,7 +169,6 @@ void Viterbi(HMM *phmm, int T, double *g, double  **alpha, double	**beta,
       g[t] = gamma[q[t]][t];
     }
   }
-  thread_id = omp_get_thread_num();
   }
 
 }

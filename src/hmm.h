@@ -88,11 +88,11 @@ void getRho(HMM *phmm);
 void FreeHMM(HMM *phmm);
                   
 /* viterbi.c */
-void Viterbi(HMM *phmm, int T, double *g, double  **alpha, double	**beta, 
+void Viterbi(HMM *phmm, int T, double *g, double **alpha, double **beta,
              double	**gamma, double  *logprobf, double **delta, 
              int **psi, int *q, double *vprob, double *pprob, 
              double **posterior, int P, int *peakPos,
-             gsl_matrix * emission_matrix);
+             gsl_matrix *emission_matrix, gsl_matrix *pwm_matrix);
 int getPosterior_motif(FILE *fpIn, FILE *fpOut, int T, int *peakPos,
                        double **posterior, HMM *phmm, int *q, double *vprob);
 void getPosterior_all(FILE *fpIn, FILE *fpOut, int T, int *q,
