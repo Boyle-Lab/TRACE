@@ -395,7 +395,6 @@ int main (int argc, char **argv)
   gsl_vector_free(slop_vector);
   gsl_matrix_set_row(obs_matrix, hmm.M+1, counts_vector);
   gsl_vector_free(counts_vector);
-  
   gsl_vector_free(tmp_vector);
 
   hmm.thresholds = (double *) dvector(hmm.M);
@@ -463,9 +462,6 @@ int main (int argc, char **argv)
     double  **posterior = dmatrix(T, hmm.N);
     Viterbi(&hmm, T, g, alpha, beta, gamma, logprobf, delta, psi, q,
             vprob, logproba, posterior, P, peakPos, emission_matrix, pwm_matrix);
-    if (hmm.M > 0){
-      gsl_matrix_free(pwm_matrix);
-    }
     int TF_end;
     if (fflg){
       fp = fopen(motiffile, "r");
@@ -481,8 +477,22 @@ int main (int argc, char **argv)
       fclose(fp);
       fclose(fp1);
     }
+    free_ivector(q, T);
+    free_imatrix(psi, T, hmm.N);
+    free_dvector(vprob, T);
+    free_dvector(logproba, P);
+    free_dmatrix(delta, T, hmm.N);
+    free_dmatrix(posterior, T, hmm.N);
   }
-  
+  FreeHMM(&hmm);
+  free_dvector(logprobf, P);
+  gsl_matrix_free(emission_matrix);
+  if (hmm.M > 0){
+    gsl_matrix_free(pwm_matrix);
+  }
+  free_dmatrix(gamma, hmm.N, T);
+  free_dmatrix(alpha, hmm.N, T);
+  free_dmatrix(beta, hmm.N, T);
 }
 
 
