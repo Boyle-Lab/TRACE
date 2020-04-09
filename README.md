@@ -187,5 +187,6 @@ Size of training set (kilobases)|Number of states|Computational time|Memory
 180.6 | 316 | 7s | 2.9G
 883.1 | 296 | 29s | 12.8G
 1308.6 | 316 | 39s | 16.8G
-
+6507.2 | 326 | 215s | 120G
+                                                          
 - CPU: Intel Xeon E5-2696 v4 @ 3.7GHz
