@@ -104,7 +104,7 @@ $ ./TRACE --viterbi <seq.file> <count.file> <slope.file> --final-model <final.mo
 ```
 
 
-### Interprete TRACE Output
+### Interpret TRACE Output
 Our demo shown above will generate three files: `E2F1_peak_7.bed_with_probs.txt`,  `E2F1_hmm.txt_viterbi_results.txt` and a TRACE model file `./data/E2F1_hmm.txt`.   
   
 - `E2F1_peak_7.bed_with_probs.txt` contains all provided motif sites in `./data/E2F1_peak_7.bed` followed with columns of states probability for all motifs included in the model as well as generic footprints. You can only use the first two scores (fourth and fifth column) which are probabilities of being actve binding sites or inactive binding sites for the first motif (your TF of interest). For assessment, we recommend using the value of bound states minus unbound state.  
