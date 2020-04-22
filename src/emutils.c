@@ -75,10 +75,12 @@ void CalMotifScore_P(HMM *phmm, gsl_matrix * S, int *O1, int P, int *peakPos)
       i = 1;
       tempF = tempR = 0.0;
       for (j = 1; j <= D; j++){
-        tempF += log_2(phmm->pwm[m][j-1][O1[t-i+j]]);
-        tempR += log_2(phmm->pwm[m][D-j][3-O1[t-i+j]]);
-        tempF -= log_2(phmm->bg[O1[t-i+j]]);
-        tempR -= log_2(phmm->bg[3-O1[t-i+j]]);
+        if (O1[t-i+j] != -1){
+          tempF += log_2(phmm->pwm[m][j-1][O1[t-i+j]]);
+          tempR += log_2(phmm->pwm[m][D-j][3-O1[t-i+j]]);
+          tempF -= log_2(phmm->bg[O1[t-i+j]]);
+          tempR -= log_2(phmm->bg[3-O1[t-i+j]]);
+        }
       }
       tmpL=MAX(tmpL, MAX(tempF, tempR));
 
@@ -86,10 +88,12 @@ void CalMotifScore_P(HMM *phmm, gsl_matrix * S, int *O1, int P, int *peakPos)
       i = 1;
       tempF = tempR = 0.0;
       for (j = 1; j <= D; j++){
-        tempF += log_2(phmm->pwm[m][j-1][O1[t-i+j]]);
-        tempR += log_2(phmm->pwm[m][D-j][3-O1[t-i+j]]);
-        tempF -= log_2(phmm->bg[O1[t-i+j]]);
-        tempR -= log_2(phmm->bg[3-O1[t-i+j]]);
+        if (O1[t-i+j] != -1){
+          tempF += log_2(phmm->pwm[m][j-1][O1[t-i+j]]);
+          tempR += log_2(phmm->pwm[m][D-j][3-O1[t-i+j]]);
+          tempF -= log_2(phmm->bg[O1[t-i+j]]);
+          tempR -= log_2(phmm->bg[3-O1[t-i+j]]);
+        }
       }
       tmpR=MAX(tmpR, MAX(tempF, tempR));
 
@@ -98,10 +102,12 @@ void CalMotifScore_P(HMM *phmm, gsl_matrix * S, int *O1, int P, int *peakPos)
       for (i = 1; i <= D; i++){
         tempF = tempR = 0.0;
         for (j = 1; j <= D; j++){
-          tempF += log_2(phmm->pwm[m][j-1][O1[t-i+j]]);
-          tempR += log_2(phmm->pwm[m][D-j][3-O1[t-i+j]]);
-          tempF -= log_2(phmm->bg[O1[t-i+j]]);
-          tempR -= log_2(phmm->bg[3-O1[t-i+j]]);
+          if (O1[t-i+j] != -1){
+            tempF += log_2(phmm->pwm[m][j-1][O1[t-i+j]]);
+            tempR += log_2(phmm->pwm[m][D-j][3-O1[t-i+j]]);
+            tempF -= log_2(phmm->bg[O1[t-i+j]]);
+            tempR -= log_2(phmm->bg[3-O1[t-i+j]]);
+          }
         }
         gsl_vector_set(tempList, i-1, MAX(tempF, tempR));
       }
@@ -116,10 +122,12 @@ void CalMotifScore_P(HMM *phmm, gsl_matrix * S, int *O1, int P, int *peakPos)
           tempF = tempR = 0.0;
           i = 1;
           for (j = 1; j <= D; j++){
-            tempF += log_2(phmm->pwm[m][j-1][O1[t-i+j]]);
-            tempR += log_2(phmm->pwm[m][D-j][3-O1[t-i+j]]);
-            tempF -= log_2(phmm->bg[O1[t-i+j]]);
-            tempR -= log_2(phmm->bg[3-O1[t-i+j]]);
+            if (O1[t-i+j] != -1){
+              tempF += log_2(phmm->pwm[m][j-1][O1[t-i+j]]);
+              tempR += log_2(phmm->pwm[m][D-j][3-O1[t-i+j]]);
+              tempF -= log_2(phmm->bg[O1[t-i+j]]);
+              tempR -= log_2(phmm->bg[3-O1[t-i+j]]);
+            }
           }
           for (n = D-1; n > 0; n--){
             gsl_vector_swap_elements(tempList, n-1, n);

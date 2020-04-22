@@ -25,13 +25,21 @@
 #include "logmath.h"
 #include <omp.h>
 
+/* Read the sequence file to get length T */
+void ReadLength(FILE *fp, int *pT)
+{
+  if(fscanf(fp, "T= %d\n", pT) == EOF){
+    fprintf(stderr, "Error: model file error \n");
+    exit (1);
+  }
+}
+
 /* Read the sequence file to get length T, GC content, sequence O,
  * number of peaks P and peak start position peakPos */
-void ReadSequence(FILE *fp, int *pT, double *GC, int **pO, int *pP, int **peakPos)
+void ReadSequence(FILE *fp, int T, double *GC, int *O, int *pP, int **peakPos)
 {
-  int *O, unused_num, *peaks;
+  int unused_num, *peaks;
   int i;
-  unused_num = fscanf(fp, "T= %d\n", pT);
   unused_num = fscanf(fp, "GC: ");
   for (i = 0; i < 4; i++) {
     if(fscanf(fp, "%lf\t", &GC[i]) == EOF){
@@ -40,15 +48,13 @@ void ReadSequence(FILE *fp, int *pT, double *GC, int **pO, int *pP, int **peakPo
     }
   }
   unused_num = fscanf(fp,"\n");
-  O = ivector(*pT);
-  for (i = 0; i < *pT; i++) {
+  for (i = 0; i < T; i++) {
     if(fscanf(fp,"%d", &O[i]) == EOF){
       fprintf(stderr, "Error: sequence file error \n");
       exit (1);
     }
   }
   unused_num = fscanf(fp,"\n");
-  *pO = O;
   unused_num = fscanf(fp, "P= %d\n", pP);
   peaks = ivector(*pP + 1);
   for (i=0; i < *pP + 1; i++){

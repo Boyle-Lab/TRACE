@@ -72,7 +72,8 @@ void EmissionMatrix_mv_reduce(HMM* phmm, gsl_matrix * obs_matrix, int P,
 void covarMatrix_GSL(HMM *phmm, int state, gsl_matrix * cov_matrix);
 
 /* fileutils.c */
-void ReadSequence(FILE *fp, int *pT, double *GC, int **pO, int *pP,
+void ReadLength(FILE *fp, int *pT);
+void ReadSequence(FILE *fp, int T, double *GC, int *O, int *pP,
                   int **peakPos);
 void ReadTagFile(FILE *fp, int T, gsl_vector * data_vector, double adjust);
 void PrintSequenceProb(FILE *fp, int T, int *O, double *vprob, double *g, 

@@ -218,7 +218,9 @@ int main (int argc, char **argv)
   checkFile(seqfile, "r");
   fp = fopen(seqfile, "r");
   GC = dvector(4);
-  ReadSequence(fp, &T, GC, &O1, &P, &peakPos);
+  ReadLength(fp, &T);
+  O1 = ivector(T);
+  ReadSequence(fp, T, GC, O1, &P, &peakPos);
   fclose(fp);
 
   /* Read the slope file */
@@ -311,6 +313,7 @@ int main (int argc, char **argv)
     pwm_matrix = gsl_matrix_alloc(hmm.M, T);
     CalMotifScore_P(&hmm, pwm_matrix, O1, P, peakPos);
   }
+  free_ivector(O1, T);
   gsl_vector * tmp_vector = gsl_vector_alloc(T);
   if (!ifSkip){
   /* Set the initial mean parameters of PWM score feature based on max and min of actual calculation */
@@ -391,11 +394,11 @@ int main (int argc, char **argv)
     gsl_matrix_get_row(tmp_vector, pwm_matrix, i);
     gsl_matrix_set_row(obs_matrix, i, tmp_vector);
   }
+  gsl_vector_free(tmp_vector);
   gsl_matrix_set_row(obs_matrix, hmm.M, slop_vector);
   gsl_vector_free(slop_vector);
   gsl_matrix_set_row(obs_matrix, hmm.M+1, counts_vector);
   gsl_vector_free(counts_vector);
-  gsl_vector_free(tmp_vector);
 
   hmm.thresholds = (double *) dvector(hmm.M);
   /* with a given threshold file, TRACE can limit the state labeling to the
@@ -462,6 +465,9 @@ int main (int argc, char **argv)
     double  **posterior = dmatrix(T, hmm.N);
     Viterbi(&hmm, T, g, alpha, beta, gamma, logprobf, delta, psi, q,
             vprob, logproba, posterior, P, peakPos, emission_matrix, pwm_matrix);
+    free_dmatrix(delta, T, hmm.N);
+    free_dvector(logproba, P);
+    free_ivector(g, T);
     int TF_end;
     if (fflg){
       fp = fopen(motiffile, "r");
@@ -480,8 +486,6 @@ int main (int argc, char **argv)
     free_ivector(q, T);
     free_imatrix(psi, T, hmm.N);
     free_dvector(vprob, T);
-    free_dvector(logproba, P);
-    free_dmatrix(delta, T, hmm.N);
     free_dmatrix(posterior, T, hmm.N);
   }
   FreeHMM(&hmm);

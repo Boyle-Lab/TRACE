@@ -179,7 +179,7 @@ void Viterbi(HMM *phmm, int T, double *g, double **alpha, double **beta,
 int getPosterior_motif(FILE *fpIn, FILE *fpOut, int T, int *peakPos,
                        double **posterior, HMM *phmm, int *q, double *vprob)
 {
-  int *O, *peaks, start, end, TFstart, TFend, length, init, t, j, m, n;
+  int start, end, TFstart, TFend, length, init, t, j, m, n;
   int old_start = -1;
   int i;
   int TF, maxTF, indexTF_end, state, pos, motif;
@@ -296,7 +296,7 @@ int getPosterior_motif(FILE *fpIn, FILE *fpOut, int T, int *peakPos,
 void getPosterior_all(FILE *fpIn, FILE *fpOut, int T, int *q,
                          int *peakPos, double **posterior, HMM *phmm)
 {
-  int *O, *peaks, start, end, TFstart, TFend, length, init, t, i, j;
+  int start, end, TFstart, TFend, length, init, t, i, j;
   int stateStart, stateEnd, dataStart, dataEnd, stateLength;
   int old_start = -1;
   int TF, maxTF;
