@@ -111,8 +111,8 @@ Our demo shown above will generate three files: `E2F1_peak_7.bed_with_probs.txt`
    
 - `E2F1_hmm.txt_viterbi_results.txt` contains all positions in the provided peak regions `./data/E2F1_peak_3.bed`, with their assigned states and probabilities. The fourth colunm is the labeled states, For a 10-motif model, 1-20 represent corresponding motifs 1-10 in the model, so state 1 and 2 will be the sites that you want. First two states represent bound and unbound binding sites, depending on their parameters. Larger state numbers are the peak states that you can ignore. The fifth and sixth colunms are the probabilities of being active or inactive binding sites.   
    
-`./data/model_file` includes all models trained from K562.  
-`./data/prediction` includes predictions using K562 models. Only binding sites states were included here, and we labeled state 1 and 2 as state_bound or state_unbound. The fifth column is the likelihood ratio of being active binding sites.   
+`./data/model_file/` includes models trained from K562 for TFs from JASPAR CORE vertebrates non-redundant set . They can be applied to all other cell lines. 
+`./data/prediction/` includes predictions using K562 models. Only binding sites states were included here, and we labeled state 1 and 2 as state_bound or state_unbound. The fifth column is the likelihood ratio of being active binding sites.   
       
 ## WDL TRACE Workflow
 This pipeline is designed to chain together all required steps for TRACE in a workflow, wirtten in Workflow Description Language ([WDL](https://github.com/openwdl/wdl)). With required input parameters, this automated pipeline will generate binding sites predictions and TRACE model. If you have multiple TFs of interest, you can simply run the pipeline once, WDL will parallelize their execution. Pipeline installation is also easy as most dependencies are automatically installed.  
