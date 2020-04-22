@@ -107,10 +107,13 @@ $ ./TRACE --viterbi <seq.file> <count.file> <slope.file> --final-model <final.mo
 ### Interprete TRACE Output
 Our demo shown above will generate three files: `E2F1_peak_7.bed_with_probs.txt`,  `E2F1_hmm.txt_viterbi_results.txt` and a TRACE model file `./data/E2F1_hmm.txt`.   
   
-- `E2F1_peak_7.bed_with_probs.txt` contains all provided motif sites followed with states probability for all motifs included in the model as well as generic footprints. You can only use the first two scores (fourth and fifth colunm) which are probabilities of being actve binding sites or inactive binding sites for the first motif (your TF of interest). For assessment, we recommend using the value of fourth colunm minus fifth colunm.  
-  
-- `E2F1_hmm.txt_viterbi_results.txt` contains all positions in the provided peak regions, with their assigned states and probabilities. The fourth colunm is the labeled states, 1-10 represent corresponding motifs in the model, so state 1 will be the sites that you want. State numbers that are are greater than the number of motifs are the peak states that you can ignore. The fifth and sixth colunms are the probabilities of being active or inactive binding sites.
-
+- `E2F1_peak_7.bed_with_probs.txt` contains all provided motif sites in `./data/E2F1_peak_7.bed` followed with columns of states probability for all motifs included in the model as well as generic footprints. You can only use the first two scores (fourth and fifth column) which are probabilities of being actve binding sites or inactive binding sites for the first motif (your TF of interest). For assessment, we recommend using the value of bound states minus unbound state.  
+   
+- `E2F1_hmm.txt_viterbi_results.txt` contains all positions in the provided peak regions `./data/E2F1_peak_3.bed`, with their assigned states and probabilities. The fourth colunm is the labeled states, For a 10-motif model, 1-20 represent corresponding motifs 1-10 in the model, so state 1 and 2 will be the sites that you want. First two states represent bound and unbound binding sites, depending on their parameters. Larger state numbers are the peak states that you can ignore. The fifth and sixth colunms are the probabilities of being active or inactive binding sites.   
+   
+`./data/model_file` includes all models trained from K562.  
+`./data/prediction` includes predictions using K562 models. Only binding sites states were included here, and we labeled state 1 and 2 as state_bound or state_unbound. The fifth column is the likelihood ratio of being active binding sites.   
+      
 ## WDL TRACE Workflow
 This pipeline is designed to chain together all required steps for TRACE in a workflow, wirtten in Workflow Description Language ([WDL](https://github.com/openwdl/wdl)). With required input parameters, this automated pipeline will generate binding sites predictions and TRACE model. If you have multiple TFs of interest, you can simply run the pipeline once, WDL will parallelize their execution. Pipeline installation is also easy as most dependencies are automatically installed.  
  
@@ -159,7 +162,7 @@ Parameter|Default|Description
 `TRACE.peak_file` | N/A | File of open chromatin regions, format as [`<peak_3.file>`](data/E2F1_peak_3.bed) shown [above](#perform-footprinting-by-trace)
 `TRACE.peak_motif_file` | N/A | File of open chromatin regions and motif sites within each peak, format as [`<peak_7.file>`](data/E2F1_peak_7.bed) shown [above](#perform-footprinting-by-trace)
 `TRACE.prefix` | N/A | Index file for bam file
-`TRACE.motif_list` | N/A | List of TFs that you want to predict binding sites for. Must be in [this list](data/motif_cluster_info_2020.txt), otherwise follow [Single run](#single-run) 
+`TRACE.motif_list` | N/A | List of TFs that you want to predict binding sites for. Must be in [this list](data/motif_cluster_info_2020.txt), otherwise follow [Single run](#demo) 
 `TRACE.skipTrain` | false | Set to `ture` if you want to skip training step and only run viterbi step with trained models
 `TRACE.model_file_list` | N/A | List of final models for each TF in motif_list, must set skipTrain to true
 
