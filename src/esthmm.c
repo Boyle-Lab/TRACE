@@ -503,16 +503,18 @@ int main (int argc, char **argv)
 void Usage(char *name)
 {
   printf("Usage error. \n");
-  printf("Usage1: %s [-v] ./TRACE <seq.file> <counts.file> <slope.file> "
+  printf("Usage1: %s [-v] ./TRACE <seq.file> <count.file> <slope.file> "
          "--initial-model <init.model.file> --final-model <final.model.file> "
-         "-peak-file <peak_3.file> --motif-file <peak_7.file>  --thread <thread.num>\n", name);
+         "-peak-file <peak_3.file> --motif-file <peak_7.file>  --thread <N>\n "
+         "--max-inter <N>", name);
   printf("Usage2: %s [-v] ./TRACE --viterbi <seq.file> <counts.file> <slope.file> "
          "--final-model <final.model.file> -peak-file <peak_3.file> "
-         "--motif-file <peak_7.file>  -T <thread.num>\n", name);
+         "--motif-file <peak_7.file>  --thread <N>\n", name);
   printf("  seq.file - file containing the obs. sequence\n");
   printf("  count.file - file containing the obs. tag counts\n");
   printf("  slope.file - file containing the obs. slope\n");
-  printf("  init.model.file - file with the initial model parameters\n");
-  printf("  peak.file - file containing regions to detect TFBSs\n");
-  printf("  final.model.file - output file containing the learned HMM\n");
+  printf("  init.model.file - file containing the initial model parameters\n");
+  printf("  final.model.file - file containing the trained model parameters\n");
+  printf("  peak_3.file - file containing regions to detect TFBSs\n");
+  printf("  peak_7.file - file containing regions of interest and motifs sites inside these regions\n");
 }
