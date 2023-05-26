@@ -57,7 +57,7 @@ int main (int argc, char **argv)
   int oflg=0, mflg=0, nflg=0, aflg =0, bflg =0, pflg =0, fflg=0, eflg=0, tflg=0, lflg=0, iflg=0;
   int errflg=0, vflg=0;
   char *slopefile, *countfile, *seqfile, *thresholdfile, *listfile;
-  char hmminitfile[150], motiffile[150], peakfile[150], outfile[150], predfile[150], scorefile[150];
+  char hmminitfile[512] = {0}, motiffile[512] = {0}, peakfile[512] = {0}, outfile[512] = {0}, predfile[512] = {0}, scorefile[512] = {0};
   int ifMulti = 2; /* defalult model is multivaraint normal distribution
                       with problematic hidden state dropped */
   int ifSkip = 0; /* if skip training step and start viterbi step
