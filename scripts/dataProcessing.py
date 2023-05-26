@@ -109,9 +109,10 @@ class Signal:
           GC / 2.0, "\t", (1.0 - GC) / 2.0, "\n", file = outFile)
     for i in range(len(seq)):
       print(seq[i], "\t", file = outFile)
-    print("P= ", len(pos) - 1, "\n", file = outFile)
+    print("\n", file = outFile)
+    print("P= ", len(pos) - 1, file = outFile)
     for i in range(len(pos)):
-      print(pos[i], "\n", file = outFile)
+      print(pos[i], file = outFile, end='')
     outFile.close()
 
   #count number of 5' end cut at each position#
