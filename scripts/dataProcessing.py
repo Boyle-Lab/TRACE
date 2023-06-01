@@ -106,13 +106,14 @@ class Signal:
     outFile = open(outputFile, 'w')
     GC, seq, pos = get_fasta_info(open(self.bed.seqfn))
     print("T=", len(seq), "GC: ", (1.0 - GC) / 2.0, "\t", GC / 2.0, "\t",
-          GC / 2.0, "\t", (1.0 - GC) / 2.0, "\n", file = outFile)
+          GC / 2.0, "\t", (1.0 - GC) / 2.0, file = outFile)
+    print("\n", file = outFile, end='')
     for i in range(len(seq)):
-      print(seq[i], "\t", file = outFile)
-    print("\n", file = outFile)
+      print(seq[i], file = outFile)
+    print("\n", file = outFile, end='')
     print("P= ", len(pos) - 1, file = outFile)
     for i in range(len(pos)):
-      print(pos[i], file = outFile, end='')
+      print(pos[i], file = outFile)
     outFile.close()
 
   #count number of 5' end cut at each position#
